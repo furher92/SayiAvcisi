@@ -12254,6 +12254,29 @@ function advanceToKnockout() {
         mk(qt('COL'), qt('GHA')),   // Kolombiya - Gana
     ];
 
+    // 📊 SABİT 1/16 SONUÇLARI — görsellerdeki gerçek turnuva sonuçları
+    // Format: [evGol, depGol, penKazanan?] · Oyuncunun kendi maçı hariç uygulanır
+    const WC26_FIXED_R32 = {
+        'USA-BIH': [2,0],          // 02.07 · ABD 2-0 Bosna Hersek
+        'BEL-SEN': [3,2],          // 01.07 · Belçika 3-2 Senegal (Uz.)
+        'ENG-COD': [2,1],          // 01.07 · İngiltere 2-1 DR Kongo
+        'MEX-ECU': [2,0],          // 01.07 · Meksika 2-0 Ekvador
+        'FRA-SWE': [3,1],          // 01.07 · Fransa 3-1 İsveç
+        'CIV-NOR': [1,2],          // 30.06 · Fildişi Sahili 1-2 Norveç
+        'NED-MAR': [1,1,'MAR'],    // 30.06 · Hollanda 1-1 Fas (Pen. 2-3)
+        'GER-PAR': [1,1,'PAR'],    // 29.06 · Almanya 1-1 Paraguay (Pen. 3-4)
+        'BRA-JPN': [2,1],          // 29.06 · Brezilya 2-1 Japonya
+        'RSA-CAN': [0,1],          // 28.06 · Güney Afrika 0-1 Kanada
+        // Henüz oynanmadı: ESP-AUT, POR-CRO, SUI-ALG, AUS-EGY, ARG-CPV, COL-GHA
+    };
+    r32.forEach(m => {
+        const res = WC26_FIXED_R32[m.home.code + '-' + m.away.code];
+        if (!res) return;
+        if (wc26MyCountry && (m.home.code === wc26MyCountry.code || m.away.code === wc26MyCountry.code)) return;
+        m.played = true; m.homeGoals = res[0]; m.awayGoals = res[1];
+        if (res[2]) m.penWinner = res[2];
+    });
+
     wc26KnockoutBracket = { r32, r16:[], qf:[], sf:[], '3rd':[], final:[] };
     wc26Stage = 'r32';
     updateWC26TourneyDisplay();
@@ -12342,13 +12365,12 @@ function restartWC26Tournament() {
     // Ülke seçim ekranına dön
     const _nb = document.getElementById('wc26NextMatchBtn');
     if (_nb) _nb.style.display = '';
-    if (typeof startWC26Tournament === 'function') {
-        startWC26Tournament();
-    } else if (typeof openWC26 === 'function') {
-        openWC26();
-    } else {
-        location.reload();
-    }
+    setHTML('wc26GroupDisplay','');
+    setHTML('wc26BracketDisplay','');
+    setHTML('wc26TourneyMsg','');
+    setDisplay('wc26TournamentScreen','none');
+    setDisplay('wc26MatchScreen','none');
+    showWC26CountrySelect();
 }
 window.restartWC26Tournament = restartWC26Tournament;
 
