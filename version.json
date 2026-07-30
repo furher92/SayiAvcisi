@@ -1,8 +1,8 @@
 {
-  "latest": "Alpha1",
+  "latest": "1",
   "url": "https://furher92.github.io/Say-AvcisiWC26/",
   "notes": {
-    "tr": "🎉 Alpha1 sürümü yayında! 🔢 Matematik modu tamamen tamamlandı — sayı avlama mekaniği artık daha akıcı ve dengeli · 🏆 Turnuva sistemi eklendi, turnuva boyunca ilerlemeni takip edebilirsin · 🎯 Zorluk seviyeleri yeniden dengelendi · 🐞 PreAlpha4'te bildirilen tüm bilinen hatalar giderildi · ⚡ Genel performans ve açılış hızı iyileştirildi · 🖼️ Uygulama ikonu yenilendi",
-    "en": "🎉 Alpha1 is live! 🔢 Math mode fully completed — the number-hunting mechanic is now smoother and more balanced · 🏆 Tournament system added, track your progress throughout the tournament · 🎯 Difficulty levels rebalanced · 🐞 All known PreAlpha4 issues fixed · ⚡ General performance and startup speed improved · 🖼️ App icon refreshed"
+    "tr": "🎉 1. sürüm yayında! 🔢 Matematik modu tamamen tamamlandı — sayı avlama mekaniği artık daha akıcı ve dengeli · 🏆 Turnuva sistemi eklendi, turnuva boyunca ilerlemeni takip edebilirsin · 🎯 Zorluk seviyeleri yeniden dengelendi · 🐞 4. sürümde bildirilen tüm bilinen hatalar giderildi · ⚡ Genel performans ve açılış hızı iyileştirildi · 🖼️ Uygulama ikonu yenilendi",
+    "en": "🎉 Version 1 is live! 🔢 Math mode fully completed — the number-hunting mechanic is now smoother and more balanced · 🏆 Tournament system added, track your progress throughout the tournament · 🎯 Difficulty levels rebalanced · 🐞 All known issues from version 4 fixed · ⚡ General performance and startup speed improved · 🖼️ App icon refreshed"
   }
 }

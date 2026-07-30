@@ -1,7 +1,7 @@
 // Sayı Avcısı Service Worker - Network-first strategy
 // Her açılışta GitHub'dan taze HTML çek, network başarısız olursa cache'i kullan
 
-const CACHE_NAME = 'sa-cache-alpha1'; // 🔄 Alpha1 için önbellek sürümü artırıldı — eski kullanıcılara zorla güncelleme
+const CACHE_NAME = 'sa-cache-1'; // 🔄 1. sürüm için önbellek sürümü artırıldı — eski kullanıcılara zorla güncelleme
 
 self.addEventListener('install', function(e) {
   // Yeni service worker hemen aktif olsun, eski sürümü bekleme
