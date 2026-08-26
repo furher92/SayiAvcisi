@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Sayı Avcısı - Alpha 1</title>
+    <title>Sayı Avcısı - Alpha 2</title>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
@@ -549,7 +549,18 @@
         <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#8b3a00">
+    <meta name="theme-color" content="#8b0a12">
+    <!-- 🔗 Link paylaşım önizlemesi (og/twitter) — sürüm Alpha 2 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sayı Avcısı — Alpha 2">
+    <meta property="og:description" content="Matematik oyunlarıyla sayı avla! 27 dil · EBOB-EKOK, 4 İşlem, TYT-AYT, Hız ve daha fazlası.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:site_name" content="Sayı Avcısı">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Sayı Avcısı — Alpha 2">
+    <meta name="twitter:description" content="Matematik oyunlarıyla sayı avla! 27 dil.">
+    <meta name="twitter:image" content="logo.png">
+    <meta name="description" content="Sayı Avcısı Alpha 2 — matematik oyunları (EBOB-EKOK, 4 İşlem, TYT-AYT, Hız, Örüntü). 27 dil desteği.">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Sayı Avcısı">
@@ -618,7 +629,7 @@
         <div class="trl-pre">⚡ BU OYUN BİR ⚡</div>
         <div class="trl-title">SAYI<br>AVCISI</div>
         <div class="trl-subtitle">DENEYİMİDİR</div>
-        <div class="trl-tagline">ALPHA <strong>1</strong> · 2026</div>
+        <div class="trl-tagline">ALPHA <strong>2</strong> · 2026</div>
         <div class="trl-pills">
             <span style="background:#1e40af;">MATEMATİK</span>
             <span style="background:#ffd060;color:#1a0d00;">TYT</span>
@@ -861,6 +872,31 @@ let _trailerMusicStarted = false;
         if (p) p.catch(()=>{});
     } catch(e) {}
 })();
+
+// 🔊 GLOBAL SES KİLİDİ — ilk kullanıcı hareketinde (her yerde) TÜM sesi aç:
+// SFX context'ini resume et + oto müzik başlat. Tarayıcılar sesi ilk dokunuşa kadar
+// bloklar; bu kanca "basınca ses gelmiyor" ve "oto ses çalsın" sorunlarını çözer.
+(function initSesKilidi(){
+  let _acildi = false;
+  function sesiAc(){
+    if (_acildi) return; _acildi = true;
+    // 1) SFX context'ini bir gesture içinde oluştur+resume et (buton/kazan/kaybet sesleri çalışsın)
+    try { if (typeof getSfxCtx === 'function') { const c = getSfxCtx(); if (c && c.state === 'suspended') c.resume(); } } catch(e){}
+    // 2) Ses açıksa oto müzik: trailer görünüyorsa trailer sting'i, değilse menü müziği
+    try {
+      const trailer = document.getElementById('introTrailer');
+      const trailerAcik = trailer && getComputedStyle(trailer).display !== 'none' && !trailer.classList.contains('gizli');
+      if (typeof soundEnabled === 'undefined' || soundEnabled) {
+        if (trailerAcik && typeof tryStartTrailerMusic === 'function') tryStartTrailerMusic();
+        else if (typeof startMusic === 'function') startMusic();
+      }
+    } catch(e){}
+  }
+  ['pointerdown','touchend','mousedown','click','keydown'].forEach(function(ev){
+    document.addEventListener(ev, sesiAc, { passive: true });
+  });
+})();
+
 function playTrailerSting() {
     if (_trailerMusicStarted) return;
     try {
@@ -1199,36 +1235,36 @@ setTimeout(() => {
                         <stop offset="1" stop-color="#5c0a0a"/>
                       </linearGradient>
                       <radialGradient id="abacusBead" cx="35%" cy="30%" r="65%">
-                        <stop offset="0" stop-color="#64b5f6"/>
-                        <stop offset="1" stop-color="#0d47a1"/>
+                        <stop offset="0" stop-color="#ff8f6b"/>
+                        <stop offset="1" stop-color="#b00812"/>
                       </radialGradient>
                     </defs>
                     <!-- Çerçeve -->
                     <rect x="6" y="6" width="52" height="52" rx="5" fill="url(#abacusFrame)" stroke="#5c0a0a" stroke-width="1.5"/>
-                    <rect x="9" y="9" width="46" height="46" rx="3" fill="#02091a"/>
+                    <rect x="9" y="9" width="46" height="46" rx="3" fill="#1a0505"/>
                     <!-- Yatay çubuklar -->
-                    <line x1="11" y1="18" x2="53" y2="18" stroke="#90caf9" stroke-width="1.2"/>
-                    <line x1="11" y1="28" x2="53" y2="28" stroke="#90caf9" stroke-width="1.2"/>
-                    <line x1="11" y1="38" x2="53" y2="38" stroke="#90caf9" stroke-width="1.2"/>
-                    <line x1="11" y1="48" x2="53" y2="48" stroke="#90caf9" stroke-width="1.2"/>
+                    <line x1="11" y1="18" x2="53" y2="18" stroke="#ff9d94" stroke-width="1.2"/>
+                    <line x1="11" y1="28" x2="53" y2="28" stroke="#ff9d94" stroke-width="1.2"/>
+                    <line x1="11" y1="38" x2="53" y2="38" stroke="#ff9d94" stroke-width="1.2"/>
+                    <line x1="11" y1="48" x2="53" y2="48" stroke="#ff9d94" stroke-width="1.2"/>
                     <!-- Boncuklar (mavi paleti) -->
-                    <circle cx="18" cy="18" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
-                    <circle cx="26" cy="18" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
+                    <circle cx="18" cy="18" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
+                    <circle cx="26" cy="18" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
                     <circle cx="34" cy="18" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
                     <circle cx="42" cy="18" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
                     <circle cx="50" cy="18" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-                    <circle cx="14" cy="28" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
-                    <circle cx="22" cy="28" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
-                    <circle cx="30" cy="28" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
+                    <circle cx="14" cy="28" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
+                    <circle cx="22" cy="28" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
+                    <circle cx="30" cy="28" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
                     <circle cx="38" cy="28" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
                     <circle cx="46" cy="28" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-                    <circle cx="18" cy="38" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
-                    <circle cx="26" cy="38" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
-                    <circle cx="34" cy="38" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
-                    <circle cx="42" cy="38" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
+                    <circle cx="18" cy="38" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
+                    <circle cx="26" cy="38" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
+                    <circle cx="34" cy="38" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
+                    <circle cx="42" cy="38" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
                     <circle cx="50" cy="38" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-                    <circle cx="14" cy="48" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
-                    <circle cx="22" cy="48" r="3.5" fill="url(#abacusBead)" stroke="#072447" stroke-width="0.5"/>
+                    <circle cx="14" cy="48" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
+                    <circle cx="22" cy="48" r="3.5" fill="url(#abacusBead)" stroke="#5c0a0a" stroke-width="0.5"/>
                     <circle cx="30" cy="48" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
                     <circle cx="38" cy="48" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
                     <circle cx="46" cy="48" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
@@ -5359,6 +5395,11 @@ const LANG = {
         uclPenScore: 'PARİS',
     },
     ru: {
+        futbolShotInfo: "гол ->",  // [i18n-fill]
+        futbolShotNum: "удар",  // [i18n-fill]
+        futbolScoreGoal: "Отвечай правильно, чтобы забить!",  // [i18n-fill]
+        futbolMyTeam: "🇹🇷 ТУРЦИЯ",  // [i18n-fill]
+        futbolScoreLbl: "ТЫ",  // [i18n-fill]
         selectGame: 'Выберите игру:',
         guessTitle: 'Охотник за числами',
         ebobDiffInfo: '🟢 Лёгкий: 1-20 | 9 ❤️<br>🟡 Средний: 1-50 | 7 ❤️<br>🔴 Сложный: 1-100 | 3 ❤️<br>🟣 Ультра: 1-200 | 2 ❤️',
@@ -6483,6 +6524,17 @@ const LANG = {
         uclWins: 'VINNER!'
     },
     cs: {
+        hintClose: " (Blízko! 😮)",  // [i18n-fill]
+        hintFar: " (Trochu daleko 🤔)",  // [i18n-fill]
+        hintVeryFar: " (Daleko 🤔)",  // [i18n-fill]
+        hintWayFar: " (Příliš daleko! 😅)",  // [i18n-fill]
+        loseMedium: "Zvládneš to!",  // [i18n-fill]
+        loseHard: "To bylo opravdu těžké!",  // [i18n-fill]
+        loseUltra: "To bylo skoro nemožné!",  // [i18n-fill]
+        futbolShotNum: "střela",  // [i18n-fill]
+        futbolScoreGoal: "Odpověz správně a dej gól!",  // [i18n-fill]
+        futbolMyTeam: "🇹🇷 TURECKO",  // [i18n-fill]
+        futbolScoreLbl: "TY",  // [i18n-fill]
         selectGame: 'Vyber hru:',
         guessTitle: 'Lovec čísel',
         guessBtn: 'Hádej',
@@ -6619,6 +6671,17 @@ const LANG = {
         uclWins: 'VYHRÁVÁ!'
     },
     bs: {
+        hintClose: " (Blizu! 😮)",  // [i18n-fill]
+        hintFar: " (Malo daleko 🤔)",  // [i18n-fill]
+        hintVeryFar: " (Daleko 🤔)",  // [i18n-fill]
+        hintWayFar: " (Predaleko! 😅)",  // [i18n-fill]
+        loseMedium: "Možeš ti to!",  // [i18n-fill]
+        loseHard: "To je bilo stvarno teško!",  // [i18n-fill]
+        loseUltra: "To je bilo skoro nemoguće!",  // [i18n-fill]
+        futbolShotNum: "šut",  // [i18n-fill]
+        futbolScoreGoal: "Odgovori tačno da daš gol!",  // [i18n-fill]
+        futbolMyTeam: "🇹🇷 TURSKA",  // [i18n-fill]
+        futbolScoreLbl: "TI",  // [i18n-fill]
         selectGame: 'Odaberi igru:',
         guessTitle: 'Lovac na brojeve',
         guessBtn: 'Pogodi',
@@ -6891,6 +6954,17 @@ const LANG = {
         uclWins: 'POBJEĐUJE!'
     },
     uz: {
+        hintClose: " (Yaqin! 😮)",  // [i18n-fill]
+        hintFar: " (Biroz uzoq 🤔)",  // [i18n-fill]
+        hintVeryFar: " (Uzoq 🤔)",  // [i18n-fill]
+        hintWayFar: " (Juda uzoq! 😅)",  // [i18n-fill]
+        loseMedium: "Sen uddalaysan!",  // [i18n-fill]
+        loseHard: "Bu juda qiyin edi!",  // [i18n-fill]
+        loseUltra: "Bu deyarli imkonsiz edi!",  // [i18n-fill]
+        futbolShotNum: "zarba",  // [i18n-fill]
+        futbolScoreGoal: "To‘g‘ri javob bering va gol uring!",  // [i18n-fill]
+        futbolMyTeam: "🇹🇷 TURKIYA",  // [i18n-fill]
+        futbolScoreLbl: "SEN",  // [i18n-fill]
         selectGame: 'O\u2019yin tanlang:',
         guessTitle: 'Raqam ovchisi',
         guessBtn: 'Taxmin qil',
@@ -7027,6 +7101,17 @@ const LANG = {
         uclWins: 'GʻALABA!'
     },
     ht: {
+        hintClose: " (Prè! 😮)",  // [i18n-fill]
+        hintFar: " (Yon ti jan lwen 🤔)",  // [i18n-fill]
+        hintVeryFar: " (Lwen 🤔)",  // [i18n-fill]
+        hintWayFar: " (Twò lwen! 😅)",  // [i18n-fill]
+        loseMedium: "Ou kapab fè l!",  // [i18n-fill]
+        loseHard: "Sa te vrèman difisil!",  // [i18n-fill]
+        loseUltra: "Sa te prèske enposib!",  // [i18n-fill]
+        futbolShotNum: "kout",  // [i18n-fill]
+        futbolScoreGoal: "Reponn kòrèkteman pou make gòl!",  // [i18n-fill]
+        futbolMyTeam: "🇹🇷 TIKI",  // [i18n-fill]
+        futbolScoreLbl: "OU",  // [i18n-fill]
         selectGame: 'Chwazi yon jwèt:',
         guessTitle: 'Chasè Nimewo',
         guessBtn: 'Devine',
@@ -8646,6 +8731,46 @@ function playSound(type) {
             gb.gain.exponentialRampToValueAtTime(0.0001, now + 1.3);
             ob.connect(gb); gb.connect(ctx.destination);
             ob.start(now + 0.3); ob.stop(now + 1.35);
+        } else if (type === 'gameover') {
+            // 🎮 Oyun sonu jingle'ı — inen minör melodi + kapanış akoru + derin boom
+            const mel=[523,466,392,349,294,262], mt=[0,0.16,0.32,0.48,0.66,0.86];
+            mel.forEach((f,i)=>{ let o=ctx.createOscillator(),g=ctx.createGain();
+                o.type=i<3?'triangle':'sawtooth'; o.frequency.value=f;
+                g.gain.setValueAtTime(0,now+mt[i]); g.gain.linearRampToValueAtTime(0.18,now+mt[i]+0.03);
+                g.gain.exponentialRampToValueAtTime(0.0001,now+mt[i]+0.34);
+                o.connect(g); g.connect(ctx.destination); o.start(now+mt[i]); o.stop(now+mt[i]+0.4); });
+            [131,156,196].forEach(f=>{ let o=ctx.createOscillator(),g=ctx.createGain();
+                o.type='triangle'; o.frequency.value=f;
+                g.gain.setValueAtTime(0,now+1.15); g.gain.linearRampToValueAtTime(0.14,now+1.22);
+                g.gain.exponentialRampToValueAtTime(0.0001,now+2.1);
+                o.connect(g); g.connect(ctx.destination); o.start(now+1.15); o.stop(now+2.2); });
+            let obG=ctx.createOscillator(),gbG=ctx.createGain();
+            obG.type='sine'; obG.frequency.setValueAtTime(90,now+1.1); obG.frequency.exponentialRampToValueAtTime(32,now+2.0);
+            gbG.gain.setValueAtTime(0.22,now+1.1); gbG.gain.exponentialRampToValueAtTime(0.0001,now+2.1);
+            obG.connect(gbG); gbG.connect(ctx.destination); obG.start(now+1.1); obG.stop(now+2.15);
+        } else if (type === 'timeout') {
+            // ⏰ Süre bitti — acil alarm (çift tonlu bip ×3 + inen gerilim)
+            [0,0.28,0.56].forEach(t=>{ [880,740].forEach((f,j)=>{ let o=ctx.createOscillator(),g=ctx.createGain();
+                o.type='square'; o.frequency.value=f;
+                g.gain.setValueAtTime(0,now+t+j*0.09); g.gain.linearRampToValueAtTime(0.13,now+t+j*0.09+0.02);
+                g.gain.exponentialRampToValueAtTime(0.0001,now+t+j*0.09+0.14);
+                o.connect(g); g.connect(ctx.destination); o.start(now+t+j*0.09); o.stop(now+t+j*0.09+0.16); }); });
+            let osT=ctx.createOscillator(),gsT=ctx.createGain();
+            osT.type='sawtooth'; osT.frequency.setValueAtTime(400,now+0.8); osT.frequency.exponentialRampToValueAtTime(120,now+1.5);
+            gsT.gain.setValueAtTime(0.12,now+0.8); gsT.gain.exponentialRampToValueAtTime(0.0001,now+1.55);
+            osT.connect(gsT); gsT.connect(ctx.destination); osT.start(now+0.8); osT.stop(now+1.6);
+        } else if (type === 'dogru') {
+            // ✅ Doğru cevap — parlak yükselen majör arpej + kıvılcım
+            const arp=[523,659,784,1047], at=[0,0.07,0.14,0.22];
+            arp.forEach((f,i)=>{ let o=ctx.createOscillator(),g=ctx.createGain();
+                o.type=i<2?'triangle':'sine'; o.frequency.value=f;
+                g.gain.setValueAtTime(0,now+at[i]); g.gain.linearRampToValueAtTime(0.16,now+at[i]+0.02);
+                g.gain.exponentialRampToValueAtTime(0.0001,now+at[i]+0.26);
+                o.connect(g); g.connect(ctx.destination); o.start(now+at[i]); o.stop(now+at[i]+0.3); });
+            let okD=ctx.createOscillator(),gkD=ctx.createGain();
+            okD.type='sine'; okD.frequency.setValueAtTime(1568,now+0.28); okD.frequency.exponentialRampToValueAtTime(2093,now+0.4);
+            gkD.gain.setValueAtTime(0.08,now+0.28); gkD.gain.exponentialRampToValueAtTime(0.0001,now+0.5);
+            okD.connect(gkD); gkD.connect(ctx.destination); okD.start(now+0.28); okD.stop(now+0.55);
         } else if (type === 'wrong') {
             // Çift darbe + hafif titreşim
             [0, 0.12].forEach(delay => {
@@ -8772,6 +8897,7 @@ function startGuessTimer() {
         timeLeft--;
         span.innerText = timeLeft;
         if (timeLeft <= 0) {
+            try{playSound('timeout');}catch(e){}
             clearInterval(guessTimer);
             // Süre doldu = yanlış tahmin gibi
             if (!gameOver) {
@@ -8786,7 +8912,7 @@ function startGuessTimer() {
                     gameStats.loses++;
                     saveStats();
                     clearInterval(playTimeInterval);
-                    playSound('lose');
+                    playSound('gameover');
                     box.style.display = 'none';
                     startCooldown();
                 } else {
@@ -9036,7 +9162,7 @@ function submitEbobAnswer() {
             ebobGameOver = true;
             msgEl.innerHTML = `💥 <span style="color:#e74c3c;">${L.ebobLose}</span> ${ebobCorrectAnswer}`
                 + gameOverBtnsHTML('ebob', ebobCurrentDiff, 'startEbob');
-            playSound('lose');
+            playSound('gameover');
             stopMusic();
             setDisabled('ebobBtn', true);
             setDisabled('ebobInput', true);
@@ -9072,6 +9198,7 @@ function startEbobGuessTimer() {
         timeLeft--;
         span.innerText = timeLeft;
         if (timeLeft <= 0) {
+            try{playSound('timeout');}catch(e){}
             clearInterval(ebobGuessTimer);
             if (!ebobGameOver) {
                 ebobLives--;
@@ -9081,7 +9208,7 @@ function startEbobGuessTimer() {
                     const L2 = LANG[currentLang] || LANG['tr'];
                     setHTML('ebobMessage', `⏰ <span style="color:#e74c3c;">${L2.timeUpDead || 'Süre doldu!'}</span><br>${L2.ebobLose} ${ebobCorrectAnswer}`
                         + gameOverBtnsHTML('ebob', ebobCurrentDiff, 'startEbob'));
-                    playSound('lose'); stopMusic();
+                    playSound('gameover'); stopMusic();
                     setDisabled('ebobBtn', true);
                     setDisabled('ebobInput', true);
                     box.style.display = 'none';
@@ -9242,7 +9369,7 @@ function submitIslemAnswer() {
             islemGameOver = true;
             msgEl.innerHTML = `💥 <span style="color:#e74c3c;">${L.islemLose || 'Cevap:'}</span> ${islemCorrectAnswer}`
                 + gameOverBtnsHTML('islem', islemCurrentDiff, 'startIslem');
-            playSound('lose'); stopMusic();
+            playSound('gameover'); stopMusic();
             setDisabled('islemBtn', true);
             setDisabled('islemInput', true);
             startIslemCooldown();
@@ -9271,6 +9398,7 @@ function startIslemGuessTimer() {
         timeLeft--;
         span.innerText = timeLeft;
         if (timeLeft <= 0) {
+            try{playSound('timeout');}catch(e){}
             clearInterval(islemGuessTimerVar);
             if (!islemGameOver) {
                 islemLives--;
@@ -9280,7 +9408,7 @@ function startIslemGuessTimer() {
                     const L2 = LANG[currentLang] || LANG['tr'];
                     setHTML('islemMessage', `⏰ <span style="color:#e74c3c;">${L2.timeUpDead || 'Süre doldu!'}</span><br>${L2.islemLose || ''} ${islemCorrectAnswer}`
                         + gameOverBtnsHTML('islem', islemCurrentDiff, 'startIslem'));
-                    playSound('lose'); stopMusic();
+                    playSound('gameover'); stopMusic();
                     setDisabled('islemBtn', true);
                     setDisabled('islemInput', true);
                     box.style.display = 'none';
@@ -9509,7 +9637,7 @@ function submitFonkAnswer() {
             fonkGameOver = true;
             setHTML('fonkMessage', '💥 <span style="color:#e74c3c;">' + (L.fonkLose || 'Cevap:') + '</span> ' + fonkCorrectAnswer
                 + gameOverBtnsHTML('fonk', fonkCurrentDiff, 'startFonk'));
-            playSound('lose'); stopMusic();
+            playSound('gameover'); stopMusic();
             setDisabled('fonkBtn', true); setDisabled('fonkInput', true);
             startFonkCooldown();
         } else {
@@ -9534,6 +9662,7 @@ function startFonkGuessTimer() {
         timeLeft--;
         setText('fonkGuessCountdown', timeLeft);
         if (timeLeft <= 0) {
+            try{playSound('timeout');}catch(e){}
             clearInterval(fonkGuessTimerVar);
             if (!fonkGameOver) {
                 fonkLives--;
@@ -9543,7 +9672,7 @@ function startFonkGuessTimer() {
                     const L2 = LANG[currentLang] || LANG['tr'];
                     setHTML('fonkMessage', '⏰ <span style="color:#e74c3c;">' + (L2.timeUpDead || 'Süre doldu!') + '</span><br>' + (L2.fonkLose || '') + ' ' + fonkCorrectAnswer
                         + gameOverBtnsHTML('fonk', fonkCurrentDiff, 'startFonk'));
-                    playSound('lose'); stopMusic();
+                    playSound('gameover'); stopMusic();
                     setDisabled('fonkBtn', true); setDisabled('fonkInput', true);
                     setDisplay('fonkGuessTimerBox', 'none');
                     startFonkCooldown();
@@ -9836,7 +9965,7 @@ function submitSozelAnswer() {
             sozelGameOver = true;
             setHTML('sozelMessage','💥 <span style="color:#e74c3c;">'+(L.sozelLose||'Cevap:')+' '+sozelCorrectAnswer+'</span>'
                 + gameOverBtnsHTML('sozel', sozelCurrentDiff, 'startSozel'));
-            playSound('lose'); stopMusic();
+            playSound('gameover'); stopMusic();
             setDisabled('sozelBtn',true); setDisabled('sozelInput',true);
             startSozelCooldown();
         } else {
@@ -9869,7 +9998,7 @@ function startSozelGuessTimer() {
                     const L2 = LANG[currentLang]||LANG['tr'];
                     setHTML('sozelMessage','⏰ <span style="color:#e74c3c;">'+(L2.timeUpDead||'Süre doldu!')+'</span><br>'+(L2.sozelLose||'')+' '+sozelCorrectAnswer
                         + gameOverBtnsHTML('sozel', sozelCurrentDiff, 'startSozel'));
-                    playSound('lose'); stopMusic();
+                    playSound('gameover'); stopMusic();
                     setDisabled('sozelBtn',true); setDisabled('sozelInput',true);
                     setDisplay('sozelGuessTimerBox','none');
                     startSozelCooldown();
@@ -10261,7 +10390,7 @@ function endFutbolMatch() {
         +'<button onclick="startFutbol(futbolDiff)" style="padding:6px 12px;font-size:12px;background:#1a2a1a;border-color:#66dd66;color:#66dd66;">➡ '+(L_f.continueBtn||'Devam')+'</button>'
         +'<button onclick="backToModeSelect()" style="padding:6px 12px;font-size:12px;background:#1a1a1a;border-color:#aaa;color:#aaa;">🏠 '+(L_f.homeBtn||'Ana Ekran')+'</button>'
         +'</div>');
-    if (win) playSound('win'); else playSound('lose');
+    if (win) playSound('win'); else playSound('gameover');
     gameStats.totalGames = (gameStats.totalGames||0)+1;
     if (win) gameStats.wins = (gameStats.wins||0)+1;
     saveStats();
@@ -11606,7 +11735,7 @@ function submitYuzdeAnswer(){
             yuzdeGameOver = true;
             setHTML('yuzdeMessage','💥 <span style="color:#e74c3c;">'+(L.sozelLose||'Canın bitti!')+' '+yuzdeCorrectAnswer+'</span>'
                 + gameOverBtnsHTML('yuzde', null, 'startYuzde'));
-            playSound('lose'); stopMusic();
+            playSound('gameover'); stopMusic();
             setDisabled('yuzdeBtn', true); setDisabled('yuzdeInput', true);
         } else {
             setHTML('yuzdeMessage','<span style="color:#ff6666;">'+(L.sozelWrong||'❌ Yanlış!')+' '+yuzdeCorrectAnswer+'</span>');
@@ -11706,7 +11835,7 @@ function submitOruntuAnswer(){
             oruntuGameOver = true;
             setHTML('oruntuMessage','💥 <span style="color:#e74c3c;">'+(L.sozelLose||'Canın bitti!')+' '+oruntuCorrectAnswer+'</span>'
                 + gameOverBtnsHTML('oruntu', null, 'startOruntu'));
-            playSound('lose'); stopMusic();
+            playSound('gameover'); stopMusic();
             setDisabled('oruntuBtn', true); setDisabled('oruntuInput', true);
         } else {
             setHTML('oruntuMessage','<span style="color:#ff6666;">'+(L.sozelWrong||'❌ Yanlış!')+' '+oruntuCorrectAnswer+'</span>');
@@ -11755,7 +11884,7 @@ function submitHizAnswer(){
             clearInterval(hizGuessTimerVar); setDisplay('hizGuessTimerBox','none'); hizGameOver=true;
             setHTML('hizMessage','💥 <span style="color:#e74c3c;">'+(L.sozelLose||'Canın bitti!')+' '+hizCorrectAnswer+'</span>'
                 +gameOverBtnsHTML('hiz',hizCurrentDiff,'startHiz'));
-            playSound('lose'); stopMusic(); setDisabled('hizBtn',true); setDisabled('hizInput',true);
+            playSound('gameover'); stopMusic(); setDisabled('hizBtn',true); setDisabled('hizInput',true);
             startUniversalCooldown('hiz',hizCurrentDiff,HIZ_DIFF);
         } else {
             setHTML('hizMessage','<span style="color:#ff6666;">'+(L.sozelWrong||'❌ Yanlış!')+' '+hizCorrectAnswer+'</span>');
@@ -11785,7 +11914,7 @@ function startHizGuessTimer(){
                     const L2=LANG[currentLang]||LANG['tr'];
                     setHTML('hizMessage','⏰ <span style="color:#e74c3c;">'+(L2.timeUpDead||'Süre doldu!')+'</span><br>'+(L2.sozelLose||'')+' '+hizCorrectAnswer
                         +gameOverBtnsHTML('hiz',hizCurrentDiff,'startHiz'));
-                    playSound('lose'); stopMusic(); setDisabled('hizBtn',true); setDisabled('hizInput',true);
+                    playSound('gameover'); stopMusic(); setDisabled('hizBtn',true); setDisabled('hizInput',true);
                     box.style.display='none'; startUniversalCooldown('hiz',hizCurrentDiff,HIZ_DIFF);
                 } else {
                     setText('hizMessage',(LANG[currentLang]||LANG['tr']).timeUp||'⏰ Süre doldu!');
@@ -11920,7 +12049,7 @@ function submitPermAnswer(){
             clearInterval(permGuessTimerVar); setDisplay('permGuessTimerBox','none'); permGameOver=true;
             setHTML('permMessage','💥 <span style="color:#e74c3c;">'+(L.sozelLose||'Canın bitti!')+' '+permCorrectAnswer+'</span>'
                 +gameOverBtnsHTML('perm',permCurrentDiff,'startPerm'));
-            playSound('lose'); stopMusic(); setDisabled('permBtn',true); setDisabled('permInput',true);
+            playSound('gameover'); stopMusic(); setDisabled('permBtn',true); setDisabled('permInput',true);
             startUniversalCooldown('perm',permCurrentDiff,PERM_DIFF);
         } else {
             setHTML('permMessage','<span style="color:#ff8888;">'+(L.sozelWrong||'❌ Yanlış!')+' '+permCorrectAnswer+'</span>');
@@ -11950,7 +12079,7 @@ function startPermGuessTimer(){
                     const L2=LANG[currentLang]||LANG['tr'];
                     setHTML('permMessage','⏰ <span style="color:#e74c3c;">'+(L2.timeUpDead||'Süre doldu!')+'</span><br>'+(L2.sozelLose||'')+' '+permCorrectAnswer
                         +gameOverBtnsHTML('perm',permCurrentDiff,'startPerm'));
-                    playSound('lose'); stopMusic(); setDisabled('permBtn',true); setDisabled('permInput',true);
+                    playSound('gameover'); stopMusic(); setDisabled('permBtn',true); setDisabled('permInput',true);
                     box.style.display='none'; startUniversalCooldown('perm',permCurrentDiff,PERM_DIFF);
                 } else {
                     setText('permMessage',(LANG[currentLang]||LANG['tr']).timeUp||'⏰ Süre doldu!');
@@ -15448,7 +15577,7 @@ function checkGuess() {
             gameStats.loses++;
             saveStats();
             clearInterval(playTimeInterval);
-            playSound('lose');
+            playSound('gameover');
             startCooldown();
         } else {
             playSound('wrong');
@@ -18730,6 +18859,7 @@ let wc26BotThinking = false; // Bot "düşünüyor" animasyonu aktif mi
 // 90+  (elit)  : çok hızlı, neredeyse hep doğru, seni geçer
 
 function getBotProfile(str) {
+    if (str >= 95) return { tier:'efsane', minF:0.16, maxF:0.40, acc:0.95, thinkMs:550,  passMsg:'⚡ Şimşek gibi!', goalMsg:'🔥 Rakip acımadı, anında buldu! +1' };
     if (str >= 90) return { tier:'elit',   minF:0.25, maxF:0.55, acc:0.88, thinkMs:800,  passMsg:'🧠 Geçti!', goalMsg:'⚡ Rakip anında cevapladı! +1 Gol' };
     if (str >= 80) return { tier:'iyi',    minF:0.40, maxF:0.68, acc:0.72, thinkMs:1000, passMsg:'🤔 Pas!',   goalMsg:'⚡ Rakip hızlı cevapladı! +1 Gol' };
     if (str >= 70) return { tier:'orta',   minF:0.52, maxF:0.78, acc:0.55, thinkMs:1200, passMsg:'😅 Kaçtı!', goalMsg:'⚡ Rakip buldu! +1 Gol' };

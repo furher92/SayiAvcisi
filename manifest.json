@@ -1,0 +1,16 @@
+{
+  "name": "Sayı Avcısı — Alpha 2",
+  "short_name": "Sayı Avcısı",
+  "description": "Matematik oyunlarıyla sayı avla! 27 dil · EBOB-EKOK, 4 İşlem, TYT-AYT, Hız, Örüntü.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a0505",
+  "theme_color": "#8b0a12",
+  "lang": "tr",
+  "icons": [
+    { "src": "sayiavcisi_icon_192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "sayiavcisi_icon_512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
