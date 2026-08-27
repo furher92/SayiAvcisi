@@ -956,10 +956,20 @@ function playTrailerSting() {
 function tryStartTrailerMusic() { if (!_trailerMusicStarted) playTrailerSting(); }
 // 🎬 Trailer'ı bu sefer atla (Ana Ekran'dan reload edildiğinde)
 if (sessionStorage.getItem('sa_from_main')) {
-    // Ana Ekran'dan reload — trailer atla
+    // Ana Ekran'dan reload — trailer'ı VE splash'ı atla, direkt kategori (abaküs) ekranına git
     sessionStorage.removeItem('sa_from_main');
     const t = document.getElementById('introTrailer');
     if (t) t.remove();
+    document.addEventListener('DOMContentLoaded', function(){
+        const sp = document.getElementById('splashScreen');
+        if (sp) { try{ sp.remove(); }catch(e){} }
+        setDisplay('categoryScreen','flex');
+        try{ if(typeof applyCategoryI18n==='function') applyCategoryI18n(); }catch(e){}
+        setDisplay('modeScreen','none');
+        try{ if(typeof checkCooldownOnLoad==='function') checkCooldownOnLoad(); }catch(e){}
+        const _se3 = (typeof soundEnabled !== 'undefined') ? soundEnabled : true;
+        if (_se3 && typeof startMusic === 'function') setTimeout(startMusic, 200);
+    });
 } else {
     // 🚀 Müziği hemen başlatmaya çalış (otomatik oynatma izin verilmişse direkt çalar)
     playTrailerSting();
@@ -1188,6 +1198,51 @@ setTimeout(() => {
 
     <div class="splash-version" style="color:#fff;font-weight:bold;" id="splashVersionTxt">ALPHA 2</div>
     <div class="splash-credits" style="color:#fff;">Created By FurkanÇ</div>
+    <div id="gunlukAtasoz" style="color:#ffd0c0;font-size:12px;font-style:italic;margin:10px auto 0;max-width:300px;line-height:1.5;opacity:0.92;padding:0 12px;"></div>
+    <script>
+    (function(){
+      const ATASOZLERI = [
+        "Sayılar yalan söylemez, yeter ki doğru sor.",
+        "İki kere ölç, bir kere kes.",
+        "Matematik korkulacak değil, anlaşılacak bir dildir.",
+        "Küçük bir hata, büyük bir sonucu değiştirir.",
+        "Sıfır hiçlik değildir; her şeyin başlangıcıdır.",
+        "Bölüşmeyi bilen, çoğaltmayı da bilir.",
+        "Her problemin bir çözümü, her çözümün bir yolu vardır.",
+        "Acele eden hesapta yanılır.",
+        "Bir sayının değeri, durduğu basamakla ölçülür.",
+        "Toplamak kolay, denklemi kurmak marifet.",
+        "Pratik yapmayan zihin, paslanan pergel gibidir.",
+        "Doğru cevap, sabreden aklın ödülüdür.",
+        "En zor problem de basamak basamak çözülür.",
+        "Kesirler öğretir: bütün, parçalardan doğar.",
+        "Çarpım büyütür, ama önce doğru çarpanı bulmalısın.",
+        "Eksi eksiyi çarpınca artıya döner; azim de öyle.",
+        "Ölçüsüz iş, sonucu belirsiz bırakır.",
+        "Zihinden hesap, hafızanın jimnastiğidir.",
+        "Geometri, dünyayı şekillerle okumaktır.",
+        "Sonsuzluk, saymakla değil anlamakla kavranır.",
+        "Denklemin iki tarafı da denge ister; hayat gibi.",
+        "Hız, mesafe ve zaman bir araya gelmeden yol bitmez.",
+        "Kesirle uğraşan, sabrı da öğrenir.",
+        "En sade çözüm, çoğu zaman en doğru çözümdür.",
+        "Sayı avlamak sabır ister, tıpkı balık avı gibi.",
+        "Bir problemi anlamak, yarısını çözmektir.",
+        "Yüzde yüz çaba seni sonuca yaklaştırır.",
+        "Mantık yürüten, ezberleyene daima üstün gelir.",
+        "Örüntüyü gören, bir sonraki adımı tahmin eder.",
+        "Hesapsız yola çıkan, borçlu döner.",
+        "Matematik: sabrın ve mantığın buluştuğu yerdir."
+      ];
+      try {
+        const now = new Date();
+        const start = new Date(now.getFullYear(), 0, 0);
+        const gun = Math.floor((now - start) / 86400000);
+        const el = document.getElementById('gunlukAtasoz');
+        if (el) el.textContent = '💬 ' + ATASOZLERI[gun % ATASOZLERI.length];
+      } catch(e){}
+    })();
+    </script>
     <div class="splash-update" style="color:#fff;font-family:'Press Start 2P',monospace;font-size:7px;margin-top:8px;text-align:center;line-height:1.6;" id="splashUpdateTxt"></div>
     <div class="splash-test" style="color:#fff;" id="splashTestTxt" data-i18n="spTest">⚠ Hala test aşamasındadır</div>
     <div class="splash-lang" style="color:#fff;" id="splashLangInfoTxt" data-i18n="spLangInfo">🌍 27 dil destekli</div>
@@ -2162,6 +2217,9 @@ setTimeout(() => {
             <div id="yuzdeQuestion" style="color:#d6ffe9;font-size:16px;line-height:1.7;font-weight:bold;"></div>
         </div>
         <div class="hearts" id="yuzdeHeartsDisplay"></div>
+        <div class="guess-timer-box" id="yuzdeGuessTimerBox" style="display:none;">
+            <span id="yuzdeGuessTimerLabel">⏱ Süre: </span><span id="yuzdeGuessCountdown">15</span> <span>sn</span>
+        </div>
         <div class="input-group" style="margin-top:6px;">
             <input type="number" id="yuzdeInput" placeholder="= ?" style="padding:12px;font-size:18px;border-radius:10px;border:2px solid rgba(46,204,113,0.5);background:rgba(255,255,255,0.07);color:#fff;width:60%;text-align:center;outline:none;font-weight:bold;">
         </div>
@@ -2178,6 +2236,9 @@ setTimeout(() => {
             <div id="oruntuLevelTag" style="font-size:10px;color:#e30a17;margin-top:4px;"></div>
         </div>
         <div class="hearts" id="oruntuHeartsDisplay"></div>
+        <div class="guess-timer-box" id="oruntuGuessTimerBox" style="display:none;">
+            <span id="oruntuGuessTimerLabel">⏱ Süre: </span><span id="oruntuGuessCountdown">15</span> <span>sn</span>
+        </div>
         <div style="display:flex;justify-content:center;width:100%;margin-top:6px;">
             <input type="number" id="oruntuInput" placeholder="= ?" style="padding:12px;font-size:18px;border-radius:10px;border:2px solid rgba(255,215,0,0.5);background:rgba(255,255,255,0.07);color:#fff;width:60%;text-align:center;outline:none;font-weight:bold;">
         </div>
@@ -8678,6 +8739,17 @@ function playGoalSound() {
     } catch(e){}
 }
 function playSound(type) {
+    // 📳 Haptik titreşim — sesten bağımsız (mobilde dokunsal geri bildirim)
+    try {
+        if (navigator.vibrate) {
+            if (type === 'wrong') navigator.vibrate([40, 30, 40]);
+            else if (type === 'gameover') navigator.vibrate([90, 50, 90, 50, 140]);
+            else if (type === 'timeout') navigator.vibrate([60, 40, 60]);
+            else if (type === 'win') navigator.vibrate([30, 20, 30, 20, 80]);
+            else if (type === 'click' || type === 'hint') navigator.vibrate(8);
+            else navigator.vibrate(20);   // doğru cevap ve diğer olumlu sesler
+        }
+    } catch(e) {}
     if (!soundEnabled) return;
     try {
         const ctx = getSfxCtx();
@@ -11676,6 +11748,7 @@ function startHiz(diff){
 
 // ══════════ YÜZDE USTASI — basit ama tam çalışan yeni mod ══════════
 let yuzdeScore = 0, yuzdeLives = 4, yuzdeCorrectAnswer = 0, yuzdeGameOver = false;
+let yuzdeGuessTimerVar = null;
 const YUZDE_HEART = '💚';
 
 function startYuzde(){
@@ -11706,6 +11779,38 @@ function generateYuzdeQuestion(){
 }
 function gcdHelper(a,b){ return b===0 ? a : gcdHelper(b, a % b); }
 
+function startYuzdeGuessTimer(){
+    const box = document.getElementById('yuzdeGuessTimerBox');
+    const span = document.getElementById('yuzdeGuessCountdown');
+    let timeLeft = 15;
+    if (box) box.style.display = 'block';
+    if (span) span.innerText = timeLeft;
+    clearInterval(yuzdeGuessTimerVar);
+    yuzdeGuessTimerVar = setInterval(() => {
+        timeLeft--;
+        if (span) span.innerText = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(yuzdeGuessTimerVar);
+            try{ playSound('timeout'); }catch(e){}
+            if (!yuzdeGameOver) {
+                const L = LANG[currentLang]||LANG['tr'];
+                yuzdeLives--;
+                setText('yuzdeHeartsDisplay', YUZDE_HEART.repeat(Math.max(0,yuzdeLives)));
+                if (yuzdeLives <= 0) {
+                    yuzdeGameOver = true;
+                    setHTML('yuzdeMessage',' <span style="color:#e74c3c;">'+(L.timeUpDead||'Süre doldu!')+'</span> '+yuzdeCorrectAnswer
+                        + gameOverBtnsHTML('yuzde', null, 'startYuzde'));
+                    playSound('gameover'); stopMusic();
+                    setDisabled('yuzdeBtn', true); setDisabled('yuzdeInput', true);
+                    if (box) box.style.display = 'none';
+                } else {
+                    setHTML('yuzdeMessage','<span style="color:#ff6666;">'+(L.timeUp||'⏰ Süre doldu! Bir can kaybettin.')+'</span> '+yuzdeCorrectAnswer);
+                    setTimeout(()=>{ if(!yuzdeGameOver) nextYuzdeQuestion(); }, 1100);
+                }
+            }
+        }
+    }, 1000);
+}
 function nextYuzdeQuestion(){
     const L = LANG[currentLang]||LANG['tr'];
     const q = generateYuzdeQuestion();
@@ -11715,9 +11820,10 @@ function nextYuzdeQuestion(){
     setText('yuzdeScoreDisplay', (L.sozelScore||'Puan:')+' '+yuzdeScore);
     const inp = document.getElementById('yuzdeInput');
     if (inp) { inp.value=''; inp.focus(); }
+    startYuzdeGuessTimer();
 }
-
 function submitYuzdeAnswer(){
+    clearInterval(yuzdeGuessTimerVar);
     if (yuzdeGameOver) return;
     const L = LANG[currentLang]||LANG['tr'];
     const inp = document.getElementById('yuzdeInput');
@@ -11752,6 +11858,7 @@ document.addEventListener('keydown', e => {
 
 // ══════════ 🔭 ÖRÜNTÜ AVI — sayı dizisi modu (soru gövdesi tamamen sayısal, 27 dilde birebir çalışır) ══════════
 let oruntuScore = 0, oruntuLives = 4, oruntuCorrectAnswer = 0, oruntuGameOver = false, oruntuLevel = 1;
+let oruntuGuessTimerVar = null;
 const ORUNTU_HEART = '💛';
 
 function startOruntu(){
@@ -11804,6 +11911,38 @@ function generateOruntuQuestion(){
     return { dizi: dizi, cevap: cevap };
 }
 
+function startOruntuGuessTimer(){
+    const box = document.getElementById('oruntuGuessTimerBox');
+    const span = document.getElementById('oruntuGuessCountdown');
+    let timeLeft = 15;
+    if (box) box.style.display = 'block';
+    if (span) span.innerText = timeLeft;
+    clearInterval(oruntuGuessTimerVar);
+    oruntuGuessTimerVar = setInterval(() => {
+        timeLeft--;
+        if (span) span.innerText = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(oruntuGuessTimerVar);
+            try{ playSound('timeout'); }catch(e){}
+            if (!oruntuGameOver) {
+                const L = LANG[currentLang]||LANG['tr'];
+                oruntuLives--;
+                setText('oruntuHeartsDisplay', ORUNTU_HEART.repeat(Math.max(0,oruntuLives)));
+                if (oruntuLives <= 0) {
+                    oruntuGameOver = true;
+                    setHTML('oruntuMessage',' <span style="color:#e74c3c;">'+(L.timeUpDead||'Süre doldu!')+'</span> '+oruntuCorrectAnswer
+                        + gameOverBtnsHTML('oruntu', null, 'startOruntu'));
+                    playSound('gameover'); stopMusic();
+                    setDisabled('oruntuBtn', true); setDisabled('oruntuInput', true);
+                    if (box) box.style.display = 'none';
+                } else {
+                    setHTML('oruntuMessage','<span style="color:#ff6666;">'+(L.timeUp||'⏰ Süre doldu! Bir can kaybettin.')+'</span> '+oruntuCorrectAnswer);
+                    setTimeout(()=>{ if(!oruntuGameOver) nextOruntuQuestion(); }, 1100);
+                }
+            }
+        }
+    }, 1000);
+}
 function nextOruntuQuestion(){
     const L = LANG[currentLang]||LANG['tr'];
     const q = generateOruntuQuestion();
@@ -11815,10 +11954,11 @@ function nextOruntuQuestion(){
     setText('oruntuScoreDisplay', (L.sozelScore||'Puan:')+' '+oruntuScore);
     const inp = document.getElementById('oruntuInput');
     if (inp) { inp.value=''; inp.focus(); }
+    startOruntuGuessTimer();
 }
-
 function submitOruntuAnswer(){
     if (oruntuGameOver) return;
+    clearInterval(oruntuGuessTimerVar);
     const L = LANG[currentLang]||LANG['tr'];
     const inp = document.getElementById('oruntuInput');
     const val = parseFloat(inp ? inp.value : '');
@@ -19276,11 +19416,12 @@ const _origSelectMode = window.selectMode || (function(){ });
 
 </script>
 
+    <style>#_dbgFloatBtn{display:none !important;}</style>
     <!-- Floating top-right bar — oyun içinde her zaman -->
     <div id="floatingBar" style="position:fixed;top:10px;right:10px;z-index:9998;display:none;gap:6px;align-items:center;pointer-events:none;">
         <button id="gfxFloatBtn" onclick="openGfx()" title="Grafik Ayarı" style="pointer-events:all;width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(227,10,23,0.45);background:rgba(6,6,18,0.75);color:#e30a17;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🎮</button>
         <button id="floatSoundBtn" onclick="toggleSound()" title="Ses" style="pointer-events:all;width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.3);background:rgba(6,6,18,0.75);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🔊</button>
-        <button id="_dbgFloatBtn" onclick="_dbgToggle && _dbgToggle()" title="Debug" style="pointer-events:all;width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(52,211,153,0.45);background:rgba(6,6,18,0.75);color:#34d399;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🔍</button>
+        <button id="_dbgFloatBtn" onclick="_dbgToggle && _dbgToggle()" title="Debug" style="display:none;pointer-events:all;width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(52,211,153,0.45);background:rgba(6,6,18,0.75);color:#34d399;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🔍</button>
     </div>
     <!-- ══ CORNER DEBUG (varsayılan gizli — geliştirici aracı) ══ -->
     <div id="_dbgCorner" style="
@@ -20115,6 +20256,333 @@ function leagueOtherScoresHTML(phase) {
 const RUSLIG_STR = { PSK:84, GFK:83, ORD:80, DNM:80, KYS:80, DYS:79, YKT:74, KFK:73, DON:74, KNT:71, URL:70, BLT:70, VRN:69, "DA\u011e":71, VLG:72, YRT:68 };
 </script>
 <!-- ════════ /LİG EKRANI ════════ -->
+
+<!-- ═══════ 🏆 BAŞARIMLAR MODÜLÜ (Alpha 2) ═══════ -->
+<script>
+(function(){
+  const BASARIMLAR = [
+    { id:'ilk',    ikon:'🎯', ad:'İlk Adım',      aciklama:'Oyunu ilk kez başlat.' },
+    { id:'d10',    ikon:'🔥', ad:'Isınıyor',      aciklama:'Toplam 10 doğru cevap ver.' },
+    { id:'d100',   ikon:'💯', ad:'Yüzler Kulübü', aciklama:'Toplam 100 doğru cevap ver.' },
+    { id:'d500',   ikon:'🏆', ad:'Usta Avcı',     aciklama:'Toplam 500 doğru cevap ver.' },
+    { id:'oyun10', ikon:'🎮', ad:'Azimli',        aciklama:'10 oyun oyna.' },
+    { id:'zafer',  ikon:'🌟', ad:'Şampiyon',      aciklama:'İlk zaferini kazan.' },
+    { id:'seri7',  ikon:'🗓️', ad:'Sadık Avcı',    aciklama:'7 gün üst üste giriş yap.' },
+    { id:'az5',    ikon:'☢️', ad:'AZ-5', gizli:true, aciklama:'AZ-5\'e bastın. 26 Nisan 1986, Reaktör 4… Bazı butonlar basılmadan bırakılmalıydı.' }
+  ];
+  const KEY='sa_basarim', STATKEY='sa_basarim_stat';
+  const acilanlar = ()=>{ try{ return JSON.parse(localStorage.getItem(KEY))||[]; }catch(e){ return []; } };
+  const statlar   = ()=>{ try{ return JSON.parse(localStorage.getItem(STATKEY))||{dogru:0,oyun:0,zafer:0}; }catch(e){ return {dogru:0,oyun:0,zafer:0}; } };
+
+  window.basarimAc = function(id){
+    const a=acilanlar(); if(a.indexOf(id)>-1) return;
+    const b=BASARIMLAR.find(x=>x.id===id); if(!b) return;
+    a.push(id); try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){}
+    basarimToast(b);
+  };
+  window.basarimStat = function(key, inc){
+    const s=statlar(); s[key]=(s[key]||0)+(inc||1);
+    try{ localStorage.setItem(STATKEY, JSON.stringify(s)); }catch(e){}
+    if(key==='dogru'){ if(s.dogru>=10)basarimAc('d10'); if(s.dogru>=100)basarimAc('d100'); if(s.dogru>=500)basarimAc('d500'); }
+    if(key==='oyun' && s.oyun>=10) basarimAc('oyun10');
+    if(key==='zafer' && s.zafer>=1) basarimAc('zafer');
+  };
+
+  function basarimToast(b){
+    const t=document.createElement('div');
+    t.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(140%);z-index:100000;background:linear-gradient(135deg,#2a0808,#c10a17);color:#fff;border:2px solid #ff8f6b;border-radius:14px;padding:12px 18px;box-shadow:0 8px 30px rgba(0,0,0,.5);font-family:sans-serif;max-width:88vw;transition:transform .5s cubic-bezier(.2,.9,.2,1);display:flex;align-items:center;gap:12px;';
+    t.innerHTML='<span style="font-size:30px;">'+b.ikon+'</span><div><div style="font-size:11px;opacity:.85;letter-spacing:1px;">🏆 BAŞARIM AÇILDI</div><div style="font-weight:800;font-size:15px;">'+b.ad+'</div></div>';
+    document.body.appendChild(t);
+    try{ if(navigator.vibrate) navigator.vibrate([30,40,60]); }catch(e){}
+    try{ if(typeof playSound==='function'){ window.__bsrmToastSes=true; playSound('win'); window.__bsrmToastSes=false; } }catch(e){ window.__bsrmToastSes=false; }
+    requestAnimationFrame(()=>{ t.style.transform='translateX(-50%) translateY(0)'; });
+    setTimeout(()=>{ t.style.transform='translateX(-50%) translateY(140%)'; setTimeout(()=>t.remove(),600); }, 3400);
+  }
+
+  window.basarimPanelAc = function(){
+    const a=acilanlar(); const old=document.getElementById('basarimPanel'); if(old) old.remove();
+    const ov=document.createElement('div'); ov.id='basarimPanel';
+    ov.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(10,2,2,.88);display:flex;align-items:center;justify-content:center;padding:16px;';
+    ov.onclick=(e)=>{ if(e.target===ov) ov.remove(); };
+    const liste=BASARIMLAR.map(b=>{
+      const ac=a.indexOf(b.id)>-1, kilit=b.gizli&&!ac;
+      const ikon=kilit?'❓':b.ikon, ad=kilit?'???':b.ad, acik=kilit?'Gizli başarım — nasıl açılır acaba?':b.aciklama;
+      return '<div style="display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;margin-bottom:8px;background:'+(ac?'rgba(227,10,23,.18)':'rgba(255,255,255,.05)')+';border:1px solid '+(ac?'#ff8f6b':'rgba(255,255,255,.1)')+';opacity:'+(ac?'1':'.6')+';"><span style="font-size:26px;filter:'+(ac?'none':'grayscale(1)')+';">'+ikon+'</span><div><div style="font-weight:800;color:#fff;font-size:14px;">'+ad+(ac?' ✓':'')+'</div><div style="font-size:11px;color:#ffd0c0;">'+acik+'</div></div></div>';
+    }).join('');
+    ov.innerHTML='<div style="background:linear-gradient(160deg,#1a0505,#2a0808);border:2px solid #c10a17;border-radius:18px;max-width:400px;width:100%;max-height:82vh;overflow-y:auto;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><div style="color:#fff;font-weight:900;font-size:18px;">🏆 Başarımlar <span style="font-size:12px;color:#ffd0c0;font-weight:600;">'+a.length+' / '+BASARIMLAR.length+'</span></div><button onclick="var p=document.getElementById(\'basarimPanel\');if(p)p.remove();" style="background:#c10a17;color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;">✕</button></div>'+liste+'</div>';
+    document.body.appendChild(ov);
+  };
+
+  function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
+  ready(function(){
+    // 🏆 trophy butonu -> settingsBar
+    const sb=document.getElementById('settingsBar');
+    if(sb && !document.getElementById('basarimBtn')){
+      const tb=document.createElement('button'); tb.id='basarimBtn'; tb.title='Başarımlar'; tb.textContent='🏆';
+      tb.setAttribute('onclick','basarimPanelAc()');
+      tb.style.cssText='width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(227,10,23,.4);background:rgba(6,6,18,.7);color:#fff;font-size:16px;cursor:pointer;';
+      sb.appendChild(tb);
+    }
+    // ☢️ AZ-5 gizli easter-egg butonu -> splash (atasözünün altına)
+    const anc=document.getElementById('gunlukAtasoz');
+    if(anc && !document.getElementById('az5Btn')){
+      const az=document.createElement('button'); az.id='az5Btn'; az.title='AZ-5'; az.textContent='AZ-5';
+      az.setAttribute('onclick',"basarimAc('az5'); if(typeof azFelaketBaslat==='function') azFelaketBaslat();");
+      az.style.cssText='display:block;margin:14px auto 0;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:2px;border-radius:6px;border:1px solid rgba(255,60,60,.3);background:rgba(20,4,4,.55);color:#ff6b5c;cursor:pointer;opacity:.5;';
+      anc.parentNode.insertBefore(az, anc.nextSibling);
+    }
+    // — mevcut fonksiyonları SARMALA (bozmadan olaylara bağla) —
+    if(typeof window.splashStart==='function' && !window.splashStart.__bsrm){
+      const o=window.splashStart; window.splashStart=function(){ try{basarimAc('ilk');}catch(e){} return o.apply(this,arguments); }; window.splashStart.__bsrm=true;
+    }
+    if(typeof window.playSound==='function' && !window.playSound.__bsrm){
+      const o=window.playSound; window.playSound=function(type){
+        try{ if(!window.__bsrmToastSes){
+          if(['wrong','gameover','timeout','click','hint','win','lose'].indexOf(type)===-1) basarimStat('dogru',1);
+          if(type==='win') basarimStat('zafer',1);
+          if(type==='gameover') basarimStat('oyun',1);
+        } }catch(e){}
+        return o.apply(this,arguments);
+      }; window.playSound.__bsrm=true;
+    }
+  });
+})();
+</script>
+
+
+<!-- ═══════ 🎁 GÜNLÜK GİRİŞ ÖDÜLÜ (Alpha 2) ═══════ -->
+<script>
+(function(){
+  const KEY='sa_gunluk';
+  const ODUL=[10,15,20,30,45,70,100]; // gün 1..7+
+  const bugun=()=>{ const d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); };
+  const dunMu=(s)=>{ const d=new Date(); d.setDate(d.getDate()-1); return s===(d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()); };
+  const veri=()=>{ try{ return JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ return {}; } };
+  const kaydet=(v)=>{ try{ localStorage.setItem(KEY, JSON.stringify(v)); }catch(e){} };
+
+  window.gunlukGirisKontrol = function(force){
+    const v=veri(), bg=bugun();
+    const zatenBugun = (v.sonTarih===bg);
+    if(zatenBugun && !force) return;              // bugün zaten alındı, zorlanmadıysa gösterme
+    let seri;
+    if(zatenBugun) seri = v.seri||1;              // force ile tekrar göster (ödül vermeden)
+    else if(v.sonTarih && dunMu(v.sonTarih)) seri=(v.seri||0)+1;
+    else seri=1;
+    const odul=ODUL[Math.min(seri-1,6)];
+    const yeni={ sonTarih:bg, seri:seri, enIyi:Math.max(v.enIyi||0,seri), puan:(v.puan||0)+(zatenBugun?0:odul) };
+    kaydet(yeni);
+    gunlukPopup(seri, odul, yeni.puan, zatenBugun);
+    try{ if(seri>=7 && typeof basarimAc==='function') basarimAc('seri7'); }catch(e){}
+  };
+
+  function gunlukPopup(seri, odul, puan, tekrar){
+    const old=document.getElementById('gunlukPopup'); if(old) old.remove();
+    const ov=document.createElement('div'); ov.id='gunlukPopup';
+    ov.style.cssText='position:fixed;inset:0;z-index:99998;background:rgba(10,2,2,.85);display:flex;align-items:center;justify-content:center;padding:16px;';
+    ov.onclick=(e)=>{ if(e.target===ov) ov.remove(); };
+    let gunler='';
+    for(let i=1;i<=7;i++){
+      const dolu = (seri>=7) ? (i<7) : (i<((seri-1)%7+1));
+      const suan = (seri>=7) ? (i===7) : (i===((seri-1)%7+1));
+      const ikon = dolu?'✅':(suan?'🎁':'🪙');
+      gunler+='<div style="flex:1;text-align:center;padding:6px 2px;border-radius:8px;background:'+((dolu||suan)?'rgba(227,10,23,.3)':'rgba(255,255,255,.06)')+';border:1px solid '+(suan?'#ff8f6b':'rgba(255,255,255,.12)')+';"><div style="font-size:9px;color:#ffd0c0;">'+i+'.g</div><div style="font-size:15px;">'+ikon+'</div></div>';
+    }
+    ov.innerHTML='<div style="background:linear-gradient(160deg,#1a0505,#2a0808);border:2px solid #c10a17;border-radius:20px;max-width:360px;width:100%;padding:22px;text-align:center;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="font-size:42px;">🎁</div><div style="color:#fff;font-weight:900;font-size:20px;margin:6px 0;">Günlük Giriş Ödülü</div><div style="color:#ff8f6b;font-weight:800;font-size:15px;">🔥 '+seri+' günlük seri!</div>'+(tekrar?'<div style="color:#ffd0c0;font-size:12px;margin-top:6px;">Bugünün ödülü zaten alındı.<br>Yarın tekrar gel!</div>':'<div style="color:#ffe0a0;font-size:24px;font-weight:900;margin:10px 0;">+'+odul+' 🪙</div>')+'<div style="display:flex;gap:4px;margin:14px 0;">'+gunler+'</div><div style="color:#ffd0c0;font-size:12px;margin-bottom:14px;">💰 Cüzdan: '+puan+' 🪙</div><button onclick="var p=document.getElementById(\'gunlukPopup\');if(p)p.remove();" style="background:linear-gradient(135deg,#e30a17,#b00812);color:#fff;border:none;border-radius:12px;padding:12px 30px;font-size:15px;font-weight:800;cursor:pointer;width:100%;">'+(tekrar?'TAMAM':'TOPLA 🎉')+'</button></div>';
+    document.body.appendChild(ov);
+    try{ if(navigator.vibrate) navigator.vibrate([20,40,30]); }catch(e){}
+    try{ if(typeof playSound==='function'){ window.__bsrmToastSes=true; playSound('win'); window.__bsrmToastSes=false; } }catch(e){ window.__bsrmToastSes=false; }
+  }
+
+  function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
+  ready(function(){
+    // Trailer bitip splash görününce bir kez göster (trailer üstüne binmesin)
+    let dn=0;
+    (function bekle(){
+      dn++;
+      const tr=document.getElementById('introTrailer');
+      const trailerGitti = !tr || getComputedStyle(tr).display==='none' || (tr.classList&&tr.classList.contains('gizli')) || tr.offsetParent===null;
+      if(trailerGitti){ try{ gunlukGirisKontrol(false); }catch(e){} }
+      else if(dn<25){ setTimeout(bekle, 700); }
+    })();
+    // settingsBar'a 🎁 buton (cüzdan/seriyi tekrar görmek için)
+    const sb=document.getElementById('settingsBar');
+    if(sb && !document.getElementById('gunlukBtn')){
+      const b=document.createElement('button'); b.id='gunlukBtn'; b.title='Günlük Giriş'; b.textContent='🎁';
+      b.setAttribute('onclick','gunlukGirisKontrol(true)');
+      b.style.cssText='width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(227,10,23,.4);background:rgba(6,6,18,.7);color:#fff;font-size:15px;cursor:pointer;';
+      sb.appendChild(b);
+    }
+  });
+})();
+</script>
+
+
+<!-- ═══════ 🌗 KARANLIK / AÇIK TEMA (Alpha 2) ═══════ -->
+<style id="acikTemaStil">
+body.light-tema #mathBg{
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 25%, rgba(227,10,23,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 75% 70%, rgba(239,68,68,0.08) 0%, transparent 55%),
+    linear-gradient(160deg, #fff6f3 0%, #ffe8e1 50%, #ffd9d0 100%) !important;
+}
+body.light-tema{ background:#fff6f3 !important; }
+/* .container ve splash içindeki BEYAZ metinleri koyuya çevir (butonlar hariç) */
+body.light-tema .container [style*="color:#fff"]:not(button):not([class*="btn"]):not([class*="Btn"]),
+body.light-tema .container [style*="color: #fff"]:not(button):not([class*="btn"]):not([class*="Btn"]),
+body.light-tema .container [style*="color:#ffffff"]:not(button):not([class*="btn"]):not([class*="Btn"]),
+body.light-tema .container [style*="color:rgba(255,255,255"]:not(button):not([class*="btn"]):not([class*="Btn"]),
+body.light-tema #splashScreen [style*="color:#fff"]:not(button):not([class*="btn"]):not([class*="Btn"]){
+  color:#3a0a0a !important;
+}
+body.light-tema #mainTitle{ color:#8a0a12 !important; text-shadow:none !important; }
+body.light-tema #gunlukAtasoz{ color:#8a1a1a !important; }
+body.light-tema .splash-credits{ color:#5a0a0a !important; }
+/* koyu yarı-saydam kartları açık versiyona çevir */
+body.light-tema .container [style*="background:rgba(6,6,18"],
+body.light-tema .container [style*="background: rgba(6,6,18"]{ background:rgba(255,240,236,0.85) !important; }
+</style>
+<script>
+(function(){
+  const KEY='sa_tema';
+  function uygula(mod){
+    if(mod==='acik') document.body.classList.add('light-tema');
+    else document.body.classList.remove('light-tema');
+    const b=document.getElementById('temaBtn'); if(b) b.textContent=(mod==='acik'?'☀️':'🌙');
+  }
+  window.temaToggle=function(){
+    const yeni=document.body.classList.contains('light-tema')?'koyu':'acik';
+    try{ localStorage.setItem(KEY, yeni); }catch(e){}
+    uygula(yeni);
+    try{ if(navigator.vibrate) navigator.vibrate(12); }catch(e){}
+    try{ if(typeof playSound==='function'){ window.__bsrmToastSes=true; playSound('click'); window.__bsrmToastSes=false; } }catch(e){ window.__bsrmToastSes=false; }
+  };
+  function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
+  ready(function(){
+    let mod='koyu'; try{ mod=localStorage.getItem(KEY)||'koyu'; }catch(e){}
+    uygula(mod);
+    const sb=document.getElementById('settingsBar');
+    if(sb && !document.getElementById('temaBtn')){
+      const b=document.createElement('button'); b.id='temaBtn'; b.title='Karanlık / Açık';
+      b.textContent=(mod==='acik'?'☀️':'🌙');
+      b.setAttribute('onclick','temaToggle()');
+      b.style.cssText='width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(227,10,23,.4);background:rgba(6,6,18,.7);color:#fff;font-size:15px;cursor:pointer;';
+      sb.appendChild(b);
+    }
+  });
+})();
+</script>
+
+
+<!-- ═══════ ☢️ AZ-5 FELAKET EFEKTİ + GERİ SAYIM (Alpha 2) ═══════ -->
+<style>
+@keyframes az5Shake { 0%,100%{transform:translate(0,0);} 10%{transform:translate(-6px,4px);} 20%{transform:translate(7px,-3px);} 30%{transform:translate(-5px,-5px);} 40%{transform:translate(6px,4px);} 50%{transform:translate(-7px,2px);} 60%{transform:translate(5px,-4px);} 70%{transform:translate(-4px,5px);} 80%{transform:translate(6px,-2px);} 90%{transform:translate(-3px,3px);} }
+@keyframes az5Flash { 0%{background:rgba(255,255,255,0);} 6%{background:rgba(255,255,255,0.95);} 14%{background:rgba(227,10,23,0.55);} 30%{background:rgba(0,0,0,0.75);} 100%{background:rgba(0,0,0,0);} }
+@keyframes az5Fall { from{ transform:translateY(-10vh) rotate(0deg); opacity:1; } to{ transform:translateY(110vh) rotate(360deg); opacity:0.2; } }
+#az5Overlay { position:fixed; inset:0; z-index:2147483000; pointer-events:none; animation:az5Flash 2.6s ease-out forwards, az5Shake 2.6s ease-in-out; }
+.az5-parcacik { position:absolute; top:-10vh; font-size:26px; animation:az5Fall linear forwards; filter:drop-shadow(0 0 6px #ff3b1f); }
+#az5Badge { position:fixed; left:50%; bottom:14px; transform:translateX(-50%); z-index:99997; background:linear-gradient(135deg,#2a0808,#c10a17); color:#fff; border:1.5px solid #ff8f6b; border-radius:12px; padding:7px 14px; font-family:sans-serif; font-size:11px; font-weight:700; display:flex; align-items:center; gap:8px; box-shadow:0 6px 22px rgba(0,0,0,.5); cursor:pointer; }
+#az5Badge .az5-ikon{ font-size:16px; animation:az5Pulse 1.6s ease-in-out infinite; }
+@keyframes az5Pulse { 0%,100%{opacity:1;} 50%{opacity:.45;} }
+</style>
+<script>
+(function(){
+  const KEY='sa_az5_patlama';       // basildi mi bayragi
+  const HEDEF_KEY='sa_az5_hedef';    // hedef zaman damgasi (basma anina gore hesaplanir)
+  function hedefHesapla(){
+    // Mantik: basildigi gunun ERTESI GUNU saat 00:00'da duzelir
+    // (orn: 10 Eylul sabahi basarsan, 11 Eylul gece 00:00'da Alpha3 gelir)
+    const simdi = new Date();
+    const ertesiGun = new Date(simdi.getFullYear(), simdi.getMonth(), simdi.getDate()+1, 0, 0, 0, 0);
+    return ertesiGun.getTime();
+  }
+  function hedefAl(){
+    try{
+      const kayitli = localStorage.getItem(HEDEF_KEY);
+      if(kayitli) return parseInt(kayitli,10);
+    }catch(e){}
+    return null;
+  }
+
+  function fmtKalan(ms){
+    if(ms<=0) return null;
+    const s=Math.floor(ms/1000);
+    const g=Math.floor(s/86400), sa=Math.floor((s%86400)/3600), dk=Math.floor((s%3600)/60), sn=s%60;
+    return g+'g '+sa+'s '+dk+'dk '+sn+'sn';
+  }
+
+  function badgeGuncelle(){
+    const b=document.getElementById('az5Badge'); if(!b) return;
+    const hedef = hedefAl(); if(!hedef) return;
+    const kalan = hedef - Date.now();
+    if(kalan<=0){ az5Temizle(true); return; }
+    const t=b.querySelector('.az5-metin');
+    if(t) t.textContent = 'AZ-5 AKTİF — Düzelme: '+fmtKalan(kalan);
+  }
+  let az5Interval=null;
+
+  function az5BadgeOlustur(){
+    if(document.getElementById('az5Badge')) return;
+    const b=document.createElement('div'); b.id='az5Badge';
+    b.innerHTML='<span class="az5-ikon">☢️</span><span class="az5-metin">AZ-5 AKTİF</span>';
+    b.title='Yakında düzelecek — 10 Eylül 2026';
+    document.body.appendChild(b);
+    badgeGuncelle();
+    clearInterval(az5Interval);
+    az5Interval = setInterval(badgeGuncelle, 1000);
+  }
+
+  function az5Temizle(bildirimGoster){
+    try{ localStorage.removeItem(KEY); localStorage.removeItem(HEDEF_KEY); }catch(e){}
+    clearInterval(az5Interval);
+    const b=document.getElementById('az5Badge'); if(b) b.remove();
+    if(bildirimGoster){
+      try{
+        const t=document.createElement('div');
+        t.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:100000;background:linear-gradient(135deg,#0a6b3a,#0f9d58);color:#fff;border-radius:12px;padding:10px 16px;font-family:sans-serif;font-weight:700;font-size:13px;box-shadow:0 8px 26px rgba(0,0,0,.4);';
+        t.textContent='✅ Sistem düzeldi — güncelleme geldi!';
+        document.body.appendChild(t);
+        setTimeout(()=>t.remove(), 3500);
+      }catch(e){}
+    }
+  }
+
+  window.azFelaketBaslat = function(){
+    const zatenVar = (function(){ try{ return !!localStorage.getItem(KEY); }catch(e){ return false; } })();
+    try{ localStorage.setItem(KEY, '1'); }catch(e){}
+    if(!zatenVar){
+      // İLK basışta hedefi şimdi hesapla (ertesi gün 00:00) ve kalıcı kaydet — sonraki basışlar hedefi değiştirmez
+      try{ localStorage.setItem(HEDEF_KEY, String(hedefHesapla())); }catch(e){}
+      // ☢️ Patlama efekti — sadece ilk basışta
+      const ov=document.createElement('div'); ov.id='az5Overlay';
+      // radyasyon parçacıkları
+      let parcaHTML='';
+      for(let i=0;i<26;i++){
+        const left=Math.random()*100, delay=Math.random()*0.6, dur=1.6+Math.random()*1.4, sym=Math.random()<0.5?'☢️':'⚠️';
+        parcaHTML+='<div class="az5-parcacik" style="left:'+left+'%;animation-delay:'+delay+'s;animation-duration:'+dur+'s;">'+sym+'</div>';
+      }
+      ov.innerHTML=parcaHTML;
+      document.body.appendChild(ov);
+      try{ if(navigator.vibrate) navigator.vibrate([120,60,120,60,200,80,300]); }catch(e){}
+      try{ if(typeof playSound==='function') playSound('gameover'); }catch(e){}
+      setTimeout(()=>{ try{ playSound('timeout'); }catch(e){} }, 700);
+      setTimeout(()=>{ ov.remove(); }, 2700);
+    }
+    az5BadgeOlustur();
+  };
+
+  function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
+  ready(function(){
+    // Sayfa yüklendiğinde, AZ-5 daha önce basılmış ve süre dolmamışsa rozeti sessizce göster
+    let aktif=false; try{ aktif = !!localStorage.getItem(KEY); }catch(e){}
+    if(aktif){
+      const hedef = hedefAl();
+      if(!hedef || hedef - Date.now() <= 0) az5Temizle(false);
+      else az5BadgeOlustur();
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
 </script>
