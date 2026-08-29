@@ -1,5 +1,8 @@
 // Sayı Avcısı Service Worker - Network-first strategy
-// Her açılışta GitHub'dan taze HTML çek, network başarısız olursa cache'i kullan
+// Güncel yayın adresi: https://furher92.github.io/SayiAvcisi/
+// Her açılışta bu adresten taze HTML çek, network başarısız olursa cache'i kullan
+// Not: Bu dosya origin'den bağımsız çalışır (relative fetch) — adres değişse bile kod değişmez,
+// bu satır sadece dokümantasyon/takip amaçlıdır.
 
 const CACHE_NAME = 'sa-cache-alpha2'; // 🔄 Alpha2 için önbellek sürümü artırıldı — eski kullanıcılara zorla güncelleme
 

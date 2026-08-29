@@ -1397,6 +1397,21 @@ setTimeout(() => {
                 <div class="mode-name" style="color:#2ecc71;" id="modeNameYuzde">Yüzde Ustası</div>
                 <div class="mode-desc" id="descYuzde">Yüzde hesapla, canları koru!</div>
             </div>
+            <div class="mode-card" onclick="selectMode('sprint')" style="border-color:rgba(255,180,0,0.5);background:linear-gradient(135deg,#2a1a00,#1a1000);">
+                <div class="mode-icon">⚡</div>
+                <div class="mode-name" style="color:#ffb400;" id="modeNameSprint">Zihin Sprint</div>
+                <div class="mode-desc" id="descSprint">Hızlı basit işlemler, saniyeler önemli!</div>
+            </div>
+            <div class="mode-card" onclick="selectMode('denklem')" style="border-color:rgba(100,180,255,0.5);background:linear-gradient(135deg,#001a2a,#001020);">
+                <div class="mode-icon">🧮</div>
+                <div class="mode-name" style="color:#64b4ff;" id="modeNameDenklem">Denklem Çöz</div>
+                <div class="mode-desc" id="descDenklem">x'i bul, birinci dereceden denklemler!</div>
+            </div>
+            <div class="mode-card" onclick="selectMode('kesir')" style="border-color:rgba(255,140,220,0.5);background:linear-gradient(135deg,#2a0018,#1a0010);">
+                <div class="mode-icon">🍕</div>
+                <div class="mode-name" style="color:#ff8cdc;" id="modeNameKesir">Kesir Ustası</div>
+                <div class="mode-desc" id="descKesir">Kesirleri topla, çıkar, sadeleştir!</div>
+            </div>
             <div class="mode-card" onclick="selectMode('oruntu')" style="border-color:rgba(255,215,0,0.45);background:linear-gradient(135deg,#1a1500,#2a2400);">
                 <div class="mode-icon">🔭</div>
                 <div class="mode-name" style="color:#ffd700;" id="modeNameOruntu">Örüntü Avı</div>
@@ -1715,6 +1730,64 @@ setTimeout(() => {
         <button onclick="playSound('click');submitYuzdeAnswer()" id="yuzdeBtn" style="padding:12px 32px;font-size:15px;background:#042e18;color:#fff;border:2px solid #2ecc71;border-radius:10px;cursor:pointer;font-weight:bold;margin-top:8px;">Cevapla</button>
         <div id="yuzdeMessage" style="font-size:14px;margin-top:10px;font-weight:bold;min-height:44px;color:#2ecc71;text-align:center;"></div>
         <div id="yuzdeScoreDisplay" style="font-size:11px;color:#aaa;margin-top:4px;"></div>
+    </div>
+
+    <!-- ══════════ ZİHİN SPRINT OYUN EKRANI ══════════ -->
+    <div id="sprintGameScreen" style="display:none;flex-direction:column;align-items:center;width:100%;position:relative;">
+        <button class="home-btn" onclick="backToModeSelect()">🏠</button>
+        <div id="sprintQuestionBox" style="background:rgba(255,180,0,0.08);border:1px solid rgba(255,180,0,0.3);border-radius:12px;padding:12px 16px;margin:6px 0;width:100%;text-align:center;">
+            <div style="font-size:10px;color:#ffd480;font-weight:bold;margin-bottom:4px;">⚡ <span id="sprintQuestionLabel">Hızlı İşlem</span></div>
+            <div id="sprintQuestion" style="color:#fff3d6;font-size:24px;line-height:1.7;font-weight:bold;"></div>
+        </div>
+        <div class="hearts" id="sprintHeartsDisplay"></div>
+        <div class="guess-timer-box" id="sprintGuessTimerBox" style="display:none;">
+            <span id="sprintGuessTimerLabel">⏱ Süre: </span><span id="sprintGuessCountdown">8</span> <span>sn</span>
+        </div>
+        <div class="input-group" style="margin-top:6px;">
+            <input type="number" id="sprintInput" placeholder="= ?" style="padding:12px;font-size:18px;border-radius:10px;border:2px solid rgba(255,180,0,0.5);background:rgba(255,255,255,0.07);color:#fff;width:60%;text-align:center;outline:none;font-weight:bold;">
+        </div>
+        <button onclick="playSound('click');submitSprintAnswer()" id="sprintBtn" style="padding:12px 32px;font-size:15px;background:#2a1a00;color:#ffb400;border:2px solid #ffb400;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer;">CEVAPLA</button>
+        <div id="sprintMessage" style="font-size:14px;margin-top:10px;font-weight:bold;min-height:44px;color:#ffb400;text-align:center;"></div>
+        <div id="sprintScoreDisplay" style="font-size:11px;color:#aaa;margin-top:4px;"></div>
+    </div>
+
+    <!-- ══════════ DENKLEM ÇÖZ OYUN EKRANI ══════════ -->
+    <div id="denklemGameScreen" style="display:none;flex-direction:column;align-items:center;width:100%;position:relative;">
+        <button class="home-btn" onclick="backToModeSelect()">🏠</button>
+        <div id="denklemQuestionBox" style="background:rgba(100,180,255,0.08);border:1px solid rgba(100,180,255,0.3);border-radius:12px;padding:12px 16px;margin:6px 0;width:100%;text-align:center;">
+            <div style="font-size:10px;color:#a0d0ff;font-weight:bold;margin-bottom:4px;">🧮 <span id="denklemQuestionLabel">x'i Bul</span></div>
+            <div id="denklemQuestion" style="color:#e0f0ff;font-size:20px;line-height:1.7;font-weight:bold;"></div>
+        </div>
+        <div class="hearts" id="denklemHeartsDisplay"></div>
+        <div class="guess-timer-box" id="denklemGuessTimerBox" style="display:none;">
+            <span id="denklemGuessTimerLabel">⏱ Süre: </span><span id="denklemGuessCountdown">15</span> <span>sn</span>
+        </div>
+        <div class="input-group" style="margin-top:6px;">
+            <input type="number" id="denklemInput" placeholder="x = ?" style="padding:12px;font-size:18px;border-radius:10px;border:2px solid rgba(100,180,255,0.5);background:rgba(255,255,255,0.07);color:#fff;width:60%;text-align:center;outline:none;font-weight:bold;">
+        </div>
+        <button onclick="playSound('click');submitDenklemAnswer()" id="denklemBtn" style="padding:12px 32px;font-size:15px;background:#001a2a;color:#64b4ff;border:2px solid #64b4ff;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer;">CEVAPLA</button>
+        <div id="denklemMessage" style="font-size:14px;margin-top:10px;font-weight:bold;min-height:44px;color:#64b4ff;text-align:center;"></div>
+        <div id="denklemScoreDisplay" style="font-size:11px;color:#aaa;margin-top:4px;"></div>
+    </div>
+
+    <!-- ══════════ KESİR USTASI OYUN EKRANI ══════════ -->
+    <div id="kesirGameScreen" style="display:none;flex-direction:column;align-items:center;width:100%;position:relative;">
+        <button class="home-btn" onclick="backToModeSelect()">🏠</button>
+        <div id="kesirQuestionBox" style="background:rgba(255,140,220,0.08);border:1px solid rgba(255,140,220,0.3);border-radius:12px;padding:12px 16px;margin:6px 0;width:100%;text-align:center;">
+            <div style="font-size:10px;color:#ffb8e8;font-weight:bold;margin-bottom:4px;">🍕 <span id="kesirQuestionLabel">Kesir Sadeleştir/Hesapla</span></div>
+            <div id="kesirQuestion" style="color:#ffe0f5;font-size:24px;line-height:1.7;font-weight:bold;"></div>
+            <div style="color:#ffb8e8;font-size:10px;margin-top:4px;">Cevabı a/b şeklinde (örn: 3/4) ya da sadeleşmiyorsa tam sayı gir</div>
+        </div>
+        <div class="hearts" id="kesirHeartsDisplay"></div>
+        <div class="guess-timer-box" id="kesirGuessTimerBox" style="display:none;">
+            <span id="kesirGuessTimerLabel">⏱ Süre: </span><span id="kesirGuessCountdown">15</span> <span>sn</span>
+        </div>
+        <div class="input-group" style="margin-top:6px;">
+            <input type="text" id="kesirInput" placeholder="a/b" style="padding:12px;font-size:18px;border-radius:10px;border:2px solid rgba(255,140,220,0.5);background:rgba(255,255,255,0.07);color:#fff;width:60%;text-align:center;outline:none;font-weight:bold;">
+        </div>
+        <button onclick="playSound('click');submitKesirAnswer()" id="kesirBtn" style="padding:12px 32px;font-size:15px;background:#2a0018;color:#ff8cdc;border:2px solid #ff8cdc;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer;">CEVAPLA</button>
+        <div id="kesirMessage" style="font-size:14px;margin-top:10px;font-weight:bold;min-height:44px;color:#ff8cdc;text-align:center;"></div>
+        <div id="kesirScoreDisplay" style="font-size:11px;color:#aaa;margin-top:4px;"></div>
     </div>
 
     <!-- 🔭 ÖRÜNTÜ AVI -->
@@ -6048,9 +6121,17 @@ function setLang(lang) {
         afcTwoName: { tr:'AFC Şampiyonlar Ligi Two', en:'AFC Champions League Two', it:'AFC Champions League Two', es:'AFC Champions League Two', ka:'AFC ჩემპიონთა ლიგა Two', az:'AFC Çempionlar Liqası Two', ja:'AFCチャンピオンズリーグ Two', zh:'亚冠联赛第二级', de:'AFC Champions League Two', fr:'Ligue des Champions AFC Two', el:'AFC Champions League Two', ru:'Лига чемпионов АФК Two', ar:'دوري أبطال آسيا Two', pt:'Liga dos Campeões AFC Two', uk:'Ліга чемпіонів АФК Two', fa:'لیگ قهرمانان AFC دو', ko:'AFC 챔피언스리그 투', nl:'AFC Champions League Two', sv:'AFC Champions League Two', no:'AFC Champions League Two', cs:'AFC Champions League Two', bs:'AFC Ligaša Two', hr:'AFC Liga prvaka Two', uz:'AFC Chempionlar ligasi Two', ht:'AFC Lig Chanpyon Two', id:'AFC Champions League Two', hi:'AFC चैंपियंस लीग टू' },
         afcChallengeName: { tr:'AFC Challenge Ligi', en:'AFC Challenge League', it:'AFC Challenge League', es:'AFC Challenge League', ka:'AFC Challenge ლიგა', az:'AFC Challenge Liqası', ja:'AFCチャレンジリーグ', zh:'亚足联挑战者联赛', de:'AFC Challenge League', fr:'Ligue AFC Challenge', el:'AFC Challenge League', ru:'Лига АФК Challenge', ar:'دوري AFC تشالنج', pt:'Liga AFC Challenge', uk:'Ліга АФК Челлендж', fa:'لیگ چالش AFC', ko:'AFC 챌린지 리그', nl:'AFC Challenge League', sv:'AFC Challenge League', no:'AFC Challenge League', cs:'AFC Challenge League', bs:'AFC Challenge Liga', hr:'AFC Challenge Liga', uz:'AFC Challenge ligasi', ht:'AFC Lig Defi', id:'AFC Challenge League', hi:'AFC चैलेंज लीग' },
         afcDesc: { tr:'Elite · 14-16 Eyl 2026 · Two · 15-17 Eyl 2026 · Challenge · 28 Tem 2026', en:'Elite · Sep 14-16 2026 · Two · Sep 15-17 2026 · Challenge · Jul 28 2026', it:'Elite · 14-16 Set 2026 · Two · 15-17 Set 2026 · Challenge · 28 Lug 2026', es:'Elite · 14-16 Sep 2026 · Two · 15-17 Sep 2026 · Challenge · 28 Jul 2026', ka:'Elite · 14-16 სექ 2026 · Two · 15-17 სექ 2026 · Challenge · 28 ივლ 2026', az:'Elite · 14-16 Sep 2026 · Two · 15-17 Sep 2026 · Challenge · 28 İyl 2026', ja:'Elite · 9月14-16日 · Two · 9月15-17日 · Challenge · 7月28日', zh:'Elite · 9月14-16日 · Two · 9月15-17日 · Challenge · 7月28日', de:'Elite · 14.-16. Sep 2026 · Two · 15.-17. Sep 2026 · Challenge · 28. Jul 2026', fr:'Elite · 14-16 Sep 2026 · Two · 15-17 Sep 2026 · Challenge · 28 Juil 2026', el:'Elite · 14-16 Σεπ 2026 · Two · 15-17 Σεπ 2026 · Challenge · 28 Ιουλ 2026', ru:'Elite · 14-16 сент. 2026 · Two · 15-17 сент. 2026 · Challenge · 28 июл. 2026', ar:'Elite · 14-16 سبتمبر 2026 · Two · 15-17 سبتمبر 2026 · Challenge · 28 يوليو 2026', pt:'Elite · 14-16 Set 2026 · Two · 15-17 Set 2026 · Challenge · 28 Jul 2026', uk:'Elite · 14-16 вер. 2026 · Two · 15-17 вер. 2026 · Challenge · 28 лип. 2026', fa:'Elite · 14-16 سپتامبر 2026 · Two · 15-17 سپتامبر 2026 · Challenge · 28 ژوئیه 2026', ko:'Elite · 9월 14-16일 · Two · 9월 15-17일 · Challenge · 7월 28일', nl:'Elite · 14-16 sep 2026 · Two · 15-17 sep 2026 · Challenge · 28 jul 2026', sv:'Elite · 14-16 sep 2026 · Two · 15-17 sep 2026 · Challenge · 28 jul 2026', no:'Elite · 14-16 sep 2026 · Two · 15-17 sep 2026 · Challenge · 28 jul 2026', cs:'Elite · 14-16 zář 2026 · Two · 15-17 zář 2026 · Challenge · 28 čvc 2026', bs:'Elite · 14-16 sep 2026 · Two · 15-17 sep 2026 · Challenge · 28 jul 2026', hr:'Elite · 14-16 ruj 2026 · Two · 15-17 ruj 2026 · Challenge · 28 srp 2026', uz:'Elite · 14-16 Sen 2026 · Two · 15-17 Sen 2026 · Challenge · 28 Iyl 2026', ht:'Elite · 14-16 Sep 2026 · Two · 15-17 Sep 2026 · Challenge · 28 Jiyè 2026', id:'Elite · 14-16 Sep 2026 · Two · 15-17 Sep 2026 · Challenge · 28 Jul 2026', hi:'एलीट · 14-16 सित 2026 · टू · 15-17 सित 2026 · चैलेंज · 28 जुल 2026' },
+        // --- 29 Ağu 2026: Sprint / Denklem / Kesir modları (son 3 mod, tüm dillere çevrildi) ---
+        sprintName: { tr:'Zihin Sprint', en:'Mind Sprint', id:'Sprint Pikiran', hi:'दिमागी स्प्रिंट', it:'Sprint Mentale', es:'Sprint Mental', ka:'გონების სპრინტი', az:'Zehni Sprint', ja:'マインドスプリント', zh:'心算冲刺', de:'Kopf-Sprint', fr:'Sprint Mental', el:'Νοητικό Σπριντ', ru:'Ментальный Спринт', ar:'سباق ذهني', pt:'Sprint Mental', uk:'Ментальний Спринт', fa:'اسپرینت ذهنی', ko:'마인드 스프린트', nl:'Denk Sprint', sv:'Mentalt Sprint', no:'Mental Sprint', cs:'Myšlenkový Sprint', bs:'Mentalni Sprint', hr:'Mentalni Sprint', uz:'Aqliy Sprint', ht:'Kous Lespri' },
+        sprintDesc: { tr:'Hızlı basit işlemler, saniyeler önemli!', en:'Fast simple math, every second counts!', id:'Matematika cepat, setiap detik berarti!', hi:'तेज़ आसान गणित, हर सेकंड मायने रखता है!', it:'Calcoli veloci, ogni secondo conta!', es:'Cálculos rápidos, ¡cada segundo cuenta!', ka:'სწრაფი მარტივი მაგალითები, წამები მნიშვნელოვანია!', az:'Sürətli sadə əməliyyatlar, saniyələr önəmlidir!', ja:'素早い計算、一秒を大切に！', zh:'快速简单运算，分秒必争！', de:'Schnelle einfache Aufgaben, jede Sekunde zählt!', fr:'Calculs simples et rapides, chaque seconde compte!', el:'Γρήγορες απλές πράξεις, κάθε δευτερόλεπτο μετράει!', ru:'Быстрые простые примеры, важна каждая секунда!', ar:'عمليات بسيطة سريعة، كل ثانية مهمة!', pt:'Cálculos rápidos, cada segundo conta!', uk:'Швидкі прості приклади, кожна секунда важлива!', fa:'محاسبات سریع و ساده، هر ثانیه مهم است!', ko:'빠른 간단 계산, 1초가 중요해요!', nl:'Snelle simpele sommen, elke seconde telt!', sv:'Snabba enkla uträkningar, varje sekund räknas!', no:'Raske enkle regnestykker, hvert sekund teller!', cs:'Rychlé jednoduché příklady, každá vteřina se počítá!', bs:'Brzi jednostavni računi, svaka sekunda je bitna!', hr:'Brzi jednostavni računi, svaka sekunda je bitna!', uz:'Tez oddiy misollar, har soniya muhim!', ht:'Kalkil senp vit, chak segond konte!' },
+        denklemName: { tr:'Denklem Çöz', en:'Solve the Equation', id:'Selesaikan Persamaan', hi:'समीकरण हल करें', it:"Risolvi l'Equazione", es:'Resuelve la Ecuación', ka:'განტოლების ამოხსნა', az:'Tənliyi Həll Et', ja:'方程式を解く', zh:'解方程', de:'Gleichung Lösen', fr:"Résoudre l'Équation", el:'Λύσε την Εξίσωση', ru:'Реши Уравнение', ar:'حل المعادلة', pt:'Resolva a Equação', uk:"Розв'яжи Рівняння", fa:'حل معادله', ko:'방정식 풀기', nl:'Los de Vergelijking Op', sv:'Lös Ekvationen', no:'Løs Ligningen', cs:'Vyřeš Rovnici', bs:'Riješi Jednačinu', hr:'Riješi Jednadžbu', uz:'Tenglamani Yech', ht:'Rezoud Ekwasyon' },
+        denklemDesc: { tr:"x'i bul, birinci dereceden denklemler!", en:'Find x — first-degree equations!', id:'Cari x — persamaan linear!', hi:'x खोजें — प्रथम घात समीकरण!', it:'Trova x — equazioni di primo grado!', es:'Encuentra x — ¡ecuaciones de primer grado!', ka:'იპოვე x — პირველი ხარისხის განტოლებები!', az:'x-i tap — birinci dərəcəli tənliklər!', ja:'xを求めよう — 一次方程式！', zh:'求解x — 一元一次方程！', de:'Finde x — Gleichungen ersten Grades!', fr:'Trouve x — équations du premier degré!', el:'Βρες το x — εξισώσεις πρώτου βαθμού!', ru:'Найди x — линейные уравнения!', ar:'أوجد x — معادلات من الدرجة الأولى!', pt:'Encontre x — equações do primeiro grau!', uk:'Знайди x — лінійні рівняння!', fa:'x را پیدا کن — معادلات درجه اول!', ko:'x를 찾아라 — 일차방정식!', nl:'Vind x — lineaire vergelijkingen!', sv:'Hitta x — förstagradsekvationer!', no:'Finn x — førstegradsligninger!', cs:'Najdi x — lineární rovnice!', bs:'Pronađi x — linearne jednačine!', hr:'Pronađi x — linearne jednadžbe!', uz:'x ni top — birinchi darajali tenglamalar!', ht:'Jwenn x — ekwasyon premye degre!' },
+        kesirName: { tr:'Kesir Ustası', en:'Fraction Master', id:'Master Pecahan', hi:'भिन्न मास्टर', it:'Maestro delle Frazioni', es:'Maestro de Fracciones', ka:'წილადების ოსტატი', az:'Kəsr Ustası', ja:'分数マスター', zh:'分数大师', de:'Bruch-Meister', fr:'Maître des Fractions', el:'Δάσκαλος Κλασμάτων', ru:'Мастер Дробей', ar:'سيد الكسور', pt:'Mestre das Frações', uk:'Майстер Дробів', fa:'استاد کسرها', ko:'분수 마스터', nl:'Breuken Meester', sv:'Bråkmästare', no:'Brøkmester', cs:'Mistr Zlomků', bs:'Majstor Razlomaka', hr:'Majstor Razlomaka', uz:'Kasrlar Ustasi', ht:'Mèt Fraksyon' },
+        kesirDesc: { tr:'Kesirleri topla, çıkar, sadeleştir!', en:'Add, subtract, and simplify fractions!', id:'Tambah, kurang, sederhanakan pecahan!', hi:'भिन्नों को जोड़ें, घटाएं, सरल करें!', it:'Somma, sottrai e semplifica le frazioni!', es:'¡Suma, resta y simplifica fracciones!', ka:'შეკრიბე, გამოაკელი და გაამარტივე წილადები!', az:'Kəsrləri topla, çıx, sadələşdir!', ja:'分数の足し算・引き算・約分！', zh:'分数加减法与化简！', de:'Brüche addieren, subtrahieren, kürzen!', fr:'Additionne, soustrais et simplifie les fractions!', el:'Πρόσθεσε, αφαίρεσε και απλοποίησε κλάσματα!', ru:'Складывай, вычитай и сокращай дроби!', ar:'اجمع واطرح وبسّط الكسور!', pt:'Some, subtraia e simplifique frações!', uk:'Додавай, віднімай і скорочуй дроби!', fa:'کسرها را جمع، تفریق و ساده کن!', ko:'분수를 더하고 빼고 약분하세요!', nl:'Tel op, trek af en vereenvoudig breuken!', sv:'Addera, subtrahera och förenkla bråk!', no:'Legg til, trekk fra og forenkle brøker!', cs:'Sčítej, odčítej a krátit zlomky!', bs:'Sabiraj, oduzimaj i skraćuj razlomke!', hr:'Zbrajaj, oduzimaj i skrati razlomke!', uz:"Kasrlarni qo'sh, ayir, qisqart!", ht:'Adisyone, soustrè, ak senplifye fraksyon!' },
         };
 
     const getNM = (key) => (NEW_MODES_TR[key] && (NEW_MODES_TR[key][lang] || NEW_MODES_TR[key]['tr'])) || '';
+    window.getNM = getNM; // 29 Ağu 2026: diğer modüllerin (profil, zayıf nokta) mod adlarını çevirebilmesi için global yapıldı
     const _set = (id, txt) => { const e = document.getElementById(id); if(e) e.textContent = txt; };
     const _setHTML = (id, html) => { const e = document.getElementById(id); if(e) e.innerHTML = html; };
 
@@ -6069,6 +6150,26 @@ function setLang(lang) {
     _setHTML('descPerm', getNM('permDesc')+'');
     _set('modeNameAxiom', getNM('axiomName'));
     _setHTML('descAxiom', getNM('axiomDesc')+'');
+    // 29 Ağu 2026: Sprint / Denklem / Kesir modları
+    _set('modeNameSprint', getNM('sprintName'));
+    _set('descSprint', getNM('sprintDesc'));
+    _set('modeNameDenklem', getNM('denklemName'));
+    _set('descDenklem', getNM('denklemDesc'));
+    _set('modeNameKesir', getNM('kesirName'));
+    _set('descKesir', getNM('kesirDesc'));
+    // 29 Ağu 2026: yeni özelliklerin ekran içi statik etiketleri (getEK üzerinden)
+    try{
+      if(typeof window.getEK === 'function'){
+        _set('sprintQuestionLabel', getEK('sprintQuestionLabel'));
+        _set('denklemQuestionLabel', getEK('denklemQuestionLabel'));
+        _set('kesirQuestionLabel', getEK('kesirQuestionLabel'));
+        const kesirBox = document.getElementById('kesirQuestionBox');
+        if(kesirBox){
+          const ipucuEl = kesirBox.querySelector('div[style*="margin-top:4px"]');
+          if(ipucuEl) ipucuEl.textContent = getEK('kesirHint');
+        }
+      }
+    }catch(e){}
     // ⭐ AYT 2026 modları
     _set('modeNameTurev', getNM('turevName'));
     _setHTML('descTurev', '<span style="color:#fbcfe8;">'+getNM('turevDesc')+'</span><br><span style="font-size:9px;color:#ec4899;background:rgba(236,72,153,0.18);padding:1px 5px;border-radius:4px;">⭐ AYT 2026</span>');
@@ -6269,6 +6370,15 @@ function selectMode(mode) {
     } else if (mode === 'yuzde') {
         setDisplay('modeScreen','none');
         startYuzde();
+    } else if (mode === 'sprint') {
+        setDisplay('modeScreen','none');
+        startSprint();
+    } else if (mode === 'denklem') {
+        setDisplay('modeScreen','none');
+        startDenklem();
+    } else if (mode === 'kesir') {
+        setDisplay('modeScreen','none');
+        startKesir();
     } else if (mode === 'oruntu') {
         setDisplay('modeScreen','none');
         startOruntu();
@@ -6588,7 +6698,7 @@ function backToModeSelect() {
     ['difficultyScreen','ebobDiffScreen','ebobGameScreen',
      'islemDiffScreen','islemGameScreen','fonkDiffScreen','fonkGameScreen',
      'sozelDiffScreen','sozelGameScreen','futbolDiffScreen','futbolGameScreen',
-     'uclGameScreen','friendlyGameScreen','hizDiffScreen','hizGameScreen','yuzdeGameScreen','oruntuGameScreen','permDiffScreen','permGameScreen','axiomDiffScreen','axiomGameScreen','wc26CountryScreen','wc26TournamentScreen','wc26MatchScreen','confedCountryScreen','confedTournamentScreen','confedMatchScreen','nlCountryScreen','nlTournamentScreen','nlMatchScreen','scMatchScreen','scTeamScreen','tytDiffScreen','tytGameScreen','gameScreen','uclSelectScreen','uclBracketScreen','uelSelectScreen','uelBracketScreen','ueclSelectScreen','ueclBracketScreen','afcTierScreen','afcSelectScreen','afcBracketScreen'].forEach(id => setDisplay(id,'none'));
+     'uclGameScreen','friendlyGameScreen','hizDiffScreen','hizGameScreen','yuzdeGameScreen','sprintGameScreen','denklemGameScreen','kesirGameScreen','oruntuGameScreen','permDiffScreen','permGameScreen','axiomDiffScreen','axiomGameScreen','wc26CountryScreen','wc26TournamentScreen','wc26MatchScreen','confedCountryScreen','confedTournamentScreen','confedMatchScreen','nlCountryScreen','nlTournamentScreen','nlMatchScreen','scMatchScreen','scTeamScreen','tytDiffScreen','tytGameScreen','gameScreen','uclSelectScreen','uclBracketScreen','uelSelectScreen','uelBracketScreen','ueclSelectScreen','ueclBracketScreen','afcTierScreen','afcSelectScreen','afcBracketScreen'].forEach(id => setDisplay(id,'none'));
     // Turnuva maç bayraklarını da temizle
     window._uclMatchActive = false; window._uelMatchActive = false; window._ueclMatchActive = false; window._afcMatchActive = false;
     // modeScreen göster
@@ -7124,6 +7234,8 @@ function endUniversalCooldown() {
     setDisplay('friendlyGameScreen','none');
     setDisplay('hizGameScreen','none'); setDisplay('hizDiffScreen','none');
     setDisplay('yuzdeGameScreen','none');
+    setDisplay('sprintGameScreen','none');
+    setDisplay('denklemGameScreen','none');
     setDisplay('permGameScreen','none'); setDisplay('permDiffScreen','none');
     setDisplay('axiomGameScreen','none'); setDisplay('axiomDiffScreen','none');
     setDisplay('heartsDisplay', 'block');
@@ -7144,9 +7256,15 @@ function endCooldown() { endUniversalCooldown(); }
 // ══════════ OYUN SONU BUTONLARI ══════════
 function gameOverBtnsHTML(mode, diff, restartFn) {
     const L = LANG[currentLang]||LANG['tr'];
+    // 📤 Evrensel paylaşım butonu — her modun kendi <mod>Score değişkenini window üzerinden okur.
+    // 'guess' (Sayı Avcısı'nın kendisi) FARKLI bir mekanik kullanıyor (puan değil, gameStats.wins) — özel durum.
+    const skorIfadesi = (mode==='guess') ? "(window.gameStats&&window.gameStats.wins)||0" : "window['"+mode+"Score']||0";
+    const paylasOnclick = "paylasimKartiOlustur("+skorIfadesi+", null, '"+(mode.charAt(0).toUpperCase()+mode.slice(1))+"')";
+    const EKgb = (k)=> (typeof window.getEK==='function') ? window.getEK(k) : '📤 Paylaş';
     return '<div style="display:flex;gap:6px;justify-content:center;margin-top:10px;flex-wrap:wrap;">'
         + '<button onclick="'+restartFn+'(\''+diff+'\')" style="padding:7px 14px;font-size:12px;">🔄 '+(L.playAgain||'Tekrar')+'</button>'
         + '<button onclick="'+restartFn+'(\''+diff+'\')" style="padding:7px 14px;font-size:12px;background:#1a3a1a;border-color:#66dd66;color:#66dd66;">➡ '+(L.continueBtn||'Devam')+'</button>'
+        + '<button onclick="'+paylasOnclick+'" style="padding:7px 14px;font-size:12px;background:#0a2a4a;border-color:#4da8ff;color:#4da8ff;">'+EKgb('paylasBtn')+'</button>'
         + '<button onclick="backToModeSelect()" style="padding:7px 14px;font-size:12px;background:#111;border-color:#555;color:#555;">🏠 '+(L.homeBtn||'Ana Ekran')+'</button>'
         + '</div>';
 }
@@ -8943,6 +9061,10 @@ function startHiz(diff){
 
 // ══════════ YÜZDE USTASI — basit ama tam çalışan yeni mod ══════════
 let yuzdeScore = 0, yuzdeLives = 4, yuzdeCorrectAnswer = 0, yuzdeGameOver = false;
+let sprintScore = 0, sprintLives = 4, sprintCorrectAnswer = 0, sprintGameOver = false, sprintGuessTimerVar = null;
+const SPRINT_HEART = '❤️';
+let denklemScore = 0, denklemLives = 4, denklemCorrectAnswer = 0, denklemGameOver = false, denklemGuessTimerVar = null;
+const DENKLEM_HEART = '❤️';
 let yuzdeGuessTimerVar = null;
 const YUZDE_HEART = '💚';
 
@@ -9048,6 +9170,323 @@ function submitYuzdeAnswer(){
 document.addEventListener('keydown', e => {
     if (e.key==='Enter' && document.getElementById('yuzdeGameScreen') &&
         document.getElementById('yuzdeGameScreen').style.display==='flex') submitYuzdeAnswer();
+});
+
+// ══════════ ⚡ ZİHİN SPRINT — hızlı basit işlem modu ══════════
+function generateSprintQuestion(){
+    const tipler=['topla','cikar','carp'];
+    const tip = tipler[Math.floor(Math.random()*tipler.length)];
+    let a,b,cevap,soru;
+    if(tip==='topla'){ a=Math.floor(Math.random()*40)+1; b=Math.floor(Math.random()*40)+1; cevap=a+b; soru=a+' + '+b; }
+    else if(tip==='cikar'){ a=Math.floor(Math.random()*40)+10; b=Math.floor(Math.random()*(a-1))+1; cevap=a-b; soru=a+' - '+b; }
+    else { a=Math.floor(Math.random()*10)+2; b=Math.floor(Math.random()*10)+2; cevap=a*b; soru=a+' × '+b; }
+    return { soru: soru, cevap: cevap };
+}
+function startSprint(){
+    sprintScore = 0; sprintLives = 4; sprintGameOver = false;
+    setDisplay('sprintGameScreen','flex');
+    setText('sprintHeartsDisplay', SPRINT_HEART.repeat(sprintLives));
+    setDisabled('sprintInput', false); setDisabled('sprintBtn', false);
+    startMusic();
+    nextSprintQuestion();
+}
+function startSprintGuessTimer(){
+    const box = document.getElementById('sprintGuessTimerBox');
+    const span = document.getElementById('sprintGuessCountdown');
+    let timeLeft = 8; // Sprint modu kasıtlı olarak KISA süreli — hız odaklı
+    if (box) box.style.display = 'block';
+    if (span) span.innerText = timeLeft;
+    clearInterval(sprintGuessTimerVar);
+    sprintGuessTimerVar = setInterval(() => {
+        timeLeft--;
+        if (span) span.innerText = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(sprintGuessTimerVar);
+            try{ playSound('timeout'); }catch(e){}
+            if (!sprintGameOver) {
+                const L = LANG[currentLang]||LANG['tr'];
+                sprintLives--;
+                setText('sprintHeartsDisplay', SPRINT_HEART.repeat(Math.max(0,sprintLives)));
+                if (sprintLives <= 0) {
+                    sprintGameOver = true;
+                    setHTML('sprintMessage',' <span style="color:#e74c3c;">'+(L.timeUpDead||'Süre doldu!')+'</span> '+sprintCorrectAnswer
+                        + gameOverBtnsHTML('sprint', null, 'startSprint'));
+                    playSound('gameover'); stopMusic();
+                    setDisabled('sprintBtn', true); setDisabled('sprintInput', true);
+                    if (box) box.style.display = 'none';
+                } else {
+                    setHTML('sprintMessage','<span style="color:#ff6666;">'+(L.timeUp||'⏰ Süre doldu! Bir can kaybettin.')+'</span> '+sprintCorrectAnswer);
+                    setTimeout(()=>{ if(!sprintGameOver) nextSprintQuestion(); }, 900);
+                }
+            }
+        }
+    }, 1000);
+}
+function nextSprintQuestion(){
+    const L = LANG[currentLang]||LANG['tr'];
+    const q = generateSprintQuestion();
+    sprintCorrectAnswer = q.cevap;
+    setText('sprintQuestion', q.soru);
+    setText('sprintMessage','');
+    setText('sprintScoreDisplay', (L.sozelScore||'Puan:')+' '+sprintScore);
+    const inp = document.getElementById('sprintInput');
+    if (inp) { inp.value=''; inp.focus(); }
+    startSprintGuessTimer();
+}
+function submitSprintAnswer(){
+    clearInterval(sprintGuessTimerVar);
+    if (sprintGameOver) return;
+    const L = LANG[currentLang]||LANG['tr'];
+    const inp = document.getElementById('sprintInput');
+    const val = parseFloat(inp ? inp.value : '');
+    if (isNaN(val)) { setText('sprintMessage','🤔'); return; }
+    if (val === sprintCorrectAnswer) {
+        sprintScore++; playSound('win');
+        setHTML('sprintMessage','<span style="color:#00e5aa;">'+(L.sozelCorrect||'✅ Doğru!')+'</span>');
+        setText('sprintScoreDisplay', (L.sozelScore||'Puan:')+' '+sprintScore);
+        setTimeout(()=>{ if(!sprintGameOver) nextSprintQuestion(); }, 500); // sprintte bekleme de kısa
+    } else {
+        sprintLives--; playSound('wrong');
+        setText('sprintHeartsDisplay', SPRINT_HEART.repeat(Math.max(0,sprintLives)));
+        if (sprintLives <= 0) {
+            sprintGameOver = true;
+            setHTML('sprintMessage','💥 <span style="color:#e74c3c;">'+(L.sozelLose||'Canın bitti!')+' '+sprintCorrectAnswer+'</span>'
+                + gameOverBtnsHTML('sprint', null, 'startSprint'));
+            playSound('gameover'); stopMusic();
+            setDisabled('sprintBtn', true); setDisabled('sprintInput', true);
+        } else {
+            setHTML('sprintMessage','<span style="color:#ff6666;">'+(L.sozelWrong||'❌ Yanlış!')+' '+sprintCorrectAnswer+'</span>');
+            setTimeout(()=>{ if(!sprintGameOver) nextSprintQuestion(); }, 900);
+        }
+    }
+    if (inp) { inp.value=''; inp.focus(); }
+}
+document.addEventListener('keydown', e => {
+    if (e.key==='Enter' && document.getElementById('sprintGameScreen') &&
+        document.getElementById('sprintGameScreen').style.display==='flex') submitSprintAnswer();
+});
+
+// ══════════ 🧮 DENKLEM ÇÖZ — birinci dereceden denklem, x bul ══════════
+function generateDenklemQuestion(){
+    // ax + b = c formunda, x her zaman tam sayı olacak şekilde geriye doğru üretiliyor
+    const a = Math.floor(Math.random()*8)+2; // 2-9
+    const x = Math.floor(Math.random()*15)-5; // -5 ile 9 arası (negatif de olabilir, ilginç olsun)
+    const b = Math.floor(Math.random()*20)-10; // -10 ile 9 arası
+    const c = a*x + b;
+    const bMetin = b===0 ? '' : (b>0 ? (' + '+b) : (' - '+Math.abs(b)));
+    const soru = a+'x'+bMetin+' = '+c;
+    return { soru: soru, cevap: x };
+}
+function startDenklem(){
+    denklemScore = 0; denklemLives = 4; denklemGameOver = false;
+    setDisplay('denklemGameScreen','flex');
+    setText('denklemHeartsDisplay', DENKLEM_HEART.repeat(denklemLives));
+    setDisabled('denklemInput', false); setDisabled('denklemBtn', false);
+    startMusic();
+    nextDenklemQuestion();
+}
+function startDenklemGuessTimer(){
+    const box = document.getElementById('denklemGuessTimerBox');
+    const span = document.getElementById('denklemGuessCountdown');
+    let timeLeft = 15;
+    if (box) box.style.display = 'block';
+    if (span) span.innerText = timeLeft;
+    clearInterval(denklemGuessTimerVar);
+    denklemGuessTimerVar = setInterval(() => {
+        timeLeft--;
+        if (span) span.innerText = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(denklemGuessTimerVar);
+            try{ playSound('timeout'); }catch(e){}
+            if (!denklemGameOver) {
+                const L = LANG[currentLang]||LANG['tr'];
+                denklemLives--;
+                setText('denklemHeartsDisplay', DENKLEM_HEART.repeat(Math.max(0,denklemLives)));
+                if (denklemLives <= 0) {
+                    denklemGameOver = true;
+                    setHTML('denklemMessage',' <span style="color:#e74c3c;">'+(L.timeUpDead||'Süre doldu!')+'</span> x='+denklemCorrectAnswer
+                        + gameOverBtnsHTML('denklem', null, 'startDenklem'));
+                    playSound('gameover'); stopMusic();
+                    setDisabled('denklemBtn', true); setDisabled('denklemInput', true);
+                    if (box) box.style.display = 'none';
+                } else {
+                    setHTML('denklemMessage','<span style="color:#ff6666;">'+(L.timeUp||'⏰ Süre doldu! Bir can kaybettin.')+'</span> x='+denklemCorrectAnswer);
+                    setTimeout(()=>{ if(!denklemGameOver) nextDenklemQuestion(); }, 1100);
+                }
+            }
+        }
+    }, 1000);
+}
+function nextDenklemQuestion(){
+    const L = LANG[currentLang]||LANG['tr'];
+    const q = generateDenklemQuestion();
+    denklemCorrectAnswer = q.cevap;
+    setText('denklemQuestion', q.soru);
+    setText('denklemMessage','');
+    setText('denklemScoreDisplay', (L.sozelScore||'Puan:')+' '+denklemScore);
+    const inp = document.getElementById('denklemInput');
+    if (inp) { inp.value=''; inp.focus(); }
+    startDenklemGuessTimer();
+}
+function submitDenklemAnswer(){
+    clearInterval(denklemGuessTimerVar);
+    if (denklemGameOver) return;
+    const L = LANG[currentLang]||LANG['tr'];
+    const inp = document.getElementById('denklemInput');
+    const val = parseFloat(inp ? inp.value : '');
+    if (isNaN(val)) { setText('denklemMessage','🤔'); return; }
+    if (val === denklemCorrectAnswer) {
+        denklemScore++; playSound('win');
+        setHTML('denklemMessage','<span style="color:#00e5aa;">'+(L.sozelCorrect||'✅ Doğru!')+'</span>');
+        setText('denklemScoreDisplay', (L.sozelScore||'Puan:')+' '+denklemScore);
+        setTimeout(()=>{ if(!denklemGameOver) nextDenklemQuestion(); }, 900);
+    } else {
+        denklemLives--; playSound('wrong');
+        setText('denklemHeartsDisplay', DENKLEM_HEART.repeat(Math.max(0,denklemLives)));
+        if (denklemLives <= 0) {
+            denklemGameOver = true;
+            setHTML('denklemMessage','💥 <span style="color:#e74c3c;">'+(L.sozelLose||'Canın bitti!')+' x='+denklemCorrectAnswer+'</span>'
+                + gameOverBtnsHTML('denklem', null, 'startDenklem'));
+            playSound('gameover'); stopMusic();
+            setDisabled('denklemBtn', true); setDisabled('denklemInput', true);
+        } else {
+            setHTML('denklemMessage','<span style="color:#ff6666;">'+(L.sozelWrong||'❌ Yanlış!')+' x='+denklemCorrectAnswer+'</span>');
+            setTimeout(()=>{ if(!denklemGameOver) nextDenklemQuestion(); }, 1100);
+        }
+    }
+    if (inp) { inp.value=''; inp.focus(); }
+}
+document.addEventListener('keydown', e => {
+    if (e.key==='Enter' && document.getElementById('denklemGameScreen') &&
+        document.getElementById('denklemGameScreen').style.display==='flex') submitDenklemAnswer();
+});
+
+// ══════════ 🍕 KESİR USTASI — toplama/çıkarma/sadeleştirme ══════════
+let kesirScore = 0, kesirLives = 4, kesirCorrectPay = 0, kesirCorrectPayda = 1, kesirGameOver = false, kesirGuessTimerVar = null;
+const KESIR_HEART = '❤️';
+
+function kesirSadelestir(pay, payda){
+    if(payda < 0){ pay = -pay; payda = -payda; } // payda hep pozitif kalsın
+    const g = gcd(Math.abs(pay), Math.abs(payda)) || 1;
+    return { pay: pay/g, payda: payda/g };
+}
+function generateKesirQuestion(){
+    const tipler = ['topla','cikar','sadelestir'];
+    const tip = tipler[Math.floor(Math.random()*3)];
+    if(tip === 'sadelestir'){
+        const d = Math.floor(Math.random()*8)+2;
+        const p = Math.floor(Math.random()*(d-1))+1;
+        const k = Math.floor(Math.random()*5)+2;
+        const dogru = kesirSadelestir(p*k, d*k);
+        return { soru: (p*k)+'/'+(d*k)+' = ? (sadeleştir)', pay: dogru.pay, payda: dogru.payda };
+    }
+    const d1 = Math.floor(Math.random()*8)+2, d2 = Math.floor(Math.random()*8)+2;
+    const p1 = Math.floor(Math.random()*(d1-1))+1, p2 = Math.floor(Math.random()*(d2-1))+1;
+    let payToplam, soruMetni;
+    if(tip === 'topla'){ payToplam = p1*d2 + p2*d1; soruMetni = p1+'/'+d1+' + '+p2+'/'+d2; }
+    else { payToplam = p1*d2 - p2*d1; soruMetni = p1+'/'+d1+' - '+p2+'/'+d2; }
+    const dogru = kesirSadelestir(payToplam, d1*d2);
+    return { soru: soruMetni+' = ?', pay: dogru.pay, payda: dogru.payda };
+}
+function kesirCevabiAyristir(str){
+    if(!str) return null;
+    str = str.trim();
+    if(str.indexOf('/') > -1){
+        const parcalar = str.split('/');
+        if(parcalar.length !== 2) return null;
+        const p = parseInt(parcalar[0],10), d = parseInt(parcalar[1],10);
+        if(isNaN(p) || isNaN(d) || d===0) return null;
+        return { pay:p, payda:d };
+    }
+    const tam = parseInt(str,10);
+    if(isNaN(tam)) return null;
+    return { pay: tam, payda: 1 };
+}
+function startKesir(){
+    kesirScore = 0; kesirLives = 4; kesirGameOver = false;
+    setDisplay('kesirGameScreen','flex');
+    setText('kesirHeartsDisplay', KESIR_HEART.repeat(kesirLives));
+    setDisabled('kesirInput', false); setDisabled('kesirBtn', false);
+    startMusic();
+    nextKesirQuestion();
+}
+function startKesirGuessTimer(){
+    const box = document.getElementById('kesirGuessTimerBox');
+    const span = document.getElementById('kesirGuessCountdown');
+    let timeLeft = 15;
+    if (box) box.style.display = 'block';
+    if (span) span.innerText = timeLeft;
+    clearInterval(kesirGuessTimerVar);
+    kesirGuessTimerVar = setInterval(() => {
+        timeLeft--;
+        if (span) span.innerText = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(kesirGuessTimerVar);
+            try{ playSound('timeout'); }catch(e){}
+            if (!kesirGameOver) {
+                const L = LANG[currentLang]||LANG['tr'];
+                kesirLives--;
+                setText('kesirHeartsDisplay', KESIR_HEART.repeat(Math.max(0,kesirLives)));
+                const dogruMetin = kesirCorrectPayda===1 ? String(kesirCorrectPay) : (kesirCorrectPay+'/'+kesirCorrectPayda);
+                if (kesirLives <= 0) {
+                    kesirGameOver = true;
+                    setHTML('kesirMessage',' <span style="color:#e74c3c;">'+(L.timeUpDead||'Süre doldu!')+'</span> '+dogruMetin
+                        + gameOverBtnsHTML('kesir', null, 'startKesir'));
+                    playSound('gameover'); stopMusic();
+                    setDisabled('kesirBtn', true); setDisabled('kesirInput', true);
+                    if (box) box.style.display = 'none';
+                } else {
+                    setHTML('kesirMessage','<span style="color:#ff6666;">'+(L.timeUp||'⏰ Süre doldu! Bir can kaybettin.')+'</span> '+dogruMetin);
+                    setTimeout(()=>{ if(!kesirGameOver) nextKesirQuestion(); }, 1100);
+                }
+            }
+        }
+    }, 1000);
+}
+function nextKesirQuestion(){
+    const L = LANG[currentLang]||LANG['tr'];
+    const q = generateKesirQuestion();
+    kesirCorrectPay = q.pay; kesirCorrectPayda = q.payda;
+    setText('kesirQuestion', q.soru);
+    setText('kesirMessage','');
+    setText('kesirScoreDisplay', (L.sozelScore||'Puan:')+' '+kesirScore);
+    const inp = document.getElementById('kesirInput');
+    if (inp) { inp.value=''; inp.focus(); }
+    startKesirGuessTimer();
+}
+function submitKesirAnswer(){
+    clearInterval(kesirGuessTimerVar);
+    if (kesirGameOver) return;
+    const L = LANG[currentLang]||LANG['tr'];
+    const inp = document.getElementById('kesirInput');
+    const girilen = kesirCevabiAyristir(inp ? inp.value : '');
+    const dogruMetin = kesirCorrectPayda===1 ? String(kesirCorrectPay) : (kesirCorrectPay+'/'+kesirCorrectPayda);
+    if (!girilen) { setText('kesirMessage','🤔'); return; }
+    const dogruMu = (girilen.pay === kesirCorrectPay && girilen.payda === kesirCorrectPayda);
+    if (dogruMu) {
+        kesirScore++; playSound('win');
+        setHTML('kesirMessage','<span style="color:#00e5aa;">'+(L.sozelCorrect||'✅ Doğru!')+'</span>');
+        setText('kesirScoreDisplay', (L.sozelScore||'Puan:')+' '+kesirScore);
+        setTimeout(()=>{ if(!kesirGameOver) nextKesirQuestion(); }, 900);
+    } else {
+        kesirLives--; playSound('wrong');
+        setText('kesirHeartsDisplay', KESIR_HEART.repeat(Math.max(0,kesirLives)));
+        if (kesirLives <= 0) {
+            kesirGameOver = true;
+            setHTML('kesirMessage','💥 <span style="color:#e74c3c;">'+(L.sozelLose||'Canın bitti!')+' '+dogruMetin+'</span>'
+                + gameOverBtnsHTML('kesir', null, 'startKesir'));
+            playSound('gameover'); stopMusic();
+            setDisabled('kesirBtn', true); setDisabled('kesirInput', true);
+        } else {
+            setHTML('kesirMessage','<span style="color:#ff6666;">'+(L.sozelWrong||'❌ Yanlış!')+' '+dogruMetin+'</span>');
+            setTimeout(()=>{ if(!kesirGameOver) nextKesirQuestion(); }, 1100);
+        }
+    }
+    if (inp) { inp.value=''; inp.focus(); }
+}
+document.addEventListener('keydown', e => {
+    if (e.key==='Enter' && document.getElementById('kesirGameScreen') &&
+        document.getElementById('kesirGameScreen').style.display==='flex') submitKesirAnswer();
 });
 
 
@@ -13192,6 +13631,10 @@ const _origSelectMode = window.selectMode || (function(){ });
         _dbgUpdate();
     }
 
+    // 🔧 GERÇEK RAM TESPİTİ: navigator.deviceMemory tarayıcı standardı (Chrome/Huawei WebView'de çalışır,
+    // Safari/Firefox desteklemez — o durumda null kalır, panelde "Desteklenmiyor" gösterilir, boş "?" değil).
+    window._perfMem = (typeof navigator.deviceMemory === 'number') ? navigator.deviceMemory : null;
+
     window._dbgToggle = function() {
         var corner = document.getElementById('_dbgCorner');
         var p = document.getElementById('_dbgPanel');
@@ -13205,7 +13648,7 @@ const _origSelectMode = window.selectMode || (function(){ });
             corner.style.display = 'flex';
             p.style.display = 'block';
             var si = document.getElementById('_dbgSysInfo');
-            if (si) si.textContent = 'RAM: ' + (window._perfMem||'?') + 'GB · ' + new Date().toLocaleTimeString();
+            if (si) si.textContent = 'RAM: ' + (window._perfMem !== null ? window._perfMem + 'GB' : 'Desteklenmiyor') + ' · ' + new Date().toLocaleTimeString();
             _dbgUpdate();
         }
     };
@@ -13232,7 +13675,7 @@ const _origSelectMode = window.selectMode || (function(){ });
     document.addEventListener('DOMContentLoaded', function() {
         _dbgUpdate();
         var si = document.getElementById('_dbgSysInfo');
-        if (si) si.textContent = 'RAM: ' + (window._perfMem||'?') + 'GB · ' + new Date().toLocaleTimeString();
+        if (si) si.textContent = 'RAM: ' + (window._perfMem !== null ? window._perfMem + 'GB' : 'Desteklenmiyor') + ' · ' + new Date().toLocaleTimeString();
     });
 })();
 </script>
@@ -13357,7 +13800,12 @@ document.addEventListener('DOMContentLoaded', function(){
     { id:'oyun10', ikon:'🎮', ad:'Azimli',        aciklama:'10 oyun oyna.' },
     { id:'zafer',  ikon:'🌟', ad:'Şampiyon',      aciklama:'İlk zaferini kazan.' },
     { id:'seri7',  ikon:'🗓️', ad:'Sadık Avcı',    aciklama:'7 gün üst üste giriş yap.' },
-    { id:'az5',    ikon:'☢️', ad:'AZ-5', gizli:true, aciklama:'AZ-5\'e bastın. 26 Nisan 1986, Reaktör 4… Bazı butonlar basılmadan bırakılmalıydı.' }
+    { id:'az5',    ikon:'☢️', ad:'AZ-5', gizli:true, aciklama:'AZ-5\'e bastın. 26 Nisan 1986, Reaktör 4… Bazı butonlar basılmadan bırakılmalıydı.' },
+    { id:'cokYonlu', ikon:'🎨', ad:'Çok Yönlü',    aciklama:'En az 5 farklı modda doğru cevap ver.' },
+    { id:'uzman',    ikon:'🎓', ad:'Konu Uzmanı',  aciklama:'Herhangi bir modda 50 doğru cevap ver.' },
+    { id:'mukemmel', ikon:'💎', ad:'Mükemmeliyetçi', aciklama:'Bir modda en az 10 soruda hiç yanlış yapmadan devam et.' },
+    { id:'sesKasifi', ikon:'🎧', ad:'Ses Kaşifi',  aciklama:'Üç ses paketini de dene (Klasik, Retro, Sakin).' },
+    { id:'geceKusu', ikon:'🦉', ad:'Gece Kuşu',    aciklama:'Gece yarısı ile sabah 5 arası bir soru çöz.' }
   ];
   const KEY='sa_basarim', STATKEY='sa_basarim_stat';
   const acilanlar = ()=>{ try{ return JSON.parse(localStorage.getItem(KEY))||[]; }catch(e){ return []; } };
@@ -13393,9 +13841,14 @@ document.addEventListener('DOMContentLoaded', function(){
     const ov=document.createElement('div'); ov.id='basarimPanel';
     ov.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(10,2,2,.88);display:flex;align-items:center;justify-content:center;padding:16px;';
     ov.onclick=(e)=>{ if(e.target===ov) ov.remove(); };
+    const EK = (k)=> (typeof window.getEK==='function') ? window.getEK(k) : '';
+    const YENI_BASARIM_CEVIRI = { cokYonlu:['achCokYonluAd','achCokYonluAciklama'], uzman:['achUzmanAd','achUzmanAciklama'], mukemmel:['achMukemmelAd','achMukemmelAciklama'], sesKasifi:['achSesKasifiAd','achSesKasifiAciklama'], geceKusu:['achGeceKusuAd','achGeceKusuAciklama'] };
     const liste=BASARIMLAR.map(b=>{
       const ac=a.indexOf(b.id)>-1, kilit=b.gizli&&!ac;
-      const ikon=kilit?'❓':b.ikon, ad=kilit?'???':b.ad, acik=kilit?'Gizli başarım — nasıl açılır acaba?':b.aciklama;
+      const cevAnahtar = YENI_BASARIM_CEVIRI[b.id];
+      const gercekAd = cevAnahtar ? EK(cevAnahtar[0]) : b.ad;
+      const gercekAciklama = cevAnahtar ? EK(cevAnahtar[1]) : b.aciklama;
+      const ikon=kilit?'❓':b.ikon, ad=kilit?'???':gercekAd, acik=kilit?'Gizli başarım — nasıl açılır acaba?':gercekAciklama;
       return '<div style="display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;margin-bottom:8px;background:'+(ac?'rgba(227,10,23,.18)':'rgba(255,255,255,.05)')+';border:1px solid '+(ac?'#ff8f6b':'rgba(255,255,255,.1)')+';opacity:'+(ac?'1':'.6')+';"><span style="font-size:26px;filter:'+(ac?'none':'grayscale(1)')+';">'+ikon+'</span><div><div style="font-weight:800;color:#fff;font-size:14px;">'+ad+(ac?' ✓':'')+'</div><div style="font-size:11px;color:#ffd0c0;">'+acik+'</div></div></div>';
     }).join('');
     ov.innerHTML='<div style="background:linear-gradient(160deg,#1a0505,#2a0808);border:2px solid #c10a17;border-radius:18px;max-width:400px;width:100%;max-height:82vh;overflow-y:auto;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><div style="color:#fff;font-weight:900;font-size:18px;">🏆 Başarımlar <span style="font-size:12px;color:#ffd0c0;font-weight:600;">'+a.length+' / '+BASARIMLAR.length+'</span></div><button onclick="var p=document.getElementById(\'basarimPanel\');if(p)p.remove();" style="background:#c10a17;color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;">✕</button></div>'+liste+'</div>';
@@ -13494,9 +13947,10 @@ document.addEventListener('DOMContentLoaded', function(){
       const ikon = dolu?'✅':(suan?'🎁':'🪙');
       gunler+='<div style="flex:1;text-align:center;padding:6px 2px;border-radius:8px;background:'+((dolu||suan)?'rgba(227,10,23,.3)':'rgba(255,255,255,.06)')+';border:1px solid '+(suan?'#ff8f6b':'rgba(255,255,255,.12)')+';"><div style="font-size:9px;color:#ffd0c0;">'+i+'.g</div><div style="font-size:15px;">'+ikon+'</div></div>';
     }
-    const donduMesaji = donduruldu ? '<div style="color:#8fc0ff;font-size:12px;font-weight:700;margin-top:6px;">🧊 Bir gün kaçırdın ama serin donduruldu, devam ediyor!</div>' : '';
+    const EK = (k)=> (typeof window.getEK==='function') ? window.getEK(k) : '';
+    const donduMesaji = donduruldu ? '<div style="color:#8fc0ff;font-size:12px;font-weight:700;margin-top:6px;">'+EK('seriDonduruldu')+'</div>' : '';
     const yeterliCoin = puan >= DONDURMA_MALIYET;
-    const dondurmaSatir = '<div style="display:flex;align-items:center;justify-content:space-between;background:rgba(80,160,255,.1);border:1px solid rgba(80,160,255,.3);border-radius:10px;padding:8px 12px;margin:10px 0;"><div style="text-align:left;"><div style="color:#8fc0ff;font-size:12px;font-weight:800;">🧊 Dondurma Hakkın: '+dondurmaHakki+'</div><div style="color:#ffd0c0;font-size:10px;">Bir gün kaçırsan bile serin bozulmaz</div></div><button onclick="gunlukDondurmaSatinAl()" '+(yeterliCoin?'':'disabled')+' style="background:'+(yeterliCoin?'linear-gradient(135deg,#1a6bb0,#4da8ff)':'rgba(255,255,255,.08)')+';color:'+(yeterliCoin?'#fff':'#666')+';border:none;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:800;cursor:'+(yeterliCoin?'pointer':'not-allowed')+';white-space:nowrap;">+1 ('+DONDURMA_MALIYET+' 🪙)</button></div>';
+    const dondurmaSatir = '<div style="display:flex;align-items:center;justify-content:space-between;background:rgba(80,160,255,.1);border:1px solid rgba(80,160,255,.3);border-radius:10px;padding:8px 12px;margin:10px 0;"><div style="text-align:left;"><div style="color:#8fc0ff;font-size:12px;font-weight:800;">'+EK('dondurmaHakkin')+' '+dondurmaHakki+'</div><div style="color:#ffd0c0;font-size:10px;">'+EK('dondurmaAciklama')+'</div></div><button onclick="gunlukDondurmaSatinAl()" '+(yeterliCoin?'':'disabled')+' style="background:'+(yeterliCoin?'linear-gradient(135deg,#1a6bb0,#4da8ff)':'rgba(255,255,255,.08)')+';color:'+(yeterliCoin?'#fff':'#666')+';border:none;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:800;cursor:'+(yeterliCoin?'pointer':'not-allowed')+';white-space:nowrap;">+1 ('+DONDURMA_MALIYET+' 🪙)</button></div>';
     ov.innerHTML='<div style="background:linear-gradient(160deg,#1a0505,#2a0808);border:2px solid #c10a17;border-radius:20px;max-width:360px;width:100%;padding:22px;text-align:center;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="font-size:42px;">🎁</div><div style="color:#fff;font-weight:900;font-size:20px;margin:6px 0;">Günlük Giriş Ödülü</div><div style="color:#ff8f6b;font-weight:800;font-size:15px;">🔥 '+seri+' günlük seri!</div>'+donduMesaji+(tekrar?'<div style="color:#ffd0c0;font-size:12px;margin-top:6px;">Bugünün ödülü zaten alındı.<br>Yarın tekrar gel!</div>':'<div style="color:#ffe0a0;font-size:24px;font-weight:900;margin:10px 0;">+'+odul+' 🪙</div>')+'<div style="display:flex;gap:4px;margin:14px 0;">'+gunler+'</div>'+dondurmaSatir+'<div style="color:#ffd0c0;font-size:12px;margin-bottom:14px;">💰 Cüzdan: '+puan+' 🪙</div><button onclick="var p=document.getElementById(\'gunlukPopup\');if(p)p.remove();" style="background:linear-gradient(135deg,#e30a17,#b00812);color:#fff;border:none;border-radius:12px;padding:12px 30px;font-size:15px;font-weight:800;cursor:pointer;width:100%;">'+(tekrar?'TAMAM':'TOPLA 🎉')+'</button></div>';
     document.body.appendChild(ov);
     try{ if(navigator.vibrate) navigator.vibrate([20,40,30]); }catch(e){}
@@ -13620,8 +14074,8 @@ body.light-tema .container [style*="background: rgba(6,6,18"]{ background:rgba(2
 @keyframes az5Fall { from{ transform:translateY(-10vh) rotate(0deg); opacity:1; } to{ transform:translateY(110vh) rotate(360deg); opacity:0.2; } }
 #az5Overlay { position:fixed; inset:0; z-index:2147483000; pointer-events:none; animation:az5Flash 2.6s ease-out forwards, az5Shake 2.6s ease-in-out; }
 .az5-parcacik { position:absolute; top:-10vh; font-size:26px; animation:az5Fall linear forwards; filter:drop-shadow(0 0 6px #ff3b1f); }
-#az5Badge { position:fixed; left:50%; bottom:14px; transform:translateX(-50%); z-index:99997; background:linear-gradient(135deg,#2a0808,#c10a17); color:#fff; border:1.5px solid #ff8f6b; border-radius:12px; padding:7px 14px; font-family:sans-serif; font-size:11px; font-weight:700; display:flex; align-items:center; gap:8px; box-shadow:0 6px 22px rgba(0,0,0,.5); cursor:pointer; }
-#az5Badge .az5-ikon{ font-size:16px; animation:az5Pulse 1.6s ease-in-out infinite; }
+#az5Badge { position:fixed; left:50%; bottom:14px; transform:translateX(-50%); z-index:99997; background:linear-gradient(135deg,#2a0808,#c10a17); color:#fff; border:1.5px solid #ff8f6b; border-radius:20px; padding:5px 12px; font-family:sans-serif; font-size:10px; font-weight:700; display:flex; align-items:center; gap:5px; box-shadow:0 6px 22px rgba(0,0,0,.5); cursor:pointer; min-width:86px; justify-content:center; white-space:nowrap; }
+#az5Badge .az5-ikon{ font-size:13px; animation:az5Pulse 1.6s ease-in-out infinite; }
 @keyframes az5Pulse { 0%,100%{opacity:1;} 50%{opacity:.45;} }
 </style>
 <script>
@@ -13651,7 +14105,13 @@ body.light-tema .container [style*="background: rgba(6,6,18"]{ background:rgba(2
     if(ms<=0) return null;
     const s=Math.floor(ms/1000);
     const g=Math.floor(s/86400), sa=Math.floor((s%86400)/3600), dk=Math.floor((s%3600)/60), sn=s%60;
-    return g+'g '+sa+'s '+dk+'dk '+sn+'sn';
+    // 🔧 KISALTILDI: eskiden "AZ-5 AKTİF — Düzelme: Xg Ys Zdk Wsn" çok uzun bir metindi, rozeti
+    // ekranın büyük kısmını kaplayacak kadar genişletiyordu. Artık sadece kalan süre, ve saniye
+    // sadece son 1 saatte gösteriliyor (çoğu zamanda saniye hassasiyeti gereksiz + sürekli genişlik
+    // titremesine sebep oluyordu).
+    if(g>0) return g+'g '+sa+'s '+dk+'dk';
+    if(sa>0) return sa+'s '+dk+'dk';
+    return dk+'dk '+sn+'sn';
   }
 
   function badgeGuncelle(){
@@ -13660,7 +14120,7 @@ body.light-tema .container [style*="background: rgba(6,6,18"]{ background:rgba(2
     const kalan = hedef - Date.now();
     if(kalan<=0){ az5Temizle(true); return; }
     const t=b.querySelector('.az5-metin');
-    if(t) t.textContent = 'AZ-5 AKTİF — Düzelme: '+fmtKalan(kalan);
+    if(t) t.textContent = fmtKalan(kalan);
   }
   let az5Interval=null;
 
@@ -13668,7 +14128,7 @@ body.light-tema .container [style*="background: rgba(6,6,18"]{ background:rgba(2
     if(document.getElementById('az5Badge')) return;
     const b=document.createElement('div'); b.id='az5Badge';
     b.innerHTML='<span class="az5-ikon">☢️</span><span class="az5-metin">AZ-5 AKTİF</span>';
-    b.title='Yakında düzelecek — 10 Eylül 2026';
+    b.title='AZ-5 AKTİF — Yakında düzelecek (15 Eylül 2026)';
     document.body.appendChild(b);
     badgeGuncelle();
     clearInterval(az5Interval);
@@ -13889,6 +14349,30 @@ body.tema-23nisan #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
 body.tema-19mayis #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25%, rgba(255,143,60,0.20) 0%, transparent 55%), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(255,143,60,0.10) 0%, transparent 55%), linear-gradient(160deg,#1a0a00 0%,#2a1000 50%,#1a0a00 100%) !important; }
 body.tema-29ekim #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25%, rgba(255,255,255,0.16) 0%, transparent 55%), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(227,10,23,0.14) 0%, transparent 55%), linear-gradient(160deg,#0a0505 0%,#1a0505 50%,#0a0505 100%) !important; }
 body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25%, rgba(255,120,20,0.20) 0%, transparent 55%), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(138,42,200,0.14) 0%, transparent 55%), linear-gradient(160deg,#0f0518 0%,#1a0a2a 50%,#0f0518 100%) !important; }
+/* ⚽ TAKIM RENKLERİ — sadece renk, isim/logo yok. Tarihe bağlı değil, sadece elle seçilir. */
+body.tema-sarikirmizi #splashScreen{ background: radial-gradient(ellipse 70% 50% at 30% 20%, rgba(255,215,0,0.18) 0%, transparent 60%), linear-gradient(180deg,#1a0505 0%,#2a0808 55%,#1a0505 100%) !important; }
+body.tema-sarikirmizi #mainTitle{ color:#ffd700 !important; text-shadow:0 0 14px rgba(255,215,0,.6) !important; }
+body.tema-sarikirmizi #splashStartBtn{ background:linear-gradient(135deg,#8a0000,#e30a17) !important; border-color:#ffd700 !important; }
+body.tema-sarikirmizi .container{ background:linear-gradient(160deg, rgba(255,215,0,.14) 0%, rgba(227,10,23,.10) 100%) !important; border-color:rgba(255,215,0,.35) !important; }
+body.tema-sarikirmizi #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25%, rgba(255,215,0,0.20) 0%, transparent 55%), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(227,10,23,0.14) 0%, transparent 55%), linear-gradient(160deg,#1a0505 0%,#2a0808 50%,#1a0505 100%) !important; }
+
+body.tema-sarilacivert #splashScreen{ background: radial-gradient(ellipse 70% 50% at 30% 20%, rgba(255,215,0,0.16) 0%, transparent 60%), linear-gradient(180deg,#05081a 0%,#0a1230 55%,#05081a 100%) !important; }
+body.tema-sarilacivert #mainTitle{ color:#ffd700 !important; text-shadow:0 0 14px rgba(255,215,0,.5), 0 0 22px rgba(10,20,90,.6) !important; }
+body.tema-sarilacivert #splashStartBtn{ background:linear-gradient(135deg,#0a1550,#1a2a8a) !important; border-color:#ffd700 !important; }
+body.tema-sarilacivert .container{ background:linear-gradient(160deg, rgba(255,215,0,.12) 0%, rgba(10,20,90,.14) 100%) !important; border-color:rgba(255,215,0,.3) !important; }
+body.tema-sarilacivert #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25%, rgba(255,215,0,0.18) 0%, transparent 55%), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(10,20,90,0.20) 0%, transparent 55%), linear-gradient(160deg,#05081a 0%,#0a1230 50%,#05081a 100%) !important; }
+
+body.tema-siyahbeyaz #splashScreen{ background: radial-gradient(ellipse 70% 50% at 30% 20%, rgba(255,255,255,0.14) 0%, transparent 60%), linear-gradient(180deg,#050505 0%,#141414 55%,#050505 100%) !important; }
+body.tema-siyahbeyaz #mainTitle{ color:#ffffff !important; text-shadow:0 0 14px rgba(255,255,255,.6) !important; }
+body.tema-siyahbeyaz #splashStartBtn{ background:linear-gradient(135deg,#0a0a0a,#3a3a3a) !important; border-color:#ffffff !important; }
+body.tema-siyahbeyaz .container{ background:linear-gradient(160deg, rgba(255,255,255,.14) 0%, rgba(0,0,0,.25) 100%) !important; border-color:rgba(255,255,255,.3) !important; }
+body.tema-siyahbeyaz #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25%, rgba(255,255,255,0.14) 0%, transparent 55%), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(255,255,255,0.06) 0%, transparent 55%), linear-gradient(160deg,#050505 0%,#141414 50%,#050505 100%) !important; }
+
+body.tema-bordomavi #splashScreen{ background: radial-gradient(ellipse 70% 50% at 30% 20%, rgba(123,3,35,0.28) 0%, transparent 60%), linear-gradient(180deg,#0a0510 0%,#1a0a1a 55%,#0a0510 100%) !important; }
+body.tema-bordomavi #mainTitle{ color:#ff8fa8 !important; text-shadow:0 0 14px rgba(123,3,35,.7), 0 0 22px rgba(27,58,107,.5) !important; }
+body.tema-bordomavi #splashStartBtn{ background:linear-gradient(135deg,#6b0f1a,#1b3a6b) !important; border-color:#ff8fa8 !important; }
+body.tema-bordomavi .container{ background:linear-gradient(160deg, rgba(123,3,35,.16) 0%, rgba(27,58,107,.14) 100%) !important; border-color:rgba(123,3,35,.35) !important; }
+body.tema-bordomavi #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25%, rgba(123,3,35,0.22) 0%, transparent 55%), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(27,58,107,0.18) 0%, transparent 55%), linear-gradient(160deg,#0a0510 0%,#1a0a1a 50%,#0a0510 100%) !important; }
 #mevsimRozet{ position:fixed; top:8px; left:50%; transform:translateX(-50%); z-index:600; background:rgba(10,14,0,.75); color:#c8e600; border:1px solid #8a9c00; border-radius:10px; padding:4px 10px; font-family:sans-serif; font-size:10px; font-weight:700; letter-spacing:.5px; pointer-events:none; }
 </style>
 <script>
@@ -13903,8 +14387,15 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
     { ay:10, gun:29, sinif:'tema-29ekim',  etiket:'🇹🇷 29 Ekim — Cumhuriyet Bayramı' },
     { ay:10, gun:31, sinif:'tema-cadilar', etiket:'🎃 31 Ekim — Cadılar Bayramı' }
   ];
+  // 🎨 Takım renkleri — tarihe bağlı DEĞİL, sadece elle seçilebilir. Sadece renk, isim/logo yok (telif güvenliği).
+  const TAKIM_TEMALARI = [
+    { sinif:'tema-sarikirmizi', etiket:'⚽ Sarı - Kırmızı' },
+    { sinif:'tema-sarilacivert', etiket:'⚽ Sarı - Lacivert' },
+    { sinif:'tema-siyahbeyaz', etiket:'⚽ Siyah - Beyaz' },
+    { sinif:'tema-bordomavi', etiket:'⚽ Bordo - Mavi' }
+  ];
   const MANUEL_KEY='sa_tema_manuel';   // 'auto' | 'yok' | <sinif adı>
-  const TUM_SINIFLAR = OZEL_GUNLER.map(o=>o.sinif);
+  const TUM_SINIFLAR = OZEL_GUNLER.map(o=>o.sinif).concat(TAKIM_TEMALARI.map(o=>o.sinif));
 
   function bugununTemasi(){
     const d=new Date();
@@ -13916,7 +14407,7 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
     let manuel='auto'; try{ manuel=localStorage.getItem(MANUEL_KEY)||'auto'; }catch(e){}
     let secilen=null;
     if(manuel==='yok'){ secilen=null; }
-    else if(manuel!=='auto'){ secilen = OZEL_GUNLER.find(o=>o.sinif===manuel) || null; }
+    else if(manuel!=='auto'){ secilen = OZEL_GUNLER.find(o=>o.sinif===manuel) || TAKIM_TEMALARI.find(o=>o.sinif===manuel) || null; }
     else { secilen = bugununTemasi(); }
     if(secilen){
       document.body.classList.add(secilen.sinif);
@@ -13929,15 +14420,25 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
   window.temaSecPanelAc = function(){
     const old=document.getElementById('temaSecPanel'); if(old) old.remove();
     let manuel='auto'; try{ manuel=localStorage.getItem(MANUEL_KEY)||'auto'; }catch(e){}
-    const secenekler = [{ sinif:'auto', etiket:'📅 Otomatik (bugünün tarihine göre)' }, { sinif:'yok', etiket:'⬛ Yok (mevsimsel tema kapalı)' }].concat(OZEL_GUNLER);
-    const liste = secenekler.map(s=>{
+    const EK = (k)=> (typeof window.getEK==='function') ? window.getEK(k) : '';
+    const TAKIM_CEVIRI = { 'tema-sarikirmizi':'temaSariKirmizi', 'tema-sarilacivert':'temaSariLacivert', 'tema-siyahbeyaz':'temaSiyahBeyaz', 'tema-bordomavi':'temaBordoMavi' };
+    const satirCiz = s=>{
       const aktif = manuel===s.sinif;
-      return '<button onclick="temaManuelSec(\''+s.sinif+'\')" style="display:block;width:100%;text-align:left;padding:10px 12px;margin-bottom:6px;border-radius:10px;border:1.5px solid '+(aktif?'#8fc0ff':'rgba(255,255,255,.12)')+';background:'+(aktif?'rgba(80,160,255,.18)':'rgba(255,255,255,.04)')+';color:#fff;font-size:12px;font-weight:'+(aktif?'800':'500')+';cursor:pointer;">'+s.etiket+(aktif?' ✓':'')+'</button>';
-    }).join('');
+      const cevKey = TAKIM_CEVIRI[s.sinif];
+      const etiketMetin = cevKey ? EK(cevKey) : s.etiket;
+      return '<button onclick="temaManuelSec(\''+s.sinif+'\')" style="display:block;width:100%;text-align:left;padding:10px 12px;margin-bottom:6px;border-radius:10px;border:1.5px solid '+(aktif?'#8fc0ff':'rgba(255,255,255,.12)')+';background:'+(aktif?'rgba(80,160,255,.18)':'rgba(255,255,255,.04)')+';color:#fff;font-size:12px;font-weight:'+(aktif?'800':'500')+';cursor:pointer;">'+etiketMetin+(aktif?' ✓':'')+'</button>';
+    };
+    const genelListe = [{ sinif:'auto', etiket:'📅 Otomatik (bugünün tarihine göre)' }, { sinif:'yok', etiket:'⬛ Yok (tema kapalı)' }].map(satirCiz).join('');
+    const gunListe = OZEL_GUNLER.map(satirCiz).join('');
+    const takimListe = TAKIM_TEMALARI.map(satirCiz).join('');
     const ov=document.createElement('div'); ov.id='temaSecPanel';
     ov.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(10,2,2,.88);display:flex;align-items:center;justify-content:center;padding:16px;';
     ov.onclick=(e)=>{ if(e.target===ov) ov.remove(); };
-    ov.innerHTML='<div style="background:linear-gradient(160deg,#0a1830,#1a2840);border:2px solid #8fc0ff;border-radius:18px;max-width:380px;width:100%;max-height:82vh;overflow-y:auto;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div style="color:#fff;font-weight:900;font-size:17px;">🎨 Tema Seç</div><button onclick="var p=document.getElementById(\'temaSecPanel\');if(p)p.remove();" style="background:#1a3a6b;color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;">✕</button></div><div style="color:#8fc0ff;font-size:11px;margin-bottom:12px;">Karanlık/Açık mod ayrı bir ayardır — burada sadece mevsimsel görünüm seçilir.</div>'+liste+'</div>';
+    ov.innerHTML='<div style="background:linear-gradient(160deg,#0a1830,#1a2840);border:2px solid #8fc0ff;border-radius:18px;max-width:380px;width:100%;max-height:82vh;overflow-y:auto;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div style="color:#fff;font-weight:900;font-size:17px;">🎨 Tema Seç</div><button onclick="var p=document.getElementById(\'temaSecPanel\');if(p)p.remove();" style="background:#1a3a6b;color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;">✕</button></div><div style="color:#8fc0ff;font-size:11px;margin-bottom:12px;">Karanlık/Açık mod ayrı bir ayardır — burada sadece görünüm/renk seçilir.</div>'
+      +genelListe
+      +'<div style="color:#ffd0c0;font-size:10px;font-weight:800;margin:10px 0 6px;letter-spacing:.5px;">🗓️ ÖZEL GÜNLER</div>'+gunListe
+      +'<div style="color:#ffd0c0;font-size:10px;font-weight:800;margin:10px 0 6px;letter-spacing:.5px;">'+EK('temaTakimRenkleri')+'</div>'+takimListe
+      +'</div>';
     document.body.appendChild(ov);
   };
   window.temaManuelSec = function(sinif){
@@ -13992,7 +14493,8 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
     fonkGameScreen:{ad:'f(x) Fonksiyon',ikon:'📐'}, hizGameScreen:{ad:'Hız-Yol-Zaman',ikon:'⚡'},
     permGameScreen:{ad:'Permütasyon',ikon:'🎲'}, axiomGameScreen:{ad:'Axiom Düellosu',ikon:'⚔️'},
     oruntuGameScreen:{ad:'Örüntü Avı',ikon:'🔗'}, yuzdeGameScreen:{ad:'Yüzde Ustası',ikon:'💯'},
-    sozelGameScreen:{ad:'Sözel Problem',ikon:'📝'}, tytGameScreen:{ad:'TYT-AYT',ikon:'🎓'}
+    sozelGameScreen:{ad:'Sözel Problem',ikon:'📝'}, tytGameScreen:{ad:'TYT-AYT',ikon:'🎓'},
+    sprintGameScreen:{ad:'Zihin Sprint',ikon:'⚡'}, denklemGameScreen:{ad:'Denklem Çöz',ikon:'🧮'}, kesirGameScreen:{ad:'Kesir Ustası',ikon:'🍕'}
   };
   const IDS = Object.keys(MOD_ADLARI);
 
@@ -14013,15 +14515,32 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
     if(!v[mod]) v[mod]={dogru:0,yanlis:0};
     v[mod][dogruMu?'dogru':'yanlis']++;
     kaydet(v);
+    // 🏅 Yeni başarım kontrolleri (mevcut mod-bazlı veriyi kullanıyor, ekstra depolama gerektirmiyor)
+    try{
+      if(typeof basarimAc==='function'){
+        if(dogruMu){
+          const farkliModSayisi = Object.keys(v).filter(k=>v[k] && v[k].dogru>0).length;
+          if(farkliModSayisi>=5) basarimAc('cokYonlu');
+          if(v[mod].dogru>=50) basarimAc('uzman');
+          if(v[mod].dogru>=10 && v[mod].yanlis===0) basarimAc('mukemmel');
+          const saat=new Date().getHours();
+          if(saat>=0 && saat<5) basarimAc('geceKusu');
+        }
+      }
+    }catch(e){}
   };
 
   window.zayifNoktaPanelAc = function(){
     const v = veri();
     const old=document.getElementById('zayifPanel'); if(old) old.remove();
+    const EK = (k)=> (typeof window.getEK==='function') ? window.getEK(k) : '';
+    const MOD_AD_CEVIRI = { gameScreen:'modeGuess', ebobGameScreen:'modeEbob', islemGameScreen:'modeIslem', fonkGameScreen:'modeFonk', hizGameScreen:'hizName', permGameScreen:'permName', axiomGameScreen:'axiomName', oruntuGameScreen:'oruntuName', yuzdeGameScreen:'yuzdeName', sozelGameScreen:'modeSozel', tytGameScreen:'modeTyt', sprintGameScreen:'sprintName', denklemGameScreen:'denklemName', kesirGameScreen:'kesirName' };
     const satirlar = IDS.filter(id=>v[id] && (v[id].dogru+v[id].yanlis)>=3).map(id=>{
       const s=v[id]; const toplam=s.dogru+s.yanlis; const oran=Math.round((s.dogru/toplam)*100);
       const renk = oran>=80?'#3fae2e':(oran>=55?'#e3a30a':'#e30a17');
-      return { id, ad:MOD_ADLARI[id].ad, ikon:MOD_ADLARI[id].ikon, oran, toplam, renk };
+      const cevKey = MOD_AD_CEVIRI[id];
+      const adMetin = (cevKey && typeof window.getNM==='function' && window.getNM(cevKey)) ? window.getNM(cevKey) : (cevKey ? EK(cevKey) : MOD_ADLARI[id].ad);
+      return { id, ad: adMetin||MOD_ADLARI[id].ad, ikon:MOD_ADLARI[id].ikon, oran, toplam, renk };
     }).sort((a,b)=>a.oran-b.oran);
 
     const ov=document.createElement('div'); ov.id='zayifPanel';
@@ -14029,11 +14548,12 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
     ov.onclick=(e)=>{ if(e.target===ov) ov.remove(); };
     let ic;
     if(satirlar.length===0){
-      ic = '<div style="color:#ffd0c0;font-size:13px;text-align:center;padding:20px 0;">Henüz yeterli veri yok.<br>Birkaç mod oyna, burada hangi konuda güçlü/zayıf olduğun çıksın.</div>';
+      ic = '<div style="color:#ffd0c0;font-size:13px;text-align:center;padding:20px 0;">'+EK('zayifEmpty')+'</div>';
     } else {
-      ic = satirlar.map(s=>'<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;color:#fff;font-size:13px;font-weight:700;margin-bottom:4px;"><span>'+s.ikon+' '+s.ad+'</span><span style="color:'+s.renk+';">'+s.oran+'%</span></div><div style="background:rgba(255,255,255,.08);border-radius:6px;height:8px;overflow:hidden;"><div style="background:'+s.renk+';height:100%;width:'+s.oran+'%;"></div></div><div style="color:#8a8a92;font-size:10px;margin-top:2px;">'+s.toplam+' soru çözüldü</div></div>').join('');
+      const soruEtiketi = EK('zayifSoruSayisi');
+      ic = satirlar.map(s=>'<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;color:#fff;font-size:13px;font-weight:700;margin-bottom:4px;"><span>'+s.ikon+' '+s.ad+'</span><span style="color:'+s.renk+';">'+s.oran+'%</span></div><div style="background:rgba(255,255,255,.08);border-radius:6px;height:8px;overflow:hidden;"><div style="background:'+s.renk+';height:100%;width:'+s.oran+'%;"></div></div><div style="color:#8a8a92;font-size:10px;margin-top:2px;">'+s.toplam+' '+soruEtiketi+'</div></div>').join('');
     }
-    ov.innerHTML='<div style="background:linear-gradient(160deg,#1a0505,#2a0808);border:2px solid #e3a30a;border-radius:18px;max-width:380px;width:100%;max-height:82vh;overflow-y:auto;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><div style="color:#fff;font-weight:900;font-size:17px;">🎯 Zayıf Nokta Analizi</div><button onclick="var p=document.getElementById(\'zayifPanel\');if(p)p.remove();" style="background:#e3a30a;color:#1a0505;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;font-weight:900;">✕</button></div>'+ic+'</div>';
+    ov.innerHTML='<div style="background:linear-gradient(160deg,#1a0505,#2a0808);border:2px solid #e3a30a;border-radius:18px;max-width:380px;width:100%;max-height:82vh;overflow-y:auto;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><div style="color:#fff;font-weight:900;font-size:17px;">'+EK('zayifTitle')+'</div><button onclick="var p=document.getElementById(\'zayifPanel\');if(p)p.remove();" style="background:#e3a30a;color:#1a0505;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;font-weight:900;">✕</button></div>'+ic+'</div>';
     document.body.appendChild(ov);
   };
 
@@ -14066,9 +14586,11 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
 
   window.sesPaketiSecPanelAc = function(){
     const old=document.getElementById('sesPaketPanel'); if(old) old.remove();
+    const EK = (k)=> (typeof window.getEK==='function') ? window.getEK(k) : '';
     const secenekler = [
-      { id:'klasik', ad:'🎹 Klasik', aciklama:'Yumuşak, çeşitli dalga formları' },
-      { id:'retro',  ad:'👾 Retro 8-bit', aciklama:'Kare dalga, eski konsol hissi' }
+      { id:'klasik', ad:EK('sesKlasikAd'), aciklama:EK('sesKlasikAciklama') },
+      { id:'retro',  ad:EK('sesRetroAd'),  aciklama:EK('sesRetroAciklama') },
+      { id:'sakin',  ad:EK('sesSakinAd'),  aciklama:EK('sesSakinAciklama') }
     ];
     const liste = secenekler.map(s=>{
       const aktif = window.__sesPaketi===s.id;
@@ -14077,7 +14599,7 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
     const ov=document.createElement('div'); ov.id='sesPaketPanel';
     ov.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(10,2,2,.88);display:flex;align-items:center;justify-content:center;padding:16px;';
     ov.onclick=(e)=>{ if(e.target===ov) ov.remove(); };
-    ov.innerHTML='<div style="background:linear-gradient(160deg,#051a1a,#0a2a2a);border:2px solid #4ad0d0;border-radius:18px;max-width:360px;width:100%;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div style="color:#fff;font-weight:900;font-size:17px;">🎼 Ses Paketi</div><button onclick="var p=document.getElementById(\'sesPaketPanel\');if(p)p.remove();" style="background:#0a4a4a;color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;">✕</button></div>'+liste+'</div>';
+    ov.innerHTML='<div style="background:linear-gradient(160deg,#051a1a,#0a2a2a);border:2px solid #4ad0d0;border-radius:18px;max-width:360px;width:100%;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div style="color:#fff;font-weight:900;font-size:17px;">'+EK('sesPaketiTitle')+'</div><button onclick="var p=document.getElementById(\'sesPaketPanel\');if(p)p.remove();" style="background:#0a4a4a;color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;">✕</button></div>'+liste+'</div>';
     document.body.appendChild(ov);
   };
 
@@ -14087,6 +14609,12 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
     const p=document.getElementById('sesPaketPanel'); if(p) p.remove();
     try{ if(navigator.vibrate) navigator.vibrate(15); }catch(e){}
     try{ if(typeof playSound==='function') playSound('click'); }catch(e){}
+    try{
+      const DENENEN_KEY='sa_ses_denenen';
+      let denenen=[]; try{ denenen=JSON.parse(localStorage.getItem(DENENEN_KEY))||[]; }catch(e2){}
+      if(denenen.indexOf(id)===-1){ denenen.push(id); localStorage.setItem(DENENEN_KEY, JSON.stringify(denenen)); }
+      if(denenen.length>=3 && typeof basarimAc==='function') basarimAc('sesKasifi');
+    }catch(e){}
   };
 
   // 🔧 GÜVENLİ RETRO DÖNÜŞÜMÜ: mevcut sesin melodi/ritmine hiç dokunmadan — sadece o
@@ -14129,6 +14657,53 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
             return sonuc;
           }catch(e){ return o.apply(this,arguments); }
         }
+        if(window.__sesPaketi==='sakin' && typeof getSfxCtx==='function'){
+          try{
+            const ctx=getSfxCtx();
+            const gercekOsc=ctx.createOscillator.bind(ctx);
+            const gercekGain=ctx.createGain.bind(ctx);
+            // 🌙 SAKİN PAKET: her osilatörü yumuşak 'sine' dalgaya zorla, her kazanç (ses şiddeti)
+            // değerini yarıya indir — aynı melodiler çalar ama çok daha yumuşak/düşük sesle.
+            ctx.createOscillator=function(){
+              const osc=gercekOsc();
+              return new Proxy(osc, {
+                set(hedef, ozellik, deger){
+                  if(ozellik==='type'){ hedef.type='sine'; return true; }
+                  hedef[ozellik]=deger; return true;
+                },
+                get(hedef, ozellik){
+                  const v=hedef[ozellik];
+                  return (typeof v==='function') ? v.bind(hedef) : v;
+                }
+              });
+            };
+            ctx.createGain=function(){
+              const g=gercekGain();
+              const gercekParam=g.gain;
+              const yumusatilmisParam=new Proxy(gercekParam, {
+                get(hedef, ozellik){
+                  const v=hedef[ozellik];
+                  if(typeof v!=='function') return v;
+                  if(ozellik==='setValueAtTime' || ozellik==='linearRampToValueAtTime' || ozellik==='exponentialRampToValueAtTime'){
+                    return function(deger, zaman){ return v.call(hedef, Math.max(0.0001, deger*0.45), zaman); };
+                  }
+                  return v.bind(hedef);
+                },
+                set(hedef, ozellik, deger){
+                  if(ozellik==='value'){ hedef.value = deger*0.45; return true; }
+                  hedef[ozellik]=deger; return true;
+                }
+              });
+              return new Proxy(g, {
+                get(hedef, ozellik){ if(ozellik==='gain') return yumusatilmisParam; const v=hedef[ozellik]; return (typeof v==='function')?v.bind(hedef):v; }
+              });
+            };
+            const sonuc=o.apply(this,arguments);
+            ctx.createOscillator=gercekOsc;
+            ctx.createGain=gercekGain;
+            return sonuc;
+          }catch(e){ return o.apply(this,arguments); }
+        }
         return o.apply(this,arguments);
       }; window.playSound.__paket=true;
     }
@@ -14166,13 +14741,21 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
       if(ctx.roundRect){ ctx.beginPath(); ctx.roundRect(kx,ky,kw,kh,26); ctx.fill(); ctx.stroke(); }
       else { ctx.fillRect(kx,ky,kw,kh); ctx.strokeRect(kx,ky,kw,kh); }
 
-      // skor
+      // skor — maks verilmemişse (yaşam-bazlı modlar) sadece skor sayısı gösterilir, X/Y formatı zorlanmaz
+      const maksVar = (maks !== null && maks !== undefined);
+      let yuzde = 0;
       ctx.fillStyle='#ffd700'; ctx.font='900 130px sans-serif';
-      ctx.fillText(skor+' / '+maks, c.width/2, ky+230);
-      const yuzde = Math.round((skor/maks)*100);
-      ctx.fillStyle= yuzde>=80?'#3fae2e' : (yuzde>=50?'#e3a30a':'#e30a17');
-      ctx.font='800 40px sans-serif';
-      ctx.fillText('%'+yuzde+' başarı', c.width/2, ky+300);
+      ctx.fillText(maksVar ? (skor+' / '+maks) : String(skor), c.width/2, ky+230);
+      if(maksVar){
+        yuzde = Math.round((skor/maks)*100);
+        ctx.fillStyle= yuzde>=80?'#3fae2e' : (yuzde>=50?'#e3a30a':'#e30a17');
+        ctx.font='800 40px sans-serif';
+        ctx.fillText('%'+yuzde+' başarı', c.width/2, ky+300);
+      } else {
+        yuzde = skor>=20 ? 100 : (skor>=10 ? 60 : 0); // yaşam-bazlı modlarda madalya için kaba bir eşik
+        ctx.fillStyle='#ffd0c0'; ctx.font='700 30px sans-serif';
+        ctx.fillText('PUAN', c.width/2, ky+290);
+      }
 
       // madalya emoji büyük
       ctx.font='120px sans-serif';
@@ -14204,6 +14787,153 @@ body.tema-cadilar #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 25
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(()=>URL.revokeObjectURL(url), 4000);
   }
+})();
+</script>
+
+
+<!-- ═══════ 👤 PROFİL EKRANI (Alpha 2) — rütbe + başarım + zayıf nokta tek yerde ═══════ -->
+<script>
+(function(){
+  window.profilPanelAc = function(){
+    const old=document.getElementById('profilPanel'); if(old) old.remove();
+    const ov=document.createElement('div'); ov.id='profilPanel';
+    ov.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(10,2,2,.9);display:flex;align-items:center;justify-content:center;padding:16px;';
+    ov.onclick=(e)=>{ if(e.target===ov) ov.remove(); };
+
+    // Rütbe özeti
+    let rutbeHtml='<div style="color:#8a8a92;font-size:12px;">Rütbe verisi yok</div>';
+    try{
+      if(typeof rutbeBul==='function' && typeof statlar==='function'){
+        // rutbeBul/statlar rütbe modülünün kendi closure'ında — dışarıdan erişilemez, o yüzden
+        // rutbeBtn'in mevcut ikonunu ve rutbePanelAc'i tekrar kullanıyoruz.
+      }
+    }catch(e){}
+    const rutbeBtnEl = document.getElementById('rutbeBtn');
+    const rutbeIkon = rutbeBtnEl ? rutbeBtnEl.textContent : '🌱';
+
+    // Başarım özeti
+    let basarimSayisi=0, basarimToplam=0;
+    try{
+      const acilan = JSON.parse(localStorage.getItem('sa_basarim'))||[];
+      basarimSayisi = acilan.length;
+    }catch(e){}
+
+    // Zayıf nokta özeti (en iyi ve en zayıf mod)
+    let enIyiMod=null, enZayifMod=null;
+    const EK = (k)=> (typeof window.getEK==='function') ? window.getEK(k) : '';
+    try{
+      const zv = JSON.parse(localStorage.getItem('sa_zayif_nokta'))||{};
+      const MOD_AD_CEVIRI = { gameScreen:'modeGuess', ebobGameScreen:'modeEbob', islemGameScreen:'modeIslem',
+        fonkGameScreen:'modeFonk', hizGameScreen:'hizName', permGameScreen:'permName',
+        axiomGameScreen:'axiomName', oruntuGameScreen:'oruntuName', yuzdeGameScreen:'yuzdeName',
+        sozelGameScreen:'modeSozel', tytGameScreen:'modeTyt', sprintGameScreen:'sprintName',
+        denklemGameScreen:'denklemName', kesirGameScreen:'kesirName' };
+      const modAdCevir = (k) => {
+        const cevKey = MOD_AD_CEVIRI[k]; if(!cevKey) return k;
+        const nmSonuc = (typeof window.getNM==='function') ? window.getNM(cevKey) : '';
+        return nmSonuc || EK(cevKey) || k;
+      };
+      const kalifiyeler = Object.keys(zv).filter(k=>zv[k] && (zv[k].dogru+zv[k].yanlis)>=3).map(k=>({
+        ad: modAdCevir(k), oran: Math.round((zv[k].dogru/(zv[k].dogru+zv[k].yanlis))*100)
+      }));
+      if(kalifiyeler.length){
+        kalifiyeler.sort((a,b)=>b.oran-a.oran);
+        enIyiMod = kalifiyeler[0];
+        enZayifMod = kalifiyeler[kalifiyeler.length-1];
+      }
+    }catch(e){}
+
+    let puanBakiye=0, seri=0;
+    try{ const g=JSON.parse(localStorage.getItem('sa_gunluk'))||{}; puanBakiye=g.puan||0; seri=g.seri||0; }catch(e){}
+
+    const ic = '<div style="text-align:center;margin-bottom:16px;"><div style="font-size:50px;">'+rutbeIkon+'</div><div style="color:#ffd700;font-weight:900;font-size:16px;margin-top:4px;">'+EK('profilTitle')+'</div></div>'
+      + '<div style="display:flex;gap:8px;margin-bottom:14px;">'
+      +   '<div style="flex:1;background:rgba(255,255,255,.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;">🏆</div><div style="color:#fff;font-weight:800;font-size:15px;">'+basarimSayisi+'</div><div style="color:#8a8a92;font-size:9px;">'+EK('profilBasarim')+'</div></div>'
+      +   '<div style="flex:1;background:rgba(255,255,255,.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;">🪙</div><div style="color:#fff;font-weight:800;font-size:15px;">'+puanBakiye+'</div><div style="color:#8a8a92;font-size:9px;">'+EK('profilCoin')+'</div></div>'
+      +   '<div style="flex:1;background:rgba(255,255,255,.05);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;">🔥</div><div style="color:#fff;font-weight:800;font-size:15px;">'+seri+'</div><div style="color:#8a8a92;font-size:9px;">'+EK('profilSeri')+'</div></div>'
+      + '</div>'
+      + (enIyiMod ? '<div style="background:rgba(63,174,46,.12);border:1px solid rgba(63,174,46,.4);border-radius:10px;padding:10px;margin-bottom:8px;"><div style="color:#3fae2e;font-size:11px;font-weight:800;">'+EK('profilEnGuclu')+'</div><div style="color:#fff;font-size:13px;margin-top:2px;">'+enIyiMod.ad+' — %'+enIyiMod.oran+'</div></div>' : '')
+      + (enZayifMod && enZayifMod!==enIyiMod ? '<div style="background:rgba(227,10,23,.12);border:1px solid rgba(227,10,23,.4);border-radius:10px;padding:10px;margin-bottom:14px;"><div style="color:#ff8f6b;font-size:11px;font-weight:800;">'+EK('profilGelistir')+'</div><div style="color:#fff;font-size:13px;margin-top:2px;">'+enZayifMod.ad+' — %'+enZayifMod.oran+'</div></div>' : '<div style="margin-bottom:6px;"></div>')
+      + '<button onclick="rutbePanelAc()" style="display:block;width:100%;text-align:left;padding:12px;margin-bottom:8px;border-radius:10px;border:1.5px solid rgba(90,200,90,.4);background:rgba(90,200,90,.08);color:#fff;font-weight:700;font-size:13px;cursor:pointer;">'+EK('profilRutbeLink')+'</button>'
+      + '<button onclick="basarimPanelAc()" style="display:block;width:100%;text-align:left;padding:12px;margin-bottom:8px;border-radius:10px;border:1.5px solid rgba(255,215,0,.4);background:rgba(255,215,0,.08);color:#fff;font-weight:700;font-size:13px;cursor:pointer;">'+EK('profilBasarimLink')+'</button>'
+      + '<button onclick="zayifNoktaPanelAc()" style="display:block;width:100%;text-align:left;padding:12px;border-radius:10px;border:1.5px solid rgba(227,163,10,.4);background:rgba(227,163,10,.08);color:#fff;font-weight:700;font-size:13px;cursor:pointer;">'+EK('profilZayifLink')+'</button>';
+
+    ov.innerHTML='<div style="background:linear-gradient(160deg,#1a0505,#2a0808);border:2px solid #ffd700;border-radius:18px;max-width:380px;width:100%;max-height:86vh;overflow-y:auto;padding:20px;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="display:flex;justify-content:flex-end;margin-bottom:-8px;"><button onclick="var p=document.getElementById(\'profilPanel\');if(p)p.remove();" style="background:#c10a17;color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;">✕</button></div>'+ic+'</div>';
+    document.body.appendChild(ov);
+  };
+
+  function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
+  ready(function(){
+    const sb=document.getElementById('settingsBar');
+    if(sb && !document.getElementById('profilBtn')){
+      const b=document.createElement('button'); b.id='profilBtn'; b.title='Profilim'; b.textContent='👤';
+      b.setAttribute('onclick','profilPanelAc()');
+      b.style.cssText='width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,215,0,.55);background:rgba(6,6,18,.7);color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;';
+      sb.appendChild(b);
+    }
+  });
+})();
+</script>
+
+
+<!-- ═══════ 🌐 EK ÖZELLİK ÇEVİRİLERİ (Alpha 2) — zayıf nokta, ses paketi, profil, streak freeze, takım renkleri, 5 başarım ═══════ -->
+<script>
+(function(){
+  const EK_I18N = {
+    sprintQuestionLabel: { tr:"Hızlı İşlem", en:"Quick Math", id:"Hitung Cepat", hi:"तेज़ गणना", it:"Calcolo Veloce", es:"Cálculo Rápido", ka:"სწრაფი გამოთვლა", az:"Sürətli Hesab", ja:"クイック計算", zh:"快速运算", de:"Schnellrechnung", fr:"Calcul Rapide", el:"Γρήγορος Υπολογισμός", ru:"Быстрый Счёт", ar:"حساب سريع", pt:"Cálculo Rápido", uk:"Швидкий Рахунок", fa:"محاسبه سریع", ko:"빠른 계산", nl:"Snel Rekenen", sv:"Snabbräkning", no:"Rask Regning", cs:"Rychlý Výpočet", bs:"Brzo Računanje", hr:"Brzo Računanje", uz:"Tez Hisoblash", ht:"Kalkil Rapid" },
+    denklemQuestionLabel: { tr:"x'i Bul", en:"Find x", id:"Cari x", hi:"x खोजें", it:"Trova x", es:"Encuentra x", ka:"იპოვე x", az:"x-i Tap", ja:"xを求めよ", zh:"求x", de:"Finde x", fr:"Trouve x", el:"Βρες το x", ru:"Найди x", ar:"أوجد x", pt:"Encontre x", uk:"Знайди x", fa:"x را پیدا کن", ko:"x를 찾아라", nl:"Vind x", sv:"Hitta x", no:"Finn x", cs:"Najdi x", bs:"Pronađi x", hr:"Pronađi x", uz:"x ni Top", ht:"Jwenn x" },
+    kesirQuestionLabel: { tr:"Kesir Sadeleştir/Hesapla", en:"Simplify/Calculate Fraction", id:"Sederhanakan/Hitung Pecahan", hi:"भिन्न सरल/हल करें", it:"Semplifica/Calcola Frazione", es:"Simplifica/Calcula Fracción", ka:"წილადის გამარტივება/გამოთვლა", az:"Kəsri Sadələşdir/Hesabla", ja:"分数を計算/約分", zh:"化简/计算分数", de:"Bruch Vereinfachen/Berechnen", fr:"Simplifie/Calcule la Fraction", el:"Απλοποίησε/Υπολόγισε Κλάσμα", ru:"Упрости/Вычисли Дробь", ar:"بسّط/احسب الكسر", pt:"Simplifique/Calcule Fração", uk:"Спрости/Обчисли Дріб", fa:"کسر را ساده/محاسبه کن", ko:"분수 계산/약분", nl:"Vereenvoudig/Bereken Breuk", sv:"Förenkla/Beräkna Bråk", no:"Forenkle/Beregn Brøk", cs:"Zjednoduš/Vypočítej Zlomek", bs:"Skrati/Izračunaj Razlomak", hr:"Skrati/Izračunaj Razlomak", uz:"Kasrni Qisqart/Hisobla", ht:"Senplifye/Kalkile Fraksyon" },
+    kesirHint: { tr:"Cevabı a/b şeklinde (örn: 3/4) ya da sadeleşmiyorsa tam sayı gir", en:"Enter answer as a/b (e.g. 3/4) or a whole number if it doesn't simplify", id:"Masukkan jawaban sebagai a/b (mis: 3/4) atau bilangan bulat jika tidak bisa disederhanakan", hi:"उत्तर a/b के रूप में दें (जैसे 3/4) या पूर्णांक यदि सरल न हो", it:"Inserisci la risposta come a/b (es: 3/4) o un numero intero se non si semplifica", es:"Ingresa la respuesta como a/b (ej: 3/4) o un número entero si no se simplifica", ka:"შეიყვანე პასუხი a/b სახით (მაგ: 3/4) ან მთელი რიცხვი", az:"Cavabı a/b şəklində (məs: 3/4) ya da tam ədəd kimi daxil et", ja:"答えをa/bの形（例：3/4）または約分できない場合は整数で入力", zh:"以 a/b 形式输入答案（如 3/4），无法化简则输入整数", de:"Antwort als a/b eingeben (z.B. 3/4) oder ganze Zahl, falls nicht kürzbar", fr:"Entre la réponse sous forme a/b (ex: 3/4) ou un nombre entier si elle ne se simplifie pas", el:"Δώσε την απάντηση ως a/b (π.χ. 3/4) ή ακέραιο αν δεν απλοποιείται", ru:"Введите ответ как a/b (напр. 3/4) или целое число, если не сокращается", ar:"أدخل الإجابة بصيغة a/b (مثال: 3/4) أو عدداً صحيحاً إن لم تُبسَّط", pt:"Digite a resposta como a/b (ex: 3/4) ou um número inteiro se não simplificar", uk:"Введіть відповідь як a/b (напр. 3/4) або ціле число, якщо не скорочується", fa:"پاسخ را به‌صورت a/b وارد کن (مثلاً 3/4) یا عدد صحیح اگر ساده نشود", ko:"답을 a/b 형식으로 입력 (예: 3/4), 약분 안되면 정수로", nl:"Voer antwoord in als a/b (bv. 3/4) of een geheel getal indien niet te vereenvoudigen", sv:"Ange svaret som a/b (t.ex. 3/4) eller ett heltal om det inte förenklas", no:"Skriv svaret som a/b (f.eks. 3/4) eller et helt tall hvis det ikke forenkles", cs:"Zadej odpověď jako a/b (např. 3/4) nebo celé číslo, pokud se nekrátí", bs:"Unesi odgovor kao a/b (npr. 3/4) ili cijeli broj ako se ne skraćuje", hr:"Unesi odgovor kao a/b (npr. 3/4) ili cijeli broj ako se ne skrati", uz:"Javobni a/b ko'rinishida kiriting (mas: 3/4) yoki qisqarmasa butun son", ht:"Antre repons kòm a/b (egz: 3/4) oswa yon nonm antye si li pa senplifye" },
+    zayifTitle: { tr:"🎯 Zayıf Nokta Analizi", en:"🎯 Weak Point Analysis", id:"🎯 Analisis Titik Lemah", hi:"🎯 कमजोर बिंदु विश्लेषण", it:"🎯 Analisi Punti Deboli", es:"🎯 Análisis de Puntos Débiles", ka:"🎯 სუსტი მხარეების ანალიზი", az:"🎯 Zəif Nöqtə Analizi", ja:"🎯 弱点分析", zh:"🎯 薄弱点分析", de:"🎯 Schwachstellen-Analyse", fr:"🎯 Analyse des Points Faibles", el:"🎯 Ανάλυση Αδύναμων Σημείων", ru:"🎯 Анализ Слабых Мест", ar:"🎯 تحليل نقاط الضعف", pt:"🎯 Análise de Pontos Fracos", uk:"🎯 Аналіз Слабких Місць", fa:"🎯 تحلیل نقاط ضعف", ko:"🎯 약점 분석", nl:"🎯 Analyse Zwakke Punten", sv:"🎯 Analys av Svaga Punkter", no:"🎯 Analyse av Svake Punkter", cs:"🎯 Analýza Slabých Míst", bs:"🎯 Analiza Slabih Tačaka", hr:"🎯 Analiza Slabih Točaka", uz:"🎯 Zaif Nuqtalar Tahlili", ht:"🎯 Analiz Pwen Fèb" },
+    zayifEmpty: { tr:"Henüz yeterli veri yok.<br>Birkaç mod oyna, burada hangi konuda güçlü/zayıf olduğun çıksın.", en:"Not enough data yet.<br>Play a few modes so we can show your strengths/weaknesses here.", id:"Data belum cukup.<br>Mainkan beberapa mode agar kekuatan/kelemahanmu terlihat di sini.", hi:"अभी पर्याप्त डेटा नहीं है।<br>कुछ मोड खेलें ताकि यहां आपकी ताकत/कमजोरी दिखे।", it:"Dati non ancora sufficienti.<br>Gioca qualche modalità per vedere qui i tuoi punti forti/deboli.", es:"Aún no hay suficientes datos.<br>Juega algunos modos para ver aquí tus fortalezas/debilidades.", ka:"ჯერ საკმარისი მონაცემები არ არის.<br>ითამაშე რამდენიმე რეჟიმი, რომ აქ გამოჩნდეს შენი ძლიერი/სუსტი მხარეები.", az:"Hələ kifayət qədər məlumat yoxdur.<br>Bir neçə rejim oyna ki, güclü/zəif tərəflərin burada görünsün.", ja:"まだ十分なデータがありません。<br>いくつかのモードをプレイして得意/苦手を表示させよう。", zh:"数据还不够。<br>多玩几个模式，看看你的强项和弱项。", de:"Noch nicht genug Daten.<br>Spiele ein paar Modi, damit hier deine Stärken/Schwächen erscheinen.", fr:"Pas encore assez de données.<br>Joue quelques modes pour voir tes points forts/faibles ici.", el:"Δεν υπάρχουν ακόμη αρκετά δεδομένα.<br>Παίξε μερικές λειτουργίες για να εμφανιστούν εδώ τα δυνατά/αδύναμα σημεία σου.", ru:"Пока недостаточно данных.<br>Сыграй несколько режимов, чтобы здесь появились твои сильные/слабые стороны.", ar:"لا توجد بيانات كافية بعد.<br>العب بعض الأوضاع لتظهر هنا نقاط قوتك وضعفك.", pt:"Ainda não há dados suficientes.<br>Jogue alguns modos para ver aqui seus pontos fortes/fracos.", uk:"Поки що недостатньо даних.<br>Зіграй кілька режимів, щоб тут з'явилися твої сильні/слабкі сторони.", fa:"هنوز داده کافی نیست.<br>چند حالت بازی کن تا نقاط قوت/ضعفت اینجا نمایش داده شود.", ko:"아직 데이터가 충분하지 않아요.<br>몇 가지 모드를 플레이하면 강점/약점이 여기 표시됩니다.", nl:"Nog niet genoeg gegevens.<br>Speel een paar modi zodat je sterke/zwakke punten hier verschijnen.", sv:"Inte tillräckligt med data än.<br>Spela några lägen så visas dina styrkor/svagheter här.", no:"Ikke nok data ennå.<br>Spill noen moduser så vises styrkene/svakhetene dine her.", cs:"Zatím není dostatek dat.<br>Zahraj si pár režimů, aby se zde zobrazily tvé silné/slabé stránky.", bs:"Još nema dovoljno podataka.<br>Igraj nekoliko modova da se ovdje prikažu tvoje jake/slabe strane.", hr:"Još nema dovoljno podataka.<br>Igraj nekoliko modova da se ovdje prikažu tvoje jake/slabe strane.", uz:"Hali yetarli ma'lumot yo'q.<br>Bir nechta rejimda o'ynang, kuchli/zaif tomonlaringiz shu yerda chiqadi.", ht:"Poko gen ase done.<br>Jwe kèk mòd pou fòs/feblès ou parèt isit la." },
+    zayifSoruSayisi: { tr:"soru çözüldü", en:"questions solved", id:"soal terjawab", hi:"प्रश्न हल हुए", it:"domande risolte", es:"preguntas resueltas", ka:"ამოხსნილი კითხვები", az:"sual həll edildi", ja:"問解答済み", zh:"题已解答", de:"Fragen gelöst", fr:"questions résolues", el:"ερωτήσεις λύθηκαν", ru:"вопросов решено", ar:"سؤال محلول", pt:"perguntas resolvidas", uk:"питань вирішено", fa:"سوال حل شده", ko:"문제 해결됨", nl:"vragen opgelost", sv:"frågor lösta", no:"spørsmål løst", cs:"otázek vyřešeno", bs:"pitanja riješeno", hr:"pitanja riješeno", uz:"savol yechildi", ht:"kesyon rezoud" },
+    sesPaketiTitle: { tr:"🎼 Ses Paketi", en:"🎼 Sound Pack", id:"🎼 Paket Suara", hi:"🎼 साउंड पैक", it:"🎼 Pacchetto Suoni", es:"🎼 Paquete de Sonido", ka:"🎼 ხმის პაკეტი", az:"🎼 Səs Paketi", ja:"🎼 サウンドパック", zh:"🎼 音效包", de:"🎼 Soundpaket", fr:"🎼 Pack Sonore", el:"🎼 Πακέτο Ήχου", ru:"🎼 Звуковой Пакет", ar:"🎼 حزمة الصوت", pt:"🎼 Pacote de Som", uk:"🎼 Звуковий Пакет", fa:"🎼 بسته صوتی", ko:"🎼 사운드 팩", nl:"🎼 Geluidspakket", sv:"🎼 Ljudpaket", no:"🎼 Lydpakke", cs:"🎼 Zvukový Balíček", bs:"🎼 Zvučni Paket", hr:"🎼 Zvučni Paket", uz:"🎼 Ovoz Toʻplami", ht:"🎼 Pake Son" },
+    sesKlasikAd: { tr:"🎹 Klasik", en:"🎹 Classic", id:"🎹 Klasik", hi:"🎹 क्लासिक", it:"🎹 Classico", es:"🎹 Clásico", ka:"🎹 კლასიკური", az:"🎹 Klassik", ja:"🎹 クラシック", zh:"🎹 经典", de:"🎹 Klassisch", fr:"🎹 Classique", el:"🎹 Κλασικό", ru:"🎹 Классический", ar:"🎹 كلاسيكي", pt:"🎹 Clássico", uk:"🎹 Класичний", fa:"🎹 کلاسیک", ko:"🎹 클래식", nl:"🎹 Klassiek", sv:"🎹 Klassisk", no:"🎹 Klassisk", cs:"🎹 Klasický", bs:"🎹 Klasičan", hr:"🎹 Klasičan", uz:"🎹 Klassik", ht:"🎹 Klasik" },
+    sesKlasikAciklama: { tr:"Yumuşak, çeşitli dalga formları", en:"Soft, varied waveforms", id:"Lembut, gelombang bervariasi", hi:"नरम, विविध तरंग रूप", it:"Morbido, forme d'onda variate", es:"Suave, formas de onda variadas", ka:"რბილი, მრავალფეროვანი ტალღები", az:"Yumşaq, müxtəlif dalğa formaları", ja:"柔らかく多様な波形", zh:"柔和多变的波形", de:"Weich, vielfältige Wellenformen", fr:"Doux, formes d'ondes variées", el:"Απαλά, ποικίλες κυματομορφές", ru:"Мягкие, разные формы волн", ar:"ناعم، أشكال موجية متنوعة", pt:"Suave, formas de onda variadas", uk:"М'які, різні форми хвиль", fa:"نرم، اشکال موج متنوع", ko:"부드럽고 다양한 파형", nl:"Zacht, gevarieerde golfvormen", sv:"Mjuka, varierade vågformer", no:"Myke, varierte bølgeformer", cs:"Jemné, různorodé vlnové tvary", bs:"Meki, raznoliki oblici talasa", hr:"Meki, raznoliki oblici valova", uz:"Yumshoq, xilma-xil to'lqin shakllari", ht:"Dous, fòm ond varye" },
+    sesRetroAd: { tr:"👾 Retro 8-bit", en:"👾 Retro 8-bit", id:"👾 Retro 8-bit", hi:"👾 रेट्रो 8-बिट", it:"👾 Retro 8-bit", es:"👾 Retro 8-bit", ka:"👾 რეტრო 8-ბიტი", az:"👾 Retro 8-bit", ja:"👾 レトロ8ビット", zh:"👾 复古8位", de:"👾 Retro 8-Bit", fr:"👾 Rétro 8-bit", el:"👾 Ρετρό 8-bit", ru:"👾 Ретро 8-бит", ar:"👾 ريترو 8-بت", pt:"👾 Retrô 8-bit", uk:"👾 Ретро 8-біт", fa:"👾 رترو ۸ بیتی", ko:"👾 레트로 8비트", nl:"👾 Retro 8-bit", sv:"👾 Retro 8-bit", no:"👾 Retro 8-bit", cs:"👾 Retro 8-bit", bs:"👾 Retro 8-bit", hr:"👾 Retro 8-bit", uz:"👾 Retro 8-bit", ht:"👾 Retwo 8-bit" },
+    sesRetroAciklama: { tr:"Kare dalga, eski konsol hissi", en:"Square wave, old console feel", id:"Gelombang kotak, nuansa konsol lawas", hi:"चौकोर तरंग, पुराने कंसोल जैसा एहसास", it:"Onda quadra, sensazione da vecchia console", es:"Onda cuadrada, sensación de consola retro", ka:"კვადრატული ტალღა, ძველი კონსოლის შეგრძნება", az:"Kvadrat dalğa, köhnə konsol hissi", ja:"矩形波、レトロなゲーム機の雰囲気", zh:"方波，复古游戏机质感", de:"Rechteckwelle, altes Konsolengefühl", fr:"Onde carrée, ambiance vieille console", el:"Τετράγωνο κύμα, αίσθηση παλιάς κονσόλας", ru:"Прямоугольная волна, ощущение старой консоли", ar:"موجة مربعة، إحساس وحدة تحكم قديمة", pt:"Onda quadrada, sensação de console antigo", uk:"Прямокутна хвиля, відчуття старої консолі", fa:"موج مربعی، حس کنسول قدیمی", ko:"구형파, 옛날 콘솔 느낌", nl:"Blokgolf, gevoel van oude console", sv:"Fyrkantsvåg, känsla av gammal konsol", no:"Firkantbølge, følelse av gammel konsoll", cs:"Obdélníková vlna, pocit staré konzole", bs:"Kvadratni talas, osjećaj stare konzole", hr:"Kvadratni val, osjećaj stare konzole", uz:"Kvadrat to'lqin, eski konsol hissi", ht:"Ond kare, santiman ansyen konsòl" },
+    sesSakinAd: { tr:"🌙 Sakin", en:"🌙 Calm", id:"🌙 Tenang", hi:"🌙 शांत", it:"🌙 Calmo", es:"🌙 Tranquilo", ka:"🌙 მშვიდი", az:"🌙 Sakit", ja:"🌙 静か", zh:"🌙 宁静", de:"🌙 Ruhig", fr:"🌙 Calme", el:"🌙 Ήρεμο", ru:"🌙 Спокойный", ar:"🌙 هادئ", pt:"🌙 Calmo", uk:"🌙 Спокійний", fa:"🌙 آرام", ko:"🌙 차분함", nl:"🌙 Rustig", sv:"🌙 Lugn", no:"🌙 Rolig", cs:"🌙 Klidný", bs:"🌙 Smiren", hr:"🌙 Smiren", uz:"🌙 Sokin", ht:"🌙 Kalm" },
+    sesSakinAciklama: { tr:"Yumuşak sinüs dalga, düşük ses, rahatsız etmeyen ton", en:"Soft sine wave, low volume, gentle tone", id:"Gelombang sinus lembut, volume rendah, nada tenang", hi:"नरम साइन तरंग, कम आवाज़, आरामदायक टोन", it:"Onda sinusoidale morbida, volume basso, tono delicato", es:"Onda senoidal suave, volumen bajo, tono relajante", ka:"რბილი სინუსური ტალღა, დაბალი ხმა, სასიამოვნო ტონი", az:"Yumşaq sinus dalğası, alçaq səs, rahat ton", ja:"柔らかいサイン波、小音量、優しいトーン", zh:"柔和正弦波，低音量，舒缓音调", de:"Weiche Sinuswelle, leise Lautstärke, sanfter Ton", fr:"Onde sinusoïdale douce, volume faible, ton apaisant", el:"Απαλό ημιτονοειδές κύμα, χαμηλή ένταση, ήπιος τόνος", ru:"Мягкая синусоида, тихая громкость, приятный тон", ar:"موجة جيبية ناعمة، صوت منخفض، نغمة مريحة", pt:"Onda senoidal suave, volume baixo, tom relaxante", uk:"М'яка синусоїда, тихий звук, приємний тон", fa:"موج سینوسی نرم، صدای کم، تن آرامش‌بخش", ko:"부드러운 사인파, 낮은 볼륨, 편안한 톤", nl:"Zachte sinusgolf, laag volume, rustgevende toon", sv:"Mjuk sinusvåg, låg volym, skön ton", no:"Myk sinusbølge, lavt volum, behagelig tone", cs:"Jemná sinusovka, nízká hlasitost, příjemný tón", bs:"Meki sinusni talas, niska glasnoća, ugodan ton", hr:"Meki sinusni val, niska glasnoća, ugodan ton", uz:"Yumshoq sinus to'lqini, past ovoz, yoqimli ohang", ht:"Ond sinis dous, volim ba, ton dous" },
+    profilTitle: { tr:"Profilim", en:"My Profile", id:"Profil Saya", hi:"मेरी प्रोफ़ाइल", it:"Il Mio Profilo", es:"Mi Perfil", ka:"ჩემი პროფილი", az:"Profilim", ja:"マイプロフィール", zh:"我的资料", de:"Mein Profil", fr:"Mon Profil", el:"Το Προφίλ μου", ru:"Мой Профиль", ar:"ملفي الشخصي", pt:"Meu Perfil", uk:"Мій Профіль", fa:"پروفایل من", ko:"내 프로필", nl:"Mijn Profiel", sv:"Min Profil", no:"Min Profil", cs:"Můj Profil", bs:"Moj Profil", hr:"Moj Profil", uz:"Mening Profilim", ht:"Pwofil Mwen" },
+    profilBasarim: { tr:"Başarım", en:"Achievements", id:"Prestasi", hi:"उपलब्धि", it:"Obiettivi", es:"Logros", ka:"მიღწევა", az:"Nailiyyət", ja:"実績", zh:"成就", de:"Erfolge", fr:"Succès", el:"Επιτεύγματα", ru:"Достижения", ar:"الإنجازات", pt:"Conquistas", uk:"Досягнення", fa:"دستاورد", ko:"업적", nl:"Prestaties", sv:"Prestationer", no:"Prestasjoner", cs:"Úspěchy", bs:"Postignuća", hr:"Postignuća", uz:"Yutuqlar", ht:"Reyalizasyon" },
+    profilCoin: { tr:"Coin", en:"Coins", id:"Koin", hi:"सिक्के", it:"Monete", es:"Monedas", ka:"მონეტები", az:"Sikkə", ja:"コイン", zh:"金币", de:"Münzen", fr:"Pièces", el:"Νομίσματα", ru:"Монеты", ar:"عملات", pt:"Moedas", uk:"Монети", fa:"سکه", ko:"코인", nl:"Munten", sv:"Mynt", no:"Mynter", cs:"Mince", bs:"Novčići", hr:"Novčići", uz:"Tangalar", ht:"Kòb" },
+    profilSeri: { tr:"Gün Serisi", en:"Day Streak", id:"Rentetan Hari", hi:"दिन श्रृंखला", it:"Serie Giorni", es:"Racha de Días", ka:"დღეების სერია", az:"Gün Seriyası", ja:"連続日数", zh:"连续天数", de:"Tage-Serie", fr:"Série de Jours", el:"Σειρά Ημερών", ru:"Серия Дней", ar:"سلسلة الأيام", pt:"Sequência de Dias", uk:"Серія Днів", fa:"روزهای متوالی", ko:"연속 일수", nl:"Dagenreeks", sv:"Dagssvit", no:"Dagsrekke", cs:"Denní Série", bs:"Niz Dana", hr:"Niz Dana", uz:"Kunlar Ketma-ketligi", ht:"Sekans Jou" },
+    profilEnGuclu: { tr:"💪 EN GÜÇLÜ KONUN", en:"💪 YOUR STRONGEST TOPIC", id:"💪 TOPIK TERKUATMU", hi:"💪 आपका सबसे मजबूत विषय", it:"💪 IL TUO PUNTO FORTE", es:"💪 TU TEMA MÁS FUERTE", ka:"💪 შენი ყველაზე ძლიერი თემა", az:"💪 ƏN GÜCLÜ MÖVZUN", ja:"💪 あなたの得意分野", zh:"💪 你最擅长的主题", de:"💪 DEIN STÄRKSTES THEMA", fr:"💪 TON POINT FORT", el:"💪 ΤΟ ΔΥΝΑΤΟ ΣΟΥ ΣΗΜΕΙΟ", ru:"💪 ТВОЯ СИЛЬНАЯ ТЕМА", ar:"💪 موضوعك الأقوى", pt:"💪 SEU TEMA MAIS FORTE", uk:"💪 ТВОЯ СИЛЬНА ТЕМА", fa:"💪 قوی‌ترین موضوعت", ko:"💪 가장 강한 주제", nl:"💪 JE STERKSTE ONDERWERP", sv:"💪 DITT STARKASTE ÄMNE", no:"💪 DITT STERKESTE EMNE", cs:"💪 TVÉ NEJSILNĚJŠÍ TÉMA", bs:"💪 TVOJA NAJJAČA TEMA", hr:"💪 TVOJA NAJJAČA TEMA", uz:"💪 ENG KUCHLI MAVZUNG", ht:"💪 SIJÈ PI FÒ OU" },
+    profilGelistir: { tr:"📚 GELİŞTİRMEN GEREKEN", en:"📚 NEEDS IMPROVEMENT", id:"📚 PERLU DITINGKATKAN", hi:"📚 सुधार की जरूरत", it:"📚 DA MIGLIORARE", es:"📚 A MEJORAR", ka:"📚 გასაუმჯობესებელი", az:"📚 İNKİŞAF ETDİRMƏLİSƏN", ja:"📚 要改善", zh:"📚 待提升", de:"📚 VERBESSERUNGSWÜRDIG", fr:"📚 À AMÉLIORER", el:"📚 ΠΡΟΣ ΒΕΛΤΙΩΣΗ", ru:"📚 НАД ЧЕМ ПОРАБОТАТЬ", ar:"📚 يحتاج تحسين", pt:"📚 A MELHORAR", uk:"📚 ПОТРЕБУЄ ПОКРАЩЕННЯ", fa:"📚 نیاز به بهبود", ko:"📚 개선이 필요해요", nl:"📚 TE VERBETEREN", sv:"📚 BEHÖVER FÖRBÄTTRAS", no:"📚 TRENGER FORBEDRING", cs:"📚 KE ZLEPŠENÍ", bs:"📚 ZA POBOLJŠANJE", hr:"📚 ZA POBOLJŠANJE", uz:"📚 YAXSHILASH KERAK", ht:"📚 BEZWEN AMELYORE" },
+    profilRutbeLink: { tr:"🎖️ Rütbe Detayı →", en:"🎖️ Rank Details →", id:"🎖️ Detail Peringkat →", hi:"🎖️ रैंक विवरण →", it:"🎖️ Dettagli Grado →", es:"🎖️ Detalles de Rango →", ka:"🎖️ წოდების დეტალები →", az:"🎖️ Rütbə Təfərrüatı →", ja:"🎖️ ランク詳細 →", zh:"🎖️ 段位详情 →", de:"🎖️ Rang-Details →", fr:"🎖️ Détails du Rang →", el:"🎖️ Λεπτομέρειες Βαθμού →", ru:"🎖️ Детали Ранга →", ar:"🎖️ تفاصيل الرتبة →", pt:"🎖️ Detalhes do Ranking →", uk:"🎖️ Деталі Рангу →", fa:"🎖️ جزئیات رتبه →", ko:"🎖️ 랭크 세부정보 →", nl:"🎖️ Rangdetails →", sv:"🎖️ Rangdetaljer →", no:"🎖️ Rangdetaljer →", cs:"🎖️ Detaily Hodnosti →", bs:"🎖️ Detalji Ranga →", hr:"🎖️ Detalji Ranga →", uz:"🎖️ Daraja Tafsilotlari →", ht:"🎖️ Detay Ran →" },
+    profilBasarimLink: { tr:"🏆 Tüm Başarımlar →", en:"🏆 All Achievements →", id:"🏆 Semua Prestasi →", hi:"🏆 सभी उपलब्धियां →", it:"🏆 Tutti gli Obiettivi →", es:"🏆 Todos los Logros →", ka:"🏆 ყველა მიღწევა →", az:"🏆 Bütün Nailiyyətlər →", ja:"🏆 すべての実績 →", zh:"🏆 全部成就 →", de:"🏆 Alle Erfolge →", fr:"🏆 Tous les Succès →", el:"🏆 Όλα τα Επιτεύγματα →", ru:"🏆 Все Достижения →", ar:"🏆 كل الإنجازات →", pt:"🏆 Todas as Conquistas →", uk:"🏆 Всі Досягнення →", fa:"🏆 همه دستاوردها →", ko:"🏆 모든 업적 →", nl:"🏆 Alle Prestaties →", sv:"🏆 Alla Prestationer →", no:"🏆 Alle Prestasjoner →", cs:"🏆 Všechny Úspěchy →", bs:"🏆 Sva Postignuća →", hr:"🏆 Sva Postignuća →", uz:"🏆 Barcha Yutuqlar →", ht:"🏆 Tout Reyalizasyon →" },
+    profilZayifLink: { tr:"🎯 Zayıf Nokta Analizi →", en:"🎯 Weak Point Analysis →", id:"🎯 Analisis Titik Lemah →", hi:"🎯 कमजोर बिंदु विश्लेषण →", it:"🎯 Analisi Punti Deboli →", es:"🎯 Análisis de Puntos Débiles →", ka:"🎯 სუსტი მხარეების ანალიზი →", az:"🎯 Zəif Nöqtə Analizi →", ja:"🎯 弱点分析 →", zh:"🎯 薄弱点分析 →", de:"🎯 Schwachstellen-Analyse →", fr:"🎯 Analyse des Points Faibles →", el:"🎯 Ανάλυση Αδύναμων Σημείων →", ru:"🎯 Анализ Слабых Мест →", ar:"🎯 تحليل نقاط الضعف →", pt:"🎯 Análise de Pontos Fracos →", uk:"🎯 Аналіз Слабких Місць →", fa:"🎯 تحلیل نقاط ضعف →", ko:"🎯 약점 분석 →", nl:"🎯 Analyse Zwakke Punten →", sv:"🎯 Analys av Svaga Punkter →", no:"🎯 Analyse av Svake Punkter →", cs:"🎯 Analýza Slabých Míst →", bs:"🎯 Analiza Slabih Tačaka →", hr:"🎯 Analiza Slabih Točaka →", uz:"🎯 Zaif Nuqtalar Tahlili →", ht:"🎯 Analiz Pwen Fèb →" },
+    temaSariKirmizi: { tr:"⚽ Sarı - Kırmızı", en:"⚽ Yellow - Red", id:"⚽ Kuning - Merah", hi:"⚽ पीला - लाल", it:"⚽ Giallo - Rosso", es:"⚽ Amarillo - Rojo", ka:"⚽ ყვითელი - წითელი", az:"⚽ Sarı - Qırmızı", ja:"⚽ 黄 - 赤", zh:"⚽ 黄 - 红", de:"⚽ Gelb - Rot", fr:"⚽ Jaune - Rouge", el:"⚽ Κίτρινο - Κόκκινο", ru:"⚽ Жёлтый - Красный", ar:"⚽ أصفر - أحمر", pt:"⚽ Amarelo - Vermelho", uk:"⚽ Жовтий - Червоний", fa:"⚽ زرد - قرمز", ko:"⚽ 노랑 - 빨강", nl:"⚽ Geel - Rood", sv:"⚽ Gul - Röd", no:"⚽ Gul - Rød", cs:"⚽ Žlutá - Červená", bs:"⚽ Žuta - Crvena", hr:"⚽ Žuta - Crvena", uz:"⚽ Sariq - Qizil", ht:"⚽ Jòn - Wouj" },
+    temaSariLacivert: { tr:"⚽ Sarı - Lacivert", en:"⚽ Yellow - Navy", id:"⚽ Kuning - Biru Tua", hi:"⚽ पीला - नेवी", it:"⚽ Giallo - Blu Navy", es:"⚽ Amarillo - Azul Marino", ka:"⚽ ყვითელი - მუქი ლურჯი", az:"⚽ Sarı - Lacivərd", ja:"⚽ 黄 - 紺", zh:"⚽ 黄 - 藏青", de:"⚽ Gelb - Marineblau", fr:"⚽ Jaune - Bleu Marine", el:"⚽ Κίτρινο - Μπλε Ναυτικό", ru:"⚽ Жёлтый - Тёмно-синий", ar:"⚽ أصفر - كحلي", pt:"⚽ Amarelo - Azul Marinho", uk:"⚽ Жовтий - Темно-синій", fa:"⚽ زرد - سرمه‌ای", ko:"⚽ 노랑 - 남색", nl:"⚽ Geel - Marineblauw", sv:"⚽ Gul - Marinblå", no:"⚽ Gul - Marineblå", cs:"⚽ Žlutá - Tmavě modrá", bs:"⚽ Žuta - Tamnoplava", hr:"⚽ Žuta - Tamnoplava", uz:"⚽ Sariq - To’q ko’k", ht:"⚽ Jòn - Ble Mari" },
+    temaSiyahBeyaz: { tr:"⚽ Siyah - Beyaz", en:"⚽ Black - White", id:"⚽ Hitam - Putih", hi:"⚽ काला - सफ़ेद", it:"⚽ Nero - Bianco", es:"⚽ Negro - Blanco", ka:"⚽ შავი - თეთრი", az:"⚽ Qara - Ağ", ja:"⚽ 黒 - 白", zh:"⚽ 黑 - 白", de:"⚽ Schwarz - Weiß", fr:"⚽ Noir - Blanc", el:"⚽ Μαύρο - Λευκό", ru:"⚽ Чёрный - Белый", ar:"⚽ أسود - أبيض", pt:"⚽ Preto - Branco", uk:"⚽ Чорний - Білий", fa:"⚽ سیاه - سفید", ko:"⚽ 검정 - 흰색", nl:"⚽ Zwart - Wit", sv:"⚽ Svart - Vit", no:"⚽ Svart - Hvit", cs:"⚽ Černá - Bílá", bs:"⚽ Crna - Bijela", hr:"⚽ Crna - Bijela", uz:"⚽ Qora - Oq", ht:"⚽ Nwa - Blan" },
+    temaBordoMavi: { tr:"⚽ Bordo - Mavi", en:"⚽ Maroon - Blue", id:"⚽ Marun - Biru", hi:"⚽ मरून - नीला", it:"⚽ Bordeaux - Blu", es:"⚽ Granate - Azul", ka:"⚽ ბორდო - ლურჯი", az:"⚽ Bordo - Mavi", ja:"⚽ ボルドー - 青", zh:"⚽ 酒红 - 蓝", de:"⚽ Bordeaux - Blau", fr:"⚽ Bordeaux - Bleu", el:"⚽ Μπορντό - Μπλε", ru:"⚽ Бордовый - Синий", ar:"⚽ خمري - أزرق", pt:"⚽ Bordô - Azul", uk:"⚽ Бордовий - Синій", fa:"⚽ زرشکی - آبی", ko:"⚽ 자주색 - 파랑", nl:"⚽ Bordeauxrood - Blauw", sv:"⚽ Vinröd - Blå", no:"⚽ Bordeaux - Blå", cs:"⚽ Bordó - Modrá", bs:"⚽ Bordo - Plava", hr:"⚽ Bordo - Plava", uz:"⚽ Bordo - Ko’k", ht:"⚽ Bordo - Ble" },
+    temaOzelGunler: { tr:"🗓️ ÖZEL GÜNLER", en:"🗓️ SPECIAL DAYS", id:"🗓️ HARI SPESIAL", hi:"🗓️ विशेष दिन", it:"🗓️ GIORNI SPECIALI", es:"🗓️ DÍAS ESPECIALES", ka:"🗓️ განსაკუთრებული დღეები", az:"🗓️ XÜSUSİ GÜNLƏR", ja:"🗓️ 特別な日", zh:"🗓️ 特殊日子", de:"🗓️ BESONDERE TAGE", fr:"🗓️ JOURS SPÉCIAUX", el:"🗓️ ΕΙΔΙΚΕΣ ΗΜΕΡΕΣ", ru:"🗓️ ОСОБЫЕ ДНИ", ar:"🗓️ أيام خاصة", pt:"🗓️ DIAS ESPECIAIS", uk:"🗓️ ОСОБЛИВІ ДНІ", fa:"🗓️ روزهای ویژه", ko:"🗓️ 특별한 날", nl:"🗓️ SPECIALE DAGEN", sv:"🗓️ SÄRSKILDA DAGAR", no:"🗓️ SPESIELLE DAGER", cs:"🗓️ VÝJIMEČNÉ DNY", bs:"🗓️ POSEBNI DANI", hr:"🗓️ POSEBNI DANI", uz:"🗓️ MAXSUS KUNLAR", ht:"🗓️ JOU SPESYAL" },
+    temaTakimRenkleri: { tr:"⚽ TAKIM RENKLERİ", en:"⚽ TEAM COLORS", id:"⚽ WARNA TIM", hi:"⚽ टीम रंग", it:"⚽ COLORI SQUADRA", es:"⚽ COLORES DEL EQUIPO", ka:"⚽ გუნდის ფერები", az:"⚽ KOMANDA RƏNGLƏRİ", ja:"⚽ チームカラー", zh:"⚽ 球队颜色", de:"⚽ TEAMFARBEN", fr:"⚽ COULEURS D'ÉQUIPE", el:"⚽ ΧΡΩΜΑΤΑ ΟΜΑΔΑΣ", ru:"⚽ ЦВЕТА КОМАНДЫ", ar:"⚽ ألوان الفريق", pt:"⚽ CORES DO TIME", uk:"⚽ КОЛЬОРИ КОМАНДИ", fa:"⚽ رنگ‌های تیم", ko:"⚽ 팀 컬러", nl:"⚽ TEAMKLEUREN", sv:"⚽ LAGFÄRGER", no:"⚽ LAGFARGER", cs:"⚽ BARVY TÝMU", bs:"⚽ BOJE TIMA", hr:"⚽ BOJE TIMA", uz:"⚽ JAMOA RANGLARI", ht:"⚽ KOULÈ EKIP" },
+    achCokYonluAd: { tr:"Çok Yönlü", en:"Versatile", id:"Serbaguna", hi:"बहुमुखी", it:"Versatile", es:"Versátil", ka:"მრავალმხრივი", az:"Çoxşaxəli", ja:"マルチタレント", zh:"多才多艺", de:"Vielseitig", fr:"Polyvalent", el:"Ευέλικτος", ru:"Разносторонний", ar:"متعدد المواهب", pt:"Versátil", uk:"Різносторонній", fa:"همه‌فن‌حریف", ko:"만능형", nl:"Veelzijdig", sv:"Mångsidig", no:"Allsidig", cs:"Všestranný", bs:"Svestran", hr:"Svestran", uz:"Ko’p qirrali", ht:"Vèsatil" },
+    achCokYonluAciklama: { tr:"En az 5 farklı modda doğru cevap ver.", en:"Get a correct answer in at least 5 different modes.", id:"Dapatkan jawaban benar di setidaknya 5 mode berbeda.", hi:"कम से कम 5 अलग मोड में सही उत्तर दें।", it:"Rispondi correttamente in almeno 5 modalità diverse.", es:"Responde correctamente en al menos 5 modos diferentes.", ka:"გასცი სწორი პასუხი მინიმუმ 5 სხვადასხვა რეჟიმში.", az:"Ən azı 5 fərqli rejimdə düzgün cavab ver.", ja:"少なくとも5つの異なるモードで正解しよう。", zh:"在至少5种不同模式中答对一题。", de:"Beantworte in mindestens 5 verschiedenen Modi richtig.", fr:"Réponds correctement dans au moins 5 modes différents.", el:"Απάντησε σωστά σε τουλάχιστον 5 διαφορετικές λειτουργίες.", ru:"Дай правильный ответ минимум в 5 разных режимах.", ar:"أجب بشكل صحيح في 5 أوضاع مختلفة على الأقل.", pt:"Acerte em pelo menos 5 modos diferentes.", uk:"Дай правильну відповідь щонайменше у 5 різних режимах.", fa:"در حداقل ۵ حالت مختلف پاسخ درست بده.", ko:"최소 5개의 다른 모드에서 정답을 맞혀보세요.", nl:"Geef een correct antwoord in minstens 5 verschillende modi.", sv:"Svara rätt i minst 5 olika lägen.", no:"Svar riktig i minst 5 forskjellige moduser.", cs:"Odpověz správně alespoň v 5 různých režimech.", bs:"Odgovori tačno u najmanje 5 različitih modova.", hr:"Odgovori točno u najmanje 5 različitih modova.", uz:"Kamida 5 xil rejimda toʻgʻri javob bering.", ht:"Reponn kòrèkteman nan omwen 5 mòd diferan." },
+    achUzmanAd: { tr:"Konu Uzmanı", en:"Topic Expert", id:"Ahli Topik", hi:"विषय विशेषज्ञ", it:"Esperto della Materia", es:"Experto en el Tema", ka:"თემის ექსპერტი", az:"Mövzu Eksperti", ja:"トピックエキスパート", zh:"主题专家", de:"Themenexperte", fr:"Expert du Sujet", el:"Ειδικός Θέματος", ru:"Эксперт Темы", ar:"خبير الموضوع", pt:"Especialista no Tema", uk:"Експерт Теми", fa:"کارشناس موضوع", ko:"주제 전문가", nl:"Onderwerpexpert", sv:"Ämnesexpert", no:"Emneekspert", cs:"Odborník na Téma", bs:"Ekspert za Temu", hr:"Stručnjak za Temu", uz:"Mavzu Eksperti", ht:"Ekspè Sijè" },
+    achUzmanAciklama: { tr:"Herhangi bir modda 50 doğru cevap ver.", en:"Get 50 correct answers in any single mode.", id:"Dapatkan 50 jawaban benar di satu mode mana pun.", hi:"किसी भी एक मोड में 50 सही उत्तर दें।", it:"Rispondi correttamente 50 volte in una singola modalità.", es:"Consigue 50 respuestas correctas en un solo modo.", ka:"გასცი 50 სწორი პასუხი ერთ რომელიმე რეჟიმში.", az:"İstənilən bir rejimdə 50 düzgün cavab ver.", ja:"いずれかのモードで50問正解しよう。", zh:"在任意一个模式中答对50题。", de:"Erhalte 50 richtige Antworten in einem beliebigen Modus.", fr:"Obtiens 50 bonnes réponses dans un seul mode.", el:"Απάντησε σωστά 50 φορές σε μία λειτουργία.", ru:"Дай 50 правильных ответов в любом одном режиме.", ar:"احصل على 50 إجابة صحيحة في أي وضع واحد.", pt:"Consiga 50 respostas certas em um único modo.", uk:"Дай 50 правильних відповідей у будь-якому одному режимі.", fa:"در یک حالت ۵۰ پاسخ درست بده.", ko:"한 모드에서 50개의 정답을 맞혀보세요.", nl:"Behaal 50 correcte antwoorden in één modus.", sv:"Få 50 rätta svar i ett enda läge.", no:"Få 50 riktige svar i én modus.", cs:"Získej 50 správných odpovědí v jednom režimu.", bs:"Ostvari 50 tačnih odgovora u jednom modu.", hr:"Ostvari 50 točnih odgovora u jednom modu.", uz:"Bitta rejimda 50 toʻgʻri javob bering.", ht:"Jwenn 50 repons kòrèk nan yon sèl mòd." },
+    achMukemmelAd: { tr:"Mükemmeliyetçi", en:"Perfectionist", id:"Perfeksionis", hi:"पूर्णतावादी", it:"Perfezionista", es:"Perfeccionista", ka:"პერფექციონისტი", az:"Mükəmməlliyyətçi", ja:"完璧主義者", zh:"完美主义者", de:"Perfektionist", fr:"Perfectionniste", el:"Τελειομανής", ru:"Перфекционист", ar:"مثالي", pt:"Perfeccionista", uk:"Перфекціоніст", fa:"کمال‌گرا", ko:"완벽주의자", nl:"Perfectionist", sv:"Perfektionist", no:"Perfeksjonist", cs:"Perfekcionista", bs:"Perfekcionista", hr:"Perfekcionist", uz:"Mukammallikka intiluvchi", ht:"Pèfeksyonis" },
+    achMukemmelAciklama: { tr:"Bir modda en az 10 soruda hiç yanlış yapmadan devam et.", en:"Go 10+ questions in one mode without a single mistake.", id:"Jawab 10+ soal di satu mode tanpa satu kesalahan pun.", hi:"एक मोड में बिना गलती के 10+ प्रश्न हल करें।", it:"Rispondi a 10+ domande in una modalità senza errori.", es:"Responde 10+ preguntas en un modo sin ningún error.", ka:"ამოხსენი 10+ კითხვა ერთ რეჟიმში არცერთი შეცდომის გარეშე.", az:"Bir rejimdə heç səhv etmədən 10+ suala cavab ver.", ja:"1つのモードでミスなく10問以上正解しよう。", zh:"在一个模式中连续答对10题以上，一次都不出错。", de:"Beantworte 10+ Fragen in einem Modus ohne einen einzigen Fehler.", fr:"Réponds à 10+ questions dans un mode sans aucune erreur.", el:"Απάντησε σε 10+ ερωτήσεις σε μία λειτουργία χωρίς κανένα λάθος.", ru:"Ответь на 10+ вопросов в одном режиме без единой ошибки.", ar:"أجب على 10+ أسئلة في وضع واحد دون أي خطأ.", pt:"Responda 10+ perguntas em um modo sem nenhum erro.", uk:"Дай відповідь на 10+ питань в одному режимі без жодної помилки.", fa:"در یک حالت بیش از ۱۰ سوال بدون هیچ اشتباهی جواب بده.", ko:"한 모드에서 실수 없이 10문제 이상 풀어보세요.", nl:"Beantwoord 10+ vragen in één modus zonder één fout.", sv:"Svara på 10+ frågor i ett läge utan ett enda fel.", no:"Svar på 10+ spørsmål i én modus uten en eneste feil.", cs:"Zodpověz 10+ otázek v jednom režimu bez jediné chyby.", bs:"Odgovori na 10+ pitanja u jednom modu bez ijedne greške.", hr:"Odgovori na 10+ pitanja u jednom modu bez ijedne greške.", uz:"Bitta rejimda birorta xato qilmasdan 10+ savolga javob bering.", ht:"Reponn 10+ kesyon nan yon mòd san okenn erè." },
+    achSesKasifiAd: { tr:"Ses Kaşifi", en:"Sound Explorer", id:"Penjelajah Suara", hi:"साउंड एक्सप्लोरर", it:"Esploratore Sonoro", es:"Explorador de Sonido", ka:"ხმის მკვლევარი", az:"Səs Kəşfiyyatçısı", ja:"サウンド探検家", zh:"音效探索者", de:"Klang-Entdecker", fr:"Explorateur Sonore", el:"Εξερευνητής Ήχου", ru:"Исследователь Звука", ar:"مستكشف الصوت", pt:"Explorador de Som", uk:"Дослідник Звуку", fa:"کاشف صدا", ko:"사운드 탐험가", nl:"Geluidsontdekker", sv:"Ljudutforskare", no:"Lydutforsker", cs:"Zvukový Objevitel", bs:"Istraživač Zvuka", hr:"Istraživač Zvuka", uz:"Ovoz Kashfiyotchisi", ht:"Eksploratè Son" },
+    achSesKasifiAciklama: { tr:"Üç ses paketini de dene (Klasik, Retro, Sakin).", en:"Try all three sound packs (Classic, Retro, Calm).", id:"Coba ketiga paket suara (Klasik, Retro, Tenang).", hi:"तीनों साउंड पैक आज़माएं (क्लासिक, रेट्रो, शांत)।", it:"Prova tutti e tre i pacchetti sonori (Classico, Retro, Calmo).", es:"Prueba los tres paquetes de sonido (Clásico, Retro, Tranquilo).", ka:"სცადე სამივე ხმის პაკეტი (კლასიკური, რეტრო, მშვიდი).", az:"Üç səs paketini də sına (Klassik, Retro, Sakit).", ja:"3つのサウンドパックすべてを試そう（クラシック、レトロ、静か）。", zh:"尝试全部三种音效包（经典、复古、宁静）。", de:"Probiere alle drei Soundpakete aus (Klassisch, Retro, Ruhig).", fr:"Essaie les trois packs sonores (Classique, Rétro, Calme).", el:"Δοκίμασε και τα τρία πακέτα ήχου (Κλασικό, Ρετρό, Ήρεμο).", ru:"Попробуй все три звуковых пакета (Классический, Ретро, Спокойный).", ar:"جرب حزم الصوت الثلاث (كلاسيكي، ريترو، هادئ).", pt:"Experimente os três pacotes de som (Clássico, Retrô, Calmo).", uk:"Спробуй усі три звукові пакети (Класичний, Ретро, Спокійний).", fa:"هر سه بسته صوتی را امتحان کن (کلاسیک، رترو، آرام).", ko:"세 가지 사운드 팩을 모두 시도해보세요 (클래식, 레트로, 차분함).", nl:"Probeer alle drie geluidspakketten (Klassiek, Retro, Rustig).", sv:"Prova alla tre ljudpaket (Klassisk, Retro, Lugn).", no:"Prøv alle tre lydpakkene (Klassisk, Retro, Rolig).", cs:"Vyzkoušej všechny tři zvukové balíčky (Klasický, Retro, Klidný).", bs:"Isprobaj sva tri zvučna paketa (Klasičan, Retro, Smiren).", hr:"Isprobaj sva tri zvučna paketa (Klasičan, Retro, Smiren).", uz:"Uchala ovoz toʻplamini ham sinab koʻring (Klassik, Retro, Sokin).", ht:"Eseye tou twa pake son yo (Klasik, Retwo, Kalm)." },
+    achGeceKusuAd: { tr:"Gece Kuşu", en:"Night Owl", id:"Burung Hantu Malam", hi:"रात का उल्लू", it:"Nottambulo", es:"Ave Nocturna", ka:"ღამის ბუ", az:"Gecə Quşu", ja:"夜更かしフクロウ", zh:"夜猫子", de:"Nachteule", fr:"Oiseau de Nuit", el:"Νυχτοπούλι", ru:"Полуночник", ar:"بومة الليل", pt:"Coruja Noturna", uk:"Нічна Сова", fa:"جغد شب", ko:"올빼미족", nl:"Nachtuil", sv:"Nattuggla", no:"Nattugle", cs:"Noční Sova", bs:"Noćna Ptica", hr:"Noćna Ptica", uz:"Tungi Boyqush", ht:"Zwazo Lannwit" },
+    achGeceKusuAciklama: { tr:"Gece yarısı ile sabah 5 arası bir soru çöz.", en:"Solve a question between midnight and 5 AM.", id:"Selesaikan soal antara tengah malam dan jam 5 pagi.", hi:"आधी रात और सुबह 5 बजे के बीच एक प्रश्न हल करें।", it:"Risolvi una domanda tra mezzanotte e le 5 del mattino.", es:"Resuelve una pregunta entre medianoche y las 5 AM.", ka:"ამოხსენი კითხვა შუაღამიდან დილის 5 საათამდე.", az:"Gecə yarısı ilə səhər saat 5 arasında sual həll et.", ja:"深夜0時から午前5時の間に問題を解こう。", zh:"在午夜到凌晨5点之间解答一道题。", de:"Löse eine Frage zwischen Mitternacht und 5 Uhr morgens.", fr:"Résous une question entre minuit et 5h du matin.", el:"Λύσε μια ερώτηση μεταξύ μεσάνυχτων και 5 π.μ.", ru:"Реши вопрос между полуночью и 5 утра.", ar:"حل سؤالاً بين منتصف الليل والساعة 5 صباحاً.", pt:"Resolva uma pergunta entre meia-noite e 5h da manhã.", uk:"Виріши питання між північчю та 5 ранку.", fa:"بین نیمه‌شب تا ۵ صبح یک سوال حل کن.", ko:"자정부터 새벽 5시 사이에 문제를 풀어보세요.", nl:"Los een vraag op tussen middernacht en 5 uur 's ochtends.", sv:"Lös en fråga mellan midnatt och 5 på morgonen.", no:"Løs et spørsmål mellom midnatt og klokken 5 om morgenen.", cs:"Vyřeš otázku mezi půlnocí a 5. hodinou ranní.", bs:"Riješi pitanje između ponoći i 5 ujutro.", hr:"Riješi pitanje između ponoći i 5 ujutro.", uz:"Yarim tundan ertalab soat 5 gacha bir savolni yeching.", ht:"Rezoud yon kesyon ant minwi ak 5 dimaten." },
+    dondurmaHakkin: { tr:"🧊 Dondurma Hakkın:", en:"🧊 Freeze Charges:", id:"🧊 Hak Pembekuan:", hi:"🧊 फ्रीज़ अधिकार:", it:"🧊 Congelamenti Disponibili:", es:"🧊 Congelaciones Disponibles:", ka:"🧊 გაყინვის უფლება:", az:"🧊 Dondurma Hüququn:", ja:"🧊 フリーズ回数：", zh:"🧊 冻结次数：", de:"🧊 Einfrier-Guthaben:", fr:"🧊 Gels Disponibles :", el:"🧊 Παγώματα Διαθέσιμα:", ru:"🧊 Заморозки:", ar:"🧊 رصيد التجميد:", pt:"🧊 Congelamentos Disponíveis:", uk:"🧊 Заморозки:", fa:"🧊 شارژ یخ‌زدن:", ko:"🧊 스트릭 프리즈:", nl:"🧊 Bevriezingen:", sv:"🧊 Frysningar:", no:"🧊 Fryseposer:", cs:"🧊 Zmrazení:", bs:"🧊 Zamrzavanja:", hr:"🧊 Zamrzavanja:", uz:"🧊 Muzlatish Huquqi:", ht:"🧊 Chaj Frèz:" },
+    dondurmaAciklama: { tr:"Bir gün kaçırsan bile serin bozulmaz", en:"Your streak survives even if you miss a day", id:"Rentetanmu tetap aman meski melewatkan sehari", hi:"एक दिन छूट जाने पर भी आपकी श्रृंखला बनी रहती है", it:"La tua serie sopravvive anche se salti un giorno", es:"Tu racha sobrevive aunque falles un día", ka:"შენი სერია გადარჩება დღის გამოტოვების შემთხვევაშიც", az:"Bir gün buraxsan belə serin pozulmaz", ja:"1日休んでも連続記録は途切れません", zh:"即使错过一天，连续记录也不会中断", de:"Deine Serie bleibt erhalten, auch wenn du einen Tag verpasst", fr:"Ta série survit même si tu rates un jour", el:"Η σειρά σου παραμένει ακόμα κι αν χάσεις μια μέρα", ru:"Твоя серия сохранится, даже если пропустишь день", ar:"سلسلتك تبقى حتى لو فوتّ يوماً", pt:"Sua sequência sobrevive mesmo se você perder um dia", uk:"Твоя серія збережеться, навіть якщо пропустиш день", fa:"حتی اگر یک روز را از دست بدهی، رکوردت باقی می‌ماند", ko:"하루를 놓쳐도 연속 기록이 유지됩니다", nl:"Je reeks blijft behouden, zelfs als je een dag mist", sv:"Din svit överlever även om du missar en dag", no:"Rekken din overlever selv om du går glipp av en dag", cs:"Tvá série přežije, i když jeden den vynecháš", bs:"Tvoj niz preživljava čak i ako propustiš dan", hr:"Tvoj niz preživljava čak i ako propustiš dan", uz:"Bir kunni oʻtkazib yuborsang ham seriyang buzilmaydi", ht:"Sekans ou siviv menm si ou manke yon jou" },
+    seriDonduruldu: { tr:"🧊 Bir gün kaçırdın ama serin donduruldu, devam ediyor!", en:"🧊 You missed a day but your streak was frozen — it continues!", id:"🧊 Kamu melewatkan sehari tapi rentetanmu dibekukan — tetap lanjut!", hi:"🧊 आपने एक दिन छोड़ा लेकिन आपकी श्रृंखला फ्रीज़ हो गई — जारी है!", it:"🧊 Hai saltato un giorno ma la tua serie è stata congelata — continua!", es:"🧊 Fallaste un día pero tu racha se congeló — ¡continúa!", ka:"🧊 გამოტოვე დღე, მაგრამ შენი სერია გაიყინა — გრძელდება!", az:"🧊 Bir gün buraxdın amma serin donduruldu, davam edir!", ja:"🧊 1日休みましたが連続記録は凍結され継続中です！", zh:"🧊 你错过了一天，但连续记录已冻结——继续保持！", de:"🧊 Du hast einen Tag verpasst, aber deine Serie wurde eingefroren — sie geht weiter!", fr:"🧊 Tu as raté un jour mais ta série a été gelée — elle continue !", el:"🧊 Έχασες μια μέρα αλλά η σειρά σου παγώθηκε — συνεχίζεται!", ru:"🧊 Ты пропустил день, но серия заморожена — она продолжается!", ar:"🧊 فوّت يوماً لكن سلسلتك تجمّدت — وهي مستمرة!", pt:"🧊 Você perdeu um dia mas sua sequência foi congelada — continua!", uk:"🧊 Ти пропустив день, але серію заморозили — вона триває!", fa:"🧊 یک روز را از دست دادی اما رکوردت یخ زد — ادامه دارد!", ko:"🧊 하루를 놓쳤지만 연속 기록이 동결되어 계속됩니다!", nl:"🧊 Je hebt een dag gemist maar je reeks is bevroren — het gaat door!", sv:"🧊 Du missade en dag men din svit frystes — den fortsätter!", no:"🧊 Du gikk glipp av en dag, men rekken din ble frosset — den fortsetter!", cs:"🧊 Vynechal jsi den, ale tvá série byla zmražena — pokračuje!", bs:"🧊 Propustio si dan ali je tvoj niz zamrznut — nastavlja se!", hr:"🧊 Propustio si dan ali je tvoj niz zamrznut — nastavlja se!", uz:"🧊 Bir kunni oʻtkazib yubording, lekin seriyang muzlatildi — davom etmoqda!", ht:"🧊 Ou manke yon jou men sekans ou te frèz — li kontinye!" },
+    paylasBtn: { tr:"📤 Paylaş", en:"📤 Share", id:"📤 Bagikan", hi:"📤 साझा करें", it:"📤 Condividi", es:"📤 Compartir", ka:"📤 გაზიარება", az:"📤 Paylaş", ja:"📤 シェア", zh:"📤 分享", de:"📤 Teilen", fr:"📤 Partager", el:"📤 Κοινοποίηση", ru:"📤 Поделиться", ar:"📤 مشاركة", pt:"📤 Compartilhar", uk:"📤 Поділитися", fa:"📤 اشتراک‌گذاری", ko:"📤 공유", nl:"📤 Delen", sv:"📤 Dela", no:"📤 Del", cs:"📤 Sdílet", bs:"📤 Podijeli", hr:"📤 Podijeli", uz:"📤 Ulashish", ht:"📤 Pataje" },
+    modeGuess: { tr:"Sayı Avcısı", en:"Number Hunter", id:"Pemburu Angka", hi:"संख्या शिकारी", it:"Cacciatore di Numeri", es:"Cazador de Números", ka:"რიცხვების მონადირე", az:"Rəqəm Ovçusu", ja:"数字ハンター", zh:"数字猎人", de:"Zahlenjäger", fr:"Chasseur de Nombres", el:"Κυνηγός Αριθμών", ru:"Охотник за Числами", ar:"صائد الأرقام", pt:"Caçador de Números", uk:"Мисливець за Числами", fa:"شکارچی اعداد", ko:"숫자 사냥꾼", nl:"Getallenjager", sv:"Talsjägare", no:"Talljeger", cs:"Lovec Čísel", bs:"Lovac na Brojeve", hr:"Lovac na Brojeve", uz:"Raqamlar Ovchisi", ht:"Chasè Nimewo" },
+    modeEbob: { tr:"EBOB-EKOK", en:"GCD-LCM", id:"FPB-KPK", hi:"महत्तम समापवर्तक-लघुत्तम समापवर्त्य", it:"MCD-mcm", es:"MCD-MCM", ka:"НОД-НОК", az:"EBOB-EKOK", ja:"最大公約数・最小公倍数", zh:"最大公约数-最小公倍数", de:"ggT-kgV", fr:"PGCD-PPCM", el:"ΜΚΔ-ΕΚΠ", ru:"НОД-НОК", ar:"القاسم المشترك الأكبر - المضاعف المشترك الأصغر", pt:"MDC-MMC", uk:"НСД-НСК", fa:"ب.م.م - ک.م.م", ko:"최대공약수-최소공배수", nl:"GGD-KGV", sv:"SGD-MGM", no:"SFF-MFM", cs:"NSD-NSN", bs:"NZD-NZS", hr:"NZD-NZV", uz:"EKUB-EKUK", ht:"PGDK-PPMK" },
+    modeIslem: { tr:"4 İşlem", en:"4 Operations", id:"4 Operasi", hi:"4 संक्रियाएं", it:"4 Operazioni", es:"4 Operaciones", ka:"4 მოქმედება", az:"4 Əməliyyat", ja:"四則演算", zh:"四则运算", de:"4 Operationen", fr:"4 Opérations", el:"4 Πράξεις", ru:"4 Действия", ar:"4 عمليات", pt:"4 Operações", uk:"4 Дії", fa:"۴ عمل", ko:"사칙연산", nl:"4 Bewerkingen", sv:"4 Räknesätt", no:"4 Regneoperasjoner", cs:"4 Operace", bs:"4 Operacije", hr:"4 Operacije", uz:"4 Amal", ht:"4 Operasyon" },
+    modeFonk: { tr:"f(x) Fonksiyon", en:"f(x) Function", id:"Fungsi f(x)", hi:"f(x) फलन", it:"Funzione f(x)", es:"Función f(x)", ka:"ფუნქცია f(x)", az:"f(x) Funksiya", ja:"関数f(x)", zh:"函数f(x)", de:"Funktion f(x)", fr:"Fonction f(x)", el:"Συνάρτηση f(x)", ru:"Функция f(x)", ar:"الدالة f(x)", pt:"Função f(x)", uk:"Функція f(x)", fa:"تابع f(x)", ko:"함수 f(x)", nl:"Functie f(x)", sv:"Funktion f(x)", no:"Funksjon f(x)", cs:"Funkce f(x)", bs:"Funkcija f(x)", hr:"Funkcija f(x)", uz:"f(x) Funksiya", ht:"Fonksyon f(x)" },
+    modeSozel: { tr:"Sözel Problem", en:"Word Problem", id:"Soal Cerita", hi:"शब्द समस्या", it:"Problema Verbale", es:"Problema Verbal", ka:"სიტყვიერი ამოცანა", az:"Sözlü Məsələ", ja:"文章問題", zh:"应用题", de:"Textaufgabe", fr:"Problème Verbal", el:"Λεκτικό Πρόβλημα", ru:"Текстовая Задача", ar:"مسألة لفظية", pt:"Problema Verbal", uk:"Текстова Задача", fa:"مسئله کلامی", ko:"서술형 문제", nl:"Woordprobleem", sv:"Textuppgift", no:"Tekstoppgave", cs:"Slovní Úloha", bs:"Tekstualni Zadatak", hr:"Tekstualni Zadatak", uz:"Matnli Masala", ht:"Pwoblèm Mo" },
+    modeTyt: { tr:"TYT-AYT", en:"TYT-AYT", id:"TYT-AYT", hi:"TYT-AYT", it:"TYT-AYT", es:"TYT-AYT", ka:"TYT-AYT", az:"TYT-AYT", ja:"TYT-AYT", zh:"TYT-AYT", de:"TYT-AYT", fr:"TYT-AYT", el:"TYT-AYT", ru:"TYT-AYT", ar:"TYT-AYT", pt:"TYT-AYT", uk:"TYT-AYT", fa:"TYT-AYT", ko:"TYT-AYT", nl:"TYT-AYT", sv:"TYT-AYT", no:"TYT-AYT", cs:"TYT-AYT", bs:"TYT-AYT", hr:"TYT-AYT", uz:"TYT-AYT", ht:"TYT-AYT" }
+  };
+  window.getEK = function(key){
+    const lang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : 'tr';
+    return (EK_I18N[key] && (EK_I18N[key][lang] || EK_I18N[key]['tr'])) || key;
+  };
 })();
 </script>
 
