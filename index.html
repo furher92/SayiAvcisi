@@ -569,290 +569,7 @@
 <body>
 
 <!-- ══════════ 🎬 ALPHA 2 BAŞLANGIÇ TRAILER'I ══════════ -->
-<div id="introTrailer" class="started" onclick="tryStartTrailerMusic()">
-    <div class="trl-bg-glow"></div>
-    <div class="trl-abacus">
-        <svg viewBox="0 0 64 64" width="90" height="90" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 4px 18px rgba(227,10,23,0.6));">
-            <defs>
-                <linearGradient id="trlAbFrame" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="#ff8f6b"/>
-                    <stop offset="0.5" stop-color="#e30a17"/>
-                    <stop offset="1" stop-color="#6a0a0a"/>
-                </linearGradient>
-                <radialGradient id="trlAbBead" cx="35%" cy="30%" r="65%">
-                    <stop offset="0" stop-color="#ffcaba"/>
-                    <stop offset="1" stop-color="#b00812"/>
-                </radialGradient>
-            </defs>
-            <rect x="6" y="6" width="52" height="52" rx="5" fill="url(#trlAbFrame)" stroke="#3a0808" stroke-width="1.5"/>
-            <rect x="9" y="9" width="46" height="46" rx="3" fill="#1a0a02"/>
-            <line x1="11" y1="18" x2="53" y2="18" stroke="#ffb3a3" stroke-width="1.2"/>
-            <line x1="11" y1="28" x2="53" y2="28" stroke="#ffb3a3" stroke-width="1.2"/>
-            <line x1="11" y1="38" x2="53" y2="38" stroke="#ffb3a3" stroke-width="1.2"/>
-            <line x1="11" y1="48" x2="53" y2="48" stroke="#ffb3a3" stroke-width="1.2"/>
-            <circle cx="18" cy="18" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="26" cy="18" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="34" cy="18" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-            <circle cx="42" cy="18" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-            <circle cx="50" cy="18" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-            <circle cx="14" cy="28" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="22" cy="28" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="30" cy="28" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="38" cy="28" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-            <circle cx="46" cy="28" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-            <circle cx="18" cy="38" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="26" cy="38" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="34" cy="38" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="42" cy="38" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="50" cy="38" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-            <circle cx="14" cy="48" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="22" cy="48" r="3.5" fill="url(#trlAbBead)" stroke="#3a0808" stroke-width="0.5"/>
-            <circle cx="30" cy="48" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-            <circle cx="38" cy="48" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-            <circle cx="46" cy="48" r="3.5" fill="#fff" stroke="#e30a17" stroke-width="0.5"/>
-        </svg>
-    </div>
-    <div class="trl-nums">
-        <span style="--i:0;--c:#ef4444">7</span>
-        <span style="--i:1;--c:#ef4444">3</span>
-        <span style="--i:2;--c:#22c55e">1</span>
-        <span style="--i:3;--c:#e30a17">9</span>
-        <span style="--i:4;--c:#a855f7">5</span>
-        <span style="--i:5;--c:#06b6d4">2</span>
-        <span style="--i:6;--c:#e30a17">8</span>
-        <span style="--i:7;--c:#ec4899">4</span>
-        <span style="--i:8;--c:#10b981">6</span>
-    </div>
-    <div class="trl-flash"></div>
-    <div class="trl-logo">
-        <div class="trl-studio">ALPHA 2</div>
-        <div class="trl-pre">⚡ BU OYUN BİR ⚡</div>
-        <div class="trl-title">SAYI<br>AVCISI</div>
-        <div class="trl-subtitle">DENEYİMİDİR</div>
-        <div class="trl-tagline">ALPHA <strong>2</strong> · 2026</div>
-        <div class="trl-pills">
-            <span style="background:#1e40af;">MATEMATİK</span>
-            <span style="background:#ffd060;color:#1a0d00;">TYT</span>
-            <span style="background:#7e22ce;">AYT</span>
-        </div>
-    </div>
-    <button class="trl-skip" onclick="event.stopPropagation();skipIntroTrailer()">GEÇ ►</button>
-    
-</div>
-
-<style>
-#introTrailer {
-    position: fixed; inset: 0; z-index: 999999;
-    background: radial-gradient(ellipse at center, #1a0505 0%, #000 70%);
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; overflow: hidden;
-    font-family: 'Outfit', 'Inter', sans-serif;
-    cursor: pointer;
-    animation: trlFadeOut 0.8s 6.2s forwards;
-}
-.trl-sound-hint {
-    position: absolute; top: 24px; left: 50%; transform: translateX(-50%);
-    padding: 6px 14px; font-size: 10px; font-weight: 700;
-    background: rgba(0,0,0,0.6); color: #fff;
-    border: 1px solid rgba(255,255,255,0.15); border-radius: 16px;
-    letter-spacing: 2px; 
-    animation: trlHintPulse 1.5s ease-in-out infinite, trlHintFadeOut 0.5s 4s forwards;
-}
-@keyframes trlHintPulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
-@keyframes trlHintFadeOut { to { opacity:0; visibility:hidden; } }
-.trl-bg-glow {
-    position: absolute; inset: 0;
-    background:
-        radial-gradient(circle at 30% 30%, rgba(227,10,23,0.32), transparent 40%),
-        radial-gradient(circle at 70% 70%, rgba(227,10,23,0.28), transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(202,138,4,0.22), transparent 50%);
-    animation: trlGlow 6s ease-in-out;
-    opacity: 0;
-}
-@keyframes trlGlow {
-    0% { opacity: 0; transform: scale(0.5); }
-    30% { opacity: 1; transform: scale(1); }
-    70% { opacity: 1; transform: scale(1.2); }
-    100% { opacity: 0; transform: scale(1.5); }
-}
-.trl-nums {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    pointer-events: none;
-}
-.trl-abacus {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    pointer-events: none;
-    z-index: 2;
-    opacity: 0;
-    animation: trlAbacusIn 1s cubic-bezier(.2,.8,.2,1) 0.3s forwards, trlAbacusPulse 2.4s ease-in-out 1.3s infinite;
-}
-@keyframes trlAbacusIn {
-    0% { opacity: 0; transform: scale(0.4) rotate(-15deg); }
-    100% { opacity: 1; transform: scale(1) rotate(0); }
-}
-@keyframes trlAbacusPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.06); }
-}
-.trl-nums span {
-    position: absolute;
-    font-size: 64px; font-weight: 900; will-change: transform, opacity;
-    color: var(--c);
-    text-shadow: 0 0 30px var(--c), 0 0 60px var(--c);
-    opacity: 0;
-    animation: trlNumExplode 1.6s ease-out forwards;
-    animation-delay: calc(var(--i) * 0.1s);
-}
-@keyframes trlNumExplode {
-    0% { opacity: 0; transform: translate(0, 0) scale(0); }
-    15% { opacity: 1; transform: scale(1.4); }
-    100% {
-        opacity: 0;
-        transform: 
-            translate(
-                calc(cos(var(--i) * 40deg) * 280px),
-                calc(sin(var(--i) * 40deg) * 280px)
-            )
-            scale(0.3) rotate(720deg);
-    }
-}
-.trl-ball {
-    position: absolute;
-    width: 70px; height: 70px;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-    will-change: transform, opacity;
-}
-.trl-ball-1 { animation: trlBallA 2.6s ease-out 1.2s forwards; filter:drop-shadow(0 0 10px rgba(227,10,23,0.55));}
-.trl-ball-2 { animation: trlBallB 2.6s ease-out 1.35s forwards; filter:drop-shadow(0 0 10px rgba(30,100,200,0.55));}
-.trl-ball-3 { animation: trlBallC 2.6s ease-out 1.5s forwards; filter:drop-shadow(0 0 10px rgba(168,85,247,0.55));}
-.trl-ball-4 { animation: trlBallD 2.6s ease-out 1.65s forwards; filter:drop-shadow(0 0 10px rgba(34,197,94,0.55));}
-.trl-ball-5 { animation: trlBallE 2.6s ease-out 1.80s forwards; filter:drop-shadow(0 0 10px rgba(30,64,175,0.6));}
-.trl-ball-6 { animation: trlBallF 2.6s ease-out 1.95s forwards; filter:drop-shadow(0 0 10px rgba(0,168,89,0.6));}
-.trl-ball-7 { animation: trlBallG 2.6s ease-out 2.10s forwards; filter:drop-shadow(0 0 10px rgba(239,68,68,0.6));}
-@keyframes trlBallA {
-    0% { left:-15%; top:10%; transform:scale(0.5) rotate(0); opacity:0; }
-    25% { opacity:1; }
-    50% { left:50%; top:50%; transform:translate(-50%,-50%) scale(1.6) rotate(540deg); opacity:1; }
-    100% { left:50%; top:50%; transform:translate(-50%,-50%) scale(0) rotate(1260deg); opacity:0; }
-}
-@keyframes trlBallB {
-    0% { left:115%; top:10%; transform:scale(0.5) rotate(0); opacity:0; }
-    25% { opacity:1; }
-    50% { left:50%; top:50%; transform:translate(-50%,-50%) scale(1.6) rotate(-540deg); opacity:1; }
-    100% { left:50%; top:50%; transform:translate(-50%,-50%) scale(0) rotate(-1260deg); opacity:0; }
-}
-@keyframes trlBallC {
-    0% { left:-15%; top:90%; transform:scale(0.5) rotate(0); opacity:0; }
-    25% { opacity:1; }
-    50% { left:50%; top:50%; transform:translate(-50%,-50%) scale(1.6) rotate(720deg); opacity:1; }
-    100% { left:50%; top:50%; transform:translate(-50%,-50%) scale(0) rotate(1440deg); opacity:0; }
-}
-@keyframes trlBallD {
-    0% { left:115%; top:90%; transform:scale(0.5) rotate(0); opacity:0; }
-    25% { opacity:1; }
-    50% { left:50%; top:50%; transform:translate(-50%,-50%) scale(1.6) rotate(-720deg); opacity:1; }
-    100% { left:50%; top:50%; transform:translate(-50%,-50%) scale(0) rotate(-1440deg); opacity:0; }
-}
-@keyframes trlBallE {
-    0% { left:50%; top:-20%; transform:translate(-50%,0) scale(0.5) rotate(0); opacity:0; }
-    25% { opacity:1; }
-    50% { left:50%; top:50%; transform:translate(-50%,-50%) scale(1.8) rotate(900deg); opacity:1; }
-    100% { left:50%; top:50%; transform:translate(-50%,-50%) scale(0) rotate(1620deg); opacity:0; }
-}
-@keyframes trlBallF {
-    0% { left:50%; top:115%; transform:translate(-50%,0) scale(0.5) rotate(0); opacity:0; }
-    25% { opacity:1; }
-    50% { left:50%; top:50%; transform:translate(-50%,-50%) scale(1.8) rotate(-900deg); opacity:1; }
-    100% { left:50%; top:50%; transform:translate(-50%,-50%) scale(0) rotate(-1620deg); opacity:0; }
-}
-@keyframes trlBallG {
-    0% { left:-15%; top:50%; transform:translate(0,-50%) scale(0.5) rotate(0); opacity:0; }
-    25% { opacity:1; }
-    50% { left:50%; top:50%; transform:translate(-50%,-50%) scale(2.0) rotate(1080deg); opacity:1; }
-    100% { left:50%; top:50%; transform:translate(-50%,-50%) scale(0) rotate(1800deg); opacity:0; }
-}
-.trl-flash {
-    position: absolute; inset: 0; background: white; opacity: 0;
-    animation: trlFlash 0.5s 3.7s ease-out;
-    pointer-events: none;
-}
-@keyframes trlFlash {
-    0% { opacity: 0; } 20% { opacity: 1; } 100% { opacity: 0; }
-}
-.trl-logo {
-    position: relative; z-index: 10; text-align: center;
-    opacity: 0; transform: translateY(20px);
-    animation: trlLogoIn 1s 4.0s forwards;
-}
-@keyframes trlLogoIn { to { opacity: 1; transform: translateY(0); } }
-.trl-studio {
-    font-size: 15px; font-weight: 900; letter-spacing: 10px;
-    color: #fff; margin-bottom: 14px;
-    text-shadow: 0 0 20px rgba(255,255,255,0.5);
-    opacity: 0.9;
-}
-.trl-pre {
-    font-size: 10px; color: #888; letter-spacing: 6px;
-    margin-bottom: 8px; font-weight: 700;
-}
-.trl-title {
-    font-size: clamp(48px, 11vw, 88px);
-    font-weight: 900; letter-spacing: 4px; line-height: 0.95;
-    text-shadow: 0 0 30px rgba(30,136,229,0.8);
-    background: linear-gradient(180deg, #fff 0%, #1e88e5 50%, #0d47a1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 6px;
-}
-.trl-subtitle {
-    font-size: 12px; color: #aaa; letter-spacing: 8px;
-    margin-bottom: 16px; font-weight: 500;
-}
-.trl-tagline {
-    font-size: 14px; color: #1e88e5; font-weight: 800;
-    letter-spacing: 6px; margin-bottom: 16px;
-}
-.trl-tagline strong {
-    color: #fff;
-    background: linear-gradient(135deg, #dc2626, #1e40af);
-    padding: 2px 10px; border-radius: 6px; font-weight: 900;
-}
-.trl-pills { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
-.trl-pills span {
-    font-size: 10px; font-weight: 800; color: #fff;
-    padding: 4px 12px; border-radius: 20px;
-    letter-spacing: 2px; opacity: 0;
-    animation: trlPillIn 0.4s forwards;
-}
-.trl-pills span:nth-child(1) { animation-delay: 4.6s; }
-.trl-pills span:nth-child(2) { animation-delay: 4.8s; }
-.trl-pills span:nth-child(3) { animation-delay: 5.0s; }
-.trl-pills span:nth-child(4) { animation-delay: 5.2s; }
-@keyframes trlPillIn { 
-    from { opacity: 0; transform: scale(0); } 
-    to { opacity: 1; transform: scale(1); } 
-}
-.trl-skip {
-    position: absolute; bottom: 24px; right: 24px;
-    padding: 8px 16px; font-size: 11px; font-weight: 700;
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 20px; cursor: pointer;
-    letter-spacing: 2px;
-    
-    z-index: 100;
-}
-.trl-skip:hover { background: rgba(255,255,255,0.18); }
-@keyframes trlFadeOut {
-    to { opacity: 0; pointer-events: none; }
-}
-</style>
+<!-- Tanıtım (intro) animasyonu kaldırıldı — 13 Eki 2026 -->
 
 <script>
 let _audioCtx = null;
@@ -897,244 +614,15 @@ let _trailerMusicStarted = false;
   });
 })();
 
-function playTrailerSting() {
-    if (_trailerMusicStarted) return;
-    try {
-        _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const ctx = _audioCtx;
-        const start = function() {
-            _trailerMusicStarted = true;
-            // Ses ipucu kaybolsun
-            const hint = document.querySelector('.trl-sound-hint');
-            if (hint) hint.style.display = 'none';
-            const now = ctx.currentTime;
-            const master = ctx.createGain();
-            master.gain.value = 0.5;
-            master.connect(ctx.destination);
-            function note(freq, t, dur, type, vol) {
-                type = type || 'sine'; vol = vol || 0.15;
-                const o = ctx.createOscillator();
-                o.type = type; o.frequency.value = freq;
-                const g = ctx.createGain();
-                g.gain.setValueAtTime(0, now + t);
-                g.gain.linearRampToValueAtTime(vol, now + t + 0.02);
-                g.gain.exponentialRampToValueAtTime(0.001, now + t + dur);
-                o.connect(g).connect(master);
-                o.start(now + t); o.stop(now + t + dur + 0.05);
-            }
-            function kick(t, vol) {
-                vol = vol || 0.5;
-                const o = ctx.createOscillator();
-                o.frequency.setValueAtTime(160, now + t);
-                o.frequency.exponentialRampToValueAtTime(40, now + t + 0.15);
-                const g = ctx.createGain();
-                g.gain.setValueAtTime(vol, now + t);
-                g.gain.exponentialRampToValueAtTime(0.001, now + t + 0.2);
-                o.connect(g).connect(master);
-                o.start(now + t); o.stop(now + t + 0.25);
-            }
-            note(55, 0, 5.5, 'triangle', 0.11);
-            note(110, 0, 5.5, 'triangle', 0.07);
-            [220, 277, 330, 392, 523, 659, 784, 880].forEach((f,i)=>note(f, 0.15+i*0.4, 0.45, 'sine', 0.16));
-            [0.5,1.0,1.5,2.0,2.5,3.0,3.5].forEach(t => kick(t, 0.4));
-            kick(3.7, 0.85);
-            note(220, 3.7, 2.0, 'triangle', 0.22);
-            note(440, 3.7, 2.0, 'triangle', 0.13);
-            note(523, 4.0, 2.0, 'sine', 0.14);
-            note(659, 4.1, 1.9, 'sine', 0.11);
-            note(784, 4.2, 1.8, 'sine', 0.11);
-            note(1046, 4.3, 1.7, 'sine', 0.08);
-            note(1568, 5.2, 0.8, 'sine', 0.10);
-        };
-        if (ctx.state === 'suspended') {
-            ctx.resume().then(start).catch(()=>{ _audioCtx=null; });
-        } else {
-            start();
-        }
-    } catch(e) { console.log('Audio:', e); _audioCtx=null; }
-}
-function tryStartTrailerMusic() { if (!_trailerMusicStarted) playTrailerSting(); }
-// 🎬 Trailer'ı bu sefer atla (Ana Ekran'dan reload edildiğinde)
-if (sessionStorage.getItem('sa_from_main')) {
-    // Ana Ekran'dan reload — SADECE trailer'ı atla, BAŞLA ekranına (splash) dönsün.
-    // (Önceki bir düzeltme yanlışlıkla splash'ı da atlayıp direkt kategoriye götürüyordu —
-    // kullanıcı bunun bug olduğunu, ANA EKRAN'ın BAŞLA kısmına dönmesi gerektiğini belirtti.)
-    sessionStorage.removeItem('sa_from_main');
-    const t = document.getElementById('introTrailer');
-    if (t) t.remove();
-} else {
-    // 🚀 Müziği hemen başlatmaya çalış (otomatik oynatma izin verilmişse direkt çalar)
-    playTrailerSting();
-    // İlk dokunuş/tıklamada da dene
-    ['click','touchstart','keydown','pointerdown'].forEach(ev =>
-        document.addEventListener(ev, tryStartTrailerMusic, { once:true, capture:true })
-    );
-}
-
-function skipIntroTrailer() {
-    const t = document.getElementById('introTrailer');
-    if (t) { 
-        t.style.animation = 'trlFadeOut 0.4s forwards';
-        setTimeout(() => { try{t.remove();}catch(e){} }, 450);
-        if (_audioCtx && _audioCtx.state !== 'closed') { try{var _p=_audioCtx.close(); if(_p&&_p.catch)_p.catch(function(){});}catch(e){} _audioCtx=null; }
-    }
-}
-// Otomatik kapat — 7 saniye sonra
-setTimeout(() => {
-    const t = document.getElementById('introTrailer');
-    if (t) { try{t.remove();}catch(e){} }
-    if (_audioCtx && _audioCtx.state !== 'closed') { try{var _p=_audioCtx.close(); if(_p&&_p.catch)_p.catch(function(){});}catch(e){} _audioCtx=null; }
-}, 7200);
+// Tanıtım (intro) kaldırıldı — eski çağrılar hata vermesin diye boş fonksiyonlar
+function tryStartTrailerMusic() {}
+function skipIntroTrailer() {}
 </script>
 
 <!-- ══════════ MATEMATİK ARKA PLAN ══════════ -->
 <div id="mathBg"></div>
 <div id="footballBg"></div>
 
-<style>
-#introTrailer {
-    position: fixed; inset: 0; z-index: 999999;
-    background: radial-gradient(ellipse at center, #1a0505 0%, #000 70%);
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; overflow: hidden; cursor: pointer;
-    font-family: 'Outfit', 'Inter', sans-serif;
-    animation: trlFadeOut 0.8s 6.2s forwards;
-}
-.trl-bg-glow {
-    position: absolute; inset: 0;
-    background:
-        radial-gradient(circle at 30% 30%, rgba(227,10,23,0.32), transparent 40%),
-        radial-gradient(circle at 70% 70%, rgba(227,10,23,0.28), transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(202,138,4,0.22), transparent 50%);
-    animation: trlGlow 6s ease-in-out;
-    opacity: 0;
-}
-@keyframes trlGlow {
-    0% { opacity: 0; transform: scale(0.5); }
-    30% { opacity: 1; transform: scale(1); }
-    70% { opacity: 1; transform: scale(1.2); }
-    100% { opacity: 0; transform: scale(1.5); }
-}
-.trl-nums {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    pointer-events: none;
-}
-.trl-abacus {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    pointer-events: none;
-    z-index: 2;
-    opacity: 0;
-    animation: trlAbacusIn 1s cubic-bezier(.2,.8,.2,1) 0.3s forwards, trlAbacusPulse 2.4s ease-in-out 1.3s infinite;
-}
-@keyframes trlAbacusIn {
-    0% { opacity: 0; transform: scale(0.4) rotate(-15deg); }
-    100% { opacity: 1; transform: scale(1) rotate(0); }
-}
-@keyframes trlAbacusPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.06); }
-}
-.trl-nums span {
-    position: absolute;
-    font-size: 64px; font-weight: 900; will-change: transform, opacity;
-    color: var(--c);
-    text-shadow: 0 0 30px var(--c), 0 0 60px var(--c);
-    opacity: 0;
-    animation: trlNumExplode 1.6s ease-out forwards;
-    animation-delay: calc(var(--i) * 0.1s);
-}
-@keyframes trlNumExplode {
-    0% { opacity: 0; transform: translate(0, 0) scale(0); }
-    15% { opacity: 1; transform: scale(1.4); }
-    100% {
-        opacity: 0;
-        transform: 
-            translate(
-                calc(cos(var(--i) * 40deg) * 280px),
-                calc(sin(var(--i) * 40deg) * 280px)
-            )
-            scale(0.3) rotate(720deg);
-    }
-}
-.trl-flash {
-    position: absolute; inset: 0; background: white; opacity: 0;
-    animation: trlFlash 0.5s 3.7s ease-out;
-    pointer-events: none;
-}
-@keyframes trlFlash {
-    0% { opacity: 0; } 20% { opacity: 1; } 100% { opacity: 0; }
-}
-.trl-logo {
-    position: relative; z-index: 10; text-align: center;
-    opacity: 0; transform: translateY(20px);
-    animation: trlLogoIn 1s 4.0s forwards;
-}
-@keyframes trlLogoIn { to { opacity: 1; transform: translateY(0); } }
-.trl-studio {
-    font-size: 15px; font-weight: 900; letter-spacing: 10px;
-    color: #fff; margin-bottom: 14px;
-    text-shadow: 0 0 20px rgba(255,255,255,0.5);
-    opacity: 0.9;
-}
-.trl-pre {
-    font-size: 10px; color: #888; letter-spacing: 6px;
-    margin-bottom: 8px; font-weight: 700;
-}
-.trl-title {
-    font-size: clamp(48px, 11vw, 88px);
-    font-weight: 900; letter-spacing: 4px; line-height: 0.95;
-    text-shadow: 0 0 30px rgba(30,136,229,0.8);
-    background: linear-gradient(180deg, #fff 0%, #1e88e5 50%, #0d47a1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 6px;
-}
-.trl-subtitle {
-    font-size: 12px; color: #aaa; letter-spacing: 8px;
-    margin-bottom: 16px; font-weight: 500;
-}
-.trl-tagline {
-    font-size: 14px; color: #1e88e5; font-weight: 800;
-    letter-spacing: 6px; margin-bottom: 16px;
-}
-.trl-tagline strong {
-    color: #fff;
-    background: linear-gradient(135deg, #dc2626, #1e40af);
-    padding: 2px 10px; border-radius: 6px; font-weight: 900;
-}
-.trl-pills { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
-.trl-pills span {
-    font-size: 10px; font-weight: 800; color: #fff;
-    padding: 4px 12px; border-radius: 20px;
-    letter-spacing: 2px; opacity: 0;
-    animation: trlPillIn 0.4s forwards;
-}
-.trl-pills span:nth-child(1) { animation-delay: 4.6s; }
-.trl-pills span:nth-child(2) { animation-delay: 4.8s; }
-.trl-pills span:nth-child(3) { animation-delay: 5.0s; }
-@keyframes trlPillIn { 
-    from { opacity: 0; transform: scale(0); } 
-    to { opacity: 1; transform: scale(1); } 
-}
-.trl-skip {
-    position: absolute; bottom: 24px; right: 24px;
-    padding: 8px 16px; font-size: 11px; font-weight: 700;
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 20px; cursor: pointer;
-    letter-spacing: 2px;
-    
-    z-index: 100;
-}
-.trl-skip:hover { background: rgba(255,255,255,0.18); }
-@keyframes trlFadeOut {
-    to { opacity: 0; pointer-events: none; }
-}
-</style>
 
 <!-- ══════════ MATEMATİK ARKA PLAN ══════════ -->
 <div id="mathBg"></div>
@@ -2111,6 +1599,12 @@ function closeStats() { var m=document.getElementById('statsModal'); if(m)m.styl
 
 // ══════════ MATEMATİK ARKA PLAN PARÇACIKLARI ══════════
 (function buildMathBg() {
+    // 🐢 Eski cihazda (veya Eski Cihaz modu seçiliyse) 45 hareketli sembolü hiç oluşturma
+    try {
+        var _g = localStorage.getItem('sa_gfx') || 'auto';
+        var _zayif = (navigator.hardwareConcurrency || 4) <= 2 || (navigator.deviceMemory || 4) <= 2;
+        if (_g === 'eski' || (_g === 'auto' && _zayif)) return;
+    } catch(e) {}
     const bg = document.getElementById('mathBg');
     const symbols = [
         '+', '−', '×', '÷', '=', '≠', '<', '>', '≤', '≥',
@@ -8289,7 +7783,9 @@ function splashStart() {
     const splash = document.getElementById('splashScreen');
     if (!splash) return;
     splash.classList.add('go');
-    splash.addEventListener('animationend', function() {
+    let _splashBitti = false;
+    const _splashKapat = function() {
+        if (_splashBitti) return; _splashBitti = true;
         if (typeof stopSplashMusic === 'function') stopSplashMusic();
         try { splash.remove(); } catch(e) {}
         if (typeof checkCooldownOnLoad === 'function') checkCooldownOnLoad();
@@ -8298,7 +7794,11 @@ function splashStart() {
         // 🎯 BAŞLA'dan sonra kategori ekranını göster (mode değil)
         setDisplay('categoryScreen','flex'); try{ if(typeof applyCategoryI18n==='function') applyCategoryI18n(); }catch(e){}
         setDisplay('modeScreen','none');
-    }, { once: true });
+    };
+    // 🐢 Eski cihaz modunda animasyon kapalı → animationend hiç gelmez, doğrudan geç
+    if (document.body.classList.contains('gfx-eski')) { _splashKapat(); return; }
+    splash.addEventListener('animationend', _splashKapat, { once: true });
+    setTimeout(_splashKapat, 1500); // güvenlik: animasyon olayı gelmezse yine de geç
 }
 window.splashStart = splashStart;
 
@@ -10647,6 +10147,7 @@ const _origSelectMode = window.selectMode || (function(){ });
             <button class="gfx-opt" onclick="setGfx('mid')"    id="go_mid">    <span class="gfx-dot" style="background:#ef4444;"></span><span class="gfx-info"><b>Orta</b><small>Hafif blur · Orta GPU</small></span></button>
             <button class="gfx-opt" onclick="setGfx('high')"   id="go_high">   <span class="gfx-dot" style="background:#34d399;"></span><span class="gfx-info"><b>Yüksek</b><small>Liquid Glass · Güçlü GPU</small></span></button>
             <button class="gfx-opt" onclick="setGfx('ultra')"  id="go_ultra">  <span class="gfx-dot" style="background:#a78bfa;"></span><span class="gfx-info"><b>Ultra</b><small>Maksimum efekt · Amiral</small></span></button>
+            <button class="gfx-opt" onclick="setGfx('eski')"   id="go_eski">   <span class="gfx-dot" style="background:#9ca3af;"></span><span class="gfx-info"><b>🐢 Eski Cihaz</b><small>Animasyon kapalı · 1 GB RAM / netbook</small></span></button>
             <button class="gfx-opt" onclick="setGfx('auto')"   id="go_auto">   <span class="gfx-dot" style="background:#e30a17;"></span><span class="gfx-info"><b>⚡ Otomatik</b><small>Cihaza göre seçilir</small></span></button>
         </div>
         <button onclick="closeGfx()" style="margin-top:16px;width:100%;padding:9px;font-size:12px;font-weight:600;background:rgba(227,10,23,0.1);border:1.5px solid rgba(227,10,23,0.3);color:#e30a17;border-radius:50px;cursor:pointer;">Kapat</button>
@@ -10654,6 +10155,25 @@ const _origSelectMode = window.selectMode || (function(){ });
 </div>
 
 <style>
+/* 🐢 ESKİ CİHAZ MODU — Atom N270 / 1 GB RAM netbook'lar (LG X130) için.
+   Oyun mantığına dokunmaz; sadece işlemciyi yoran efektleri kapatır. */
+body.gfx-eski *, body.gfx-eski *::before, body.gfx-eski *::after {
+    animation: none !important;
+    transition: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+body.gfx-eski .math-symbol { display: none !important; }
+body.gfx-eski #mathBg::before, body.gfx-eski #mathBg::after,
+body.gfx-eski #footballBg::before { display: none !important; }
+body.gfx-eski .container, body.gfx-eski .mode-card { background-color: rgba(20,8,8,0.92) !important; }
+/* 1024×600 netbook ekranı: dikey boşlukları sıkılaştır */
+@media (max-height: 620px) {
+    body.gfx-eski .container { padding-top: 12px !important; padding-bottom: 12px !important; }
+    body.gfx-eski h1 { margin-top: 4px !important; margin-bottom: 6px !important; }
+}
 .gfx-opt {
     display:flex;align-items:center;gap:12px;
     padding:10px 14px;border-radius:14px;cursor:pointer;
@@ -10688,8 +10208,22 @@ function setGfx(preset) {
     _gfxUpdateUI();
     closeGfx();
 }
+// 🐢 Zayıf cihaz algılama (Atom/netbook, 2 iş parçacığı veya ≤2 GB RAM)
+function _gfxZayifCihaz() {
+    try {
+        var cekirdek = navigator.hardwareConcurrency || 4;
+        var ram = navigator.deviceMemory || 4;
+        return cekirdek <= 2 || ram <= 2;
+    } catch(e) { return false; }
+}
+function _gfxEskiMi(preset) {
+    return preset === 'eski' || (preset === 'auto' && _gfxZayifCihaz());
+}
 function _gfxApply(preset) {
     var root = document.documentElement;
+    var eski = _gfxEskiMi(preset);
+    if (document.body) document.body.classList.toggle('gfx-eski', eski);
+    if (eski) preset = 'low';
     // Blur değerleri
     var blurMap = {low:'0px', mid:'12px', high:'28px', ultra:'40px', auto:'28px'};
     var satMap  = {low:'100%', mid:'140%', high:'180%', ultra:'200%', auto:'180%'};
@@ -10707,18 +10241,19 @@ function _gfxApply(preset) {
         }
     });
     // Grafik butonunu güncelle — küçük yuvarlak butona SADECE tek ikon (taşma/bozulma önlenir)
-    var presetIcons = {low:'🔴', mid:'🟡', high:'🟢', ultra:'✨', auto:'⚡'};
-    var presetNames = {low:'Düşük', mid:'Orta', high:'Yüksek', ultra:'Ultra', auto:'Oto'};
+    var presetIcons = {low:'🔴', mid:'🟡', high:'🟢', ultra:'✨', auto:'⚡', eski:'🐢'};
+    var presetNames = {low:'Düşük', mid:'Orta', high:'Yüksek', ultra:'Ultra', auto:'Oto', eski:'Eski Cihaz'};
+    if (eski) preset = (_gfx === 'auto') ? 'auto' : 'eski';
     ['gfxMainBtn','gfxFloatBtn','splashGfxBtn','settingsGfxBtn'].forEach(function(id) {
         var b = document.getElementById(id);
         if (b) { b.textContent = presetIcons[preset] || '🎮'; b.title = 'Grafik: ' + (presetNames[preset] || 'Otomatik'); }
     });
 }
 function _gfxUpdateUI() {
-    var labels = {low:'Düşük', mid:'Orta', high:'Yüksek', ultra:'Ultra', auto:'Otomatik'};
+    var labels = {low:'Düşük', mid:'Orta', high:'Yüksek', ultra:'Ultra', auto:'Otomatik', eski:'Eski Cihaz'};
     var lbl = document.getElementById('gfxCurrentLbl');
-    if (lbl) lbl.textContent = 'Mevcut: ' + (labels[_gfx] || 'Otomatik');
-    ['low','mid','high','ultra','auto'].forEach(function(p) {
+    if (lbl) lbl.textContent = 'Mevcut: ' + (labels[_gfx] || 'Otomatik') + ((_gfx === 'auto' && _gfxZayifCihaz()) ? ' (eski cihaz algılandı 🐢)' : '');
+    ['low','mid','high','ultra','eski','auto'].forEach(function(p) {
         var btn = document.getElementById('go_' + p);
         if (btn) btn.classList.toggle('active', p === _gfx);
     });

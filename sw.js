@@ -4,7 +4,7 @@
 // Not: Bu dosya origin'den bağımsız çalışır (relative fetch) — adres değişse bile kod değişmez,
 // bu satır sadece dokümantasyon/takip amaçlıdır.
 
-const CACHE_NAME = 'sa-cache-alpha2-logo'; // 🔄 Yeni logo/ikonlar için önbellek adı değişti — eski kullanıcılar yeni ikonları alır
+const CACHE_NAME = 'sa-cache-alpha2-eskicihaz'; // 🔄 Eski Cihaz modu eklendi — önbellek adı değişti, herkes yeni sürümü alır
 
 self.addEventListener('install', function(e) {
   // Yeni service worker hemen aktif olsun, eski sürümü bekleme
