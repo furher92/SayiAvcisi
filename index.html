@@ -3171,8 +3171,17 @@ function startMusic() {
     } catch(e) { console.log('Muzik baslatılamadı:', e); }
 }
 
+function paketliParca(track) {
+    // 🎼 Ses paketi müziğe de uygulanır: Retro = kare dalga 8-bit, biraz hızlı · Sakin = yumuşak sinüs, bir oktav pes, yavaş
+    const p = window.__sesPaketi || 'klasik';
+    if (p === 'retro') return { notes: track.notes, type: 'square', tempo: track.tempo * 0.85, gain: track.gain * 0.55 };
+    if (p === 'sakin') return { notes: track.notes.map(f => f / 2), type: 'sine', tempo: track.tempo * 1.45, gain: track.gain * 0.7 };
+    return track;
+}
+
 function playTrackLoop(track) {
     if (!musicPlaying || !musicCtx) return;
+    track = paketliParca(track);
     let t = musicCtx.currentTime + 0.05;
     const notes = track.notes;
     const masterGain = musicCtx.createGain();
@@ -10743,9 +10752,9 @@ body.tema-bordomavi #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 
     { ay:4, gun:26, sinif:'tema-cernobil', etiket:'☢️ 26 Nisan — Çernobil Anma Günü', renkli:true },
     { ay:1, gun:1,  sinif:'tema-yilbasi',  etiket:'🎉 1 Ocak — Yeni Yıl' },
     { ay:2, gun:14, sinif:'tema-sevgili',  etiket:'💕 14 Şubat — Sevgililer Günü' },
-    { ay:4, gun:23, sinif:'tema-23nisan',  etiket:'🇹🇷 23 Nisan — Ulusal Egemenlik ve Çocuk Bayramı' },
+    { ay:4, gun:23, sinif:'tema-23nisan',  etiket:'<img class="tr-bayrak" alt="" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 30 20%27%3E%3Crect width=%2730%27 height=%2720%27 fill=%27%23E30A17%27/%3E%3Ccircle cx=%2711.5%27 cy=%2710%27 r=%275%27 fill=%27%23fff%27/%3E%3Ccircle cx=%2712.8%27 cy=%2710%27 r=%274%27 fill=%27%23E30A17%27/%3E%3Cpolygon points=%2717.5,10 19.9,9.2 19.9,6.8 21.3,8.8 23.7,8 22.2,10 23.7,12 21.3,11.2 19.9,13.2 19.9,10.8%27 fill=%27%23fff%27/%3E%3C/svg%3E"> 23 Nisan — Ulusal Egemenlik ve Çocuk Bayramı' },
     { ay:5, gun:19, sinif:'tema-19mayis',  etiket:'🔥 19 Mayıs — Atatürk\'ü Anma, Gençlik ve Spor Bayramı' },
-    { ay:10, gun:29, sinif:'tema-29ekim',  etiket:'🇹🇷 29 Ekim — Cumhuriyet Bayramı' },
+    { ay:10, gun:29, sinif:'tema-29ekim',  etiket:'<img class="tr-bayrak" alt="" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 30 20%27%3E%3Crect width=%2730%27 height=%2720%27 fill=%27%23E30A17%27/%3E%3Ccircle cx=%2711.5%27 cy=%2710%27 r=%275%27 fill=%27%23fff%27/%3E%3Ccircle cx=%2712.8%27 cy=%2710%27 r=%274%27 fill=%27%23E30A17%27/%3E%3Cpolygon points=%2717.5,10 19.9,9.2 19.9,6.8 21.3,8.8 23.7,8 22.2,10 23.7,12 21.3,11.2 19.9,13.2 19.9,10.8%27 fill=%27%23fff%27/%3E%3C/svg%3E"> 29 Ekim — Cumhuriyet Bayramı' },
     { ay:10, gun:31, sinif:'tema-cadilar', etiket:'🎃 31 Ekim — Cadılar Bayramı' }
   ];
   // 🎨 Takım renkleri — tarihe bağlı DEĞİL, sadece elle seçilebilir. Sadece renk, isim/logo yok (telif güvenliği).
@@ -10796,11 +10805,19 @@ body.tema-bordomavi #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 
     ov.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(10,2,2,.88);display:flex;align-items:center;justify-content:center;padding:16px;';
     ov.onclick=(e)=>{ if(e.target===ov) ov.remove(); };
     ov.innerHTML='<div style="background:linear-gradient(160deg,#0a1830,#1a2840);border:2px solid #8fc0ff;border-radius:18px;max-width:380px;width:100%;max-height:82vh;overflow-y:auto;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.6);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div style="color:#fff;font-weight:900;font-size:17px;">🎨 Tema Seç</div><button onclick="var p=document.getElementById(\'temaSecPanel\');if(p)p.remove();" style="background:#1a3a6b;color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;">✕</button></div><div style="color:#8fc0ff;font-size:11px;margin-bottom:12px;">Karanlık/Açık mod ayrı bir ayardır — burada sadece görünüm/renk seçilir.</div>'
+      +(function(){ const acik=document.body.classList.contains('light-tema');const GM={tr:['GÖRÜNÜM','Karanlık','Açık'],ru:['ВИД','Тёмная','Светлая'],uk:['ВИГЛЯД','Темна','Світла'],ka:['იერსახე','მუქი','ღია']}[(typeof currentLang!=='undefined'&&currentLang)||'tr']||['GÖRÜNÜM','Karanlık','Açık'];
+          const b=(m,et,ak)=>'<button onclick="temaModSec(\''+m+'\')" style="flex:1;padding:10px;border-radius:10px;border:1.5px solid '+(ak?'#8fc0ff':'rgba(255,255,255,.12)')+';background:'+(ak?'rgba(80,140,255,.25)':'rgba(255,255,255,.05)')+';color:#fff;font-weight:700;cursor:pointer;">'+et+(ak?' ✓':'')+'</button>';
+          return '<div style="color:#ffd0c0;font-size:10px;font-weight:800;margin:4px 0 6px;letter-spacing:.5px;">🌗 '+GM[0]+'</div><div style="display:flex;gap:8px;margin-bottom:10px;">'+b('koyu','🌙 '+GM[1],!acik)+b('acik','☀️ '+GM[2],acik)+'</div>'; })()
       +genelListe
       +'<div style="color:#ffd0c0;font-size:10px;font-weight:800;margin:10px 0 6px;letter-spacing:.5px;">🗓️ ÖZEL GÜNLER</div>'+gunListe
       +'<div style="color:#ffd0c0;font-size:10px;font-weight:800;margin:10px 0 6px;letter-spacing:.5px;">'+EK('temaTakimRenkleri')+'</div>'+takimListe
       +'</div>';
     document.body.appendChild(ov);
+  };
+  window.temaModSec = function(mod){
+    const simdiAcik=document.body.classList.contains('light-tema');
+    if((mod==='acik')!==simdiAcik){ try{ temaToggle(); }catch(e){} }
+    temaSecPanelAc();
   };
   window.temaManuelSec = function(sinif){
     try{ localStorage.setItem(MANUEL_KEY, sinif); }catch(e){}
@@ -10970,6 +10987,8 @@ body.tema-bordomavi #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 
     const p=document.getElementById('sesPaketPanel'); if(p) p.remove();
     try{ if(navigator.vibrate) navigator.vibrate(15); }catch(e){}
     try{ if(typeof playSound==='function') playSound('click'); }catch(e){}
+    // Çalan müziği yeni paketle hemen yeniden başlat
+    try{ if(typeof musicPlaying!=='undefined' && musicPlaying && typeof stopMusic==='function'){ stopMusic(); startMusic(); } }catch(e){}
     try{
       const DENENEN_KEY='sa_ses_denenen';
       let denenen=[]; try{ denenen=JSON.parse(localStorage.getItem(DENENEN_KEY))||[]; }catch(e2){}
@@ -11321,4 +11340,28 @@ body.tema-bordomavi #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 
  document.addEventListener('DOMContentLoaded',window.modBolumleriUygula);setTimeout(window.modBolumleriUygula,150);setTimeout(window.modBolumleriUygula,800);
 })();
 </script>
+<style id="temaAcikUyum">
+/* 🔧 Tema seçiliyken açık mod çalışmıyordu (tema zemini açık modu eziyordu, yazılar koyu-üstüne-koyu kalıyordu).
+   Çift sınıf seçicisi tema kurallarından daha özgül → açık modda zemin her zaman açık olur. */
+body.light-tema.light-tema[class*="tema-"] #mathBg,
+body.light-tema.light-tema[class*="tema-"] #splashScreen{
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 25%, var(--tema-tint, rgba(227,10,23,0.10)) 0%, transparent 55%),
+    linear-gradient(160deg, #fff6f3 0%, #ffe8e1 50%, #ffd9d0 100%) !important;
+}
+body.light-tema.light-tema[class*="tema-"] .container{
+  background: linear-gradient(145deg, rgba(255,255,255,0.65) 0%, var(--tema-tint, rgba(227,10,23,0.06)) 50%, rgba(255,255,255,0.45) 100%) !important;
+  border-color: rgba(0,0,0,0.12) !important;
+}
+body.light-tema.tema-sarikirmizi{ --tema-tint: rgba(255,200,0,0.22); }
+body.light-tema.tema-sarilacivert{ --tema-tint: rgba(255,210,0,0.22); }
+body.light-tema.tema-siyahbeyaz{ --tema-tint: rgba(0,0,0,0.08); }
+body.light-tema.tema-bordomavi{ --tema-tint: rgba(120,20,60,0.14); }
+body.light-tema.light-tema[class*="tema-"] #mainTitle{ text-shadow:none !important; }
+body.light-tema.light-tema[class*="tema-"] .container h1,
+body.light-tema.light-tema[class*="tema-"] .container h2,
+body.light-tema.light-tema[class*="tema-"] .container .category-title,
+body.light-tema.light-tema[class*="tema-"] .container [class*="title"]:not(button){ color:#3a0a0a !important; text-shadow:none !important; }
+.tr-bayrak{display:inline-block;width:20px;height:13px;vertical-align:-2px;border-radius:2px;margin-right:2px;}
+</style>
 </body></html>
