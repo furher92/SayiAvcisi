@@ -10755,7 +10755,7 @@ body.tema-bordomavi #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 
     { ay:4, gun:23, sinif:'tema-23nisan',  etiket:'<img class="tr-bayrak" alt="" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 30 20%27%3E%3Crect width=%2730%27 height=%2720%27 fill=%27%23E30A17%27/%3E%3Ccircle cx=%2711.5%27 cy=%2710%27 r=%275%27 fill=%27%23fff%27/%3E%3Ccircle cx=%2712.8%27 cy=%2710%27 r=%274%27 fill=%27%23E30A17%27/%3E%3Cpolygon points=%2717.5,10 19.9,9.2 19.9,6.8 21.3,8.8 23.7,8 22.2,10 23.7,12 21.3,11.2 19.9,13.2 19.9,10.8%27 fill=%27%23fff%27/%3E%3C/svg%3E"> 23 Nisan — Ulusal Egemenlik ve Çocuk Bayramı' },
     { ay:5, gun:19, sinif:'tema-19mayis',  etiket:'🔥 19 Mayıs — Atatürk\'ü Anma, Gençlik ve Spor Bayramı' },
     { ay:10, gun:29, sinif:'tema-29ekim',  etiket:'<img class="tr-bayrak" alt="" src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 30 20%27%3E%3Crect width=%2730%27 height=%2720%27 fill=%27%23E30A17%27/%3E%3Ccircle cx=%2711.5%27 cy=%2710%27 r=%275%27 fill=%27%23fff%27/%3E%3Ccircle cx=%2712.8%27 cy=%2710%27 r=%274%27 fill=%27%23E30A17%27/%3E%3Cpolygon points=%2717.5,10 19.9,9.2 19.9,6.8 21.3,8.8 23.7,8 22.2,10 23.7,12 21.3,11.2 19.9,13.2 19.9,10.8%27 fill=%27%23fff%27/%3E%3C/svg%3E"> 29 Ekim — Cumhuriyet Bayramı' },
-    { ay:10, gun:31, sinif:'tema-cadilar', etiket:'🎃 31 Ekim — Cadılar Bayramı' }
+    { ay:10, gun:31, sinif:'tema-cadilar', etiket:'🎃 Cadılar Bayramı' }
   ];
   // 🎨 Takım renkleri — tarihe bağlı DEĞİL, sadece elle seçilebilir. Sadece renk, isim/logo yok (telif güvenliği).
   const TAKIM_TEMALARI = [
@@ -10769,7 +10769,10 @@ body.tema-bordomavi #mathBg{ background: radial-gradient(ellipse 80% 60% at 30% 
 
   function bugununTemasi(){
     const d=new Date();
-    return OZEL_GUNLER.find(o=>o.ay===(d.getMonth()+1) && o.gun===d.getDate()) || null;
+    const m=d.getMonth()+1,g=d.getDate();
+    // 🎃 Cadılar Bayramı teması 20 Ekim – 15 Kasım arası otomatik açık
+    if((m===10&&g>=20)||(m===11&&g<=15)) return OZEL_GUNLER.find(o=>o.sinif==='tema-cadilar');
+    return OZEL_GUNLER.find(o=>o.ay===m && o.gun===g) || null;
   }
   function aktifTemaUygula(){
     TUM_SINIFLAR.forEach(s=>document.body.classList.remove(s));
@@ -11364,4 +11367,70 @@ body.light-tema.light-tema[class*="tema-"] .container .category-title,
 body.light-tema.light-tema[class*="tema-"] .container [class*="title"]:not(button){ color:#3a0a0a !important; text-shadow:none !important; }
 .tr-bayrak{display:inline-block;width:20px;height:13px;vertical-align:-2px;border-radius:2px;margin-right:2px;}
 </style>
+<script>
+// 🏳️ Dil butonlarında bayraklar: innerHTML ile eklenen <svg> gerçek Chrome'da boş görünüyordu → <img> (data URI) yapılır + kod etiketi
+(function(){
+  var ETK={TR:'TR',RU:'RU',UK:'UA',KA:'GE'};
+  function svgImg(sv){var c=sv.cloneNode(true);c.setAttribute('xmlns','http://www.w3.org/2000/svg');c.removeAttribute('style');
+    var im=document.createElement('img');im.alt='';im.src='data:image/svg+xml,'+encodeURIComponent(c.outerHTML);
+    im.style.cssText='width:16px;height:11px;vertical-align:middle;display:inline-block;border-radius:2px;margin-right:2px;';return im;}
+  function duzelt(){
+    var kutu=[].slice.call(document.querySelectorAll('button[id^="lang"],button[id^="splashLang"]'));
+    var m=document.getElementById('langPickerModal'); if(m) kutu=kutu.concat([].slice.call(m.querySelectorAll('button')));
+    kutu.forEach(function(b){
+      b.querySelectorAll('svg').forEach(function(sv){sv.parentNode.replaceChild(svgImg(sv),sv);});
+      var id=b.id||'',k=id.replace('splashLang','').replace('lang','');
+      if(ETK[k]){var t=b.textContent.replace(/\s+/g,' ').trim();if(t!==ETK[k]){
+        [].slice.call(b.childNodes).forEach(function(n){if(n.nodeType===3)n.remove();});
+        b.appendChild(document.createTextNode(' '+ETK[k]));}}
+    });
+  }
+  var bekle=null;function planla(){if(bekle)return;bekle=setTimeout(function(){bekle=null;try{duzelt();}catch(e){}},30);}
+  try{new MutationObserver(planla).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
+  if(document.readyState!=='loading')planla();else document.addEventListener('DOMContentLoaded',planla);
+})();
+</script>
+<script>
+/* 🐞 Catanadev mini hata bildirme sistemi: hataları kendiliğinden toplar, oyuncu tek tuşla rapor gönderir (e-posta / kopyala / indir) */
+(function(){var OYUN=document.title||'Catanadev',MAIL='furkan8101@outlook.com',L=[];
+function ekle(t){try{L.push(new Date().toISOString().slice(11,19)+' '+String(t).slice(0,300));if(L.length>25)L.shift();}catch(e){}}
+window.addEventListener('error',function(e){ekle((e.message||'hata')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||0));});
+window.addEventListener('unhandledrejection',function(e){ekle('Promise: '+((e.reason&&e.reason.message)||e.reason));});
+function rapor(not){return '🐞 '+OYUN+' HATA RAPORU\nTarih: '+new Date().toLocaleString('tr-TR')+'\nSayfa: '+location.href.split('?')[0]+'\nCihaz: '+navigator.userAgent+'\nEkran: '+innerWidth+'x'+innerHeight+(matchMedia('(pointer:coarse)').matches?' (dokunmatik)':'')+'\n\nOyuncunun notu:\n'+(not||'-')+'\n\nOtomatik yakalanan hatalar ('+L.length+'):\n'+(L.join('\n')||'yok');}
+function ac(){var o=document.getElementById('cdBug');if(o){o.remove();return;}o=document.createElement('div');o.id='cdBug';
+ o.style.cssText='position:fixed;inset:0;z-index:2147483646;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;font-family:sans-serif';
+ o.innerHTML='<div style="background:#141a2e;color:#fff;border:2px solid #ff5a5a;border-radius:12px;padding:14px;width:min(92vw,420px)"><div style="font-weight:700;font-size:16px;margin-bottom:6px">🐞 Hata Bildir</div><div style="font-size:12px;opacity:.8;margin-bottom:8px">Ne oldu? Nerede, ne yaparken? (Otomatik yakalanan '+L.length+' hata rapora eklenir)</div><textarea id="cdBugT" rows="5" style="width:100%;box-sizing:border-box;border-radius:8px;border:1px solid #445;background:#0b1020;color:#fff;padding:8px;font-size:13px"></textarea><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px"><button data-b="m" style="flex:1;padding:9px;border:0;border-radius:8px;background:#e53935;color:#fff;font-weight:700">📧 E-posta</button><button data-b="k" style="flex:1;padding:9px;border:0;border-radius:8px;background:#1f6fb2;color:#fff;font-weight:700">📋 Kopyala</button><button data-b="i" style="flex:1;padding:9px;border:0;border-radius:8px;background:#2e7d32;color:#fff;font-weight:700">💾 İndir</button><button data-b="x" style="padding:9px 12px;border:0;border-radius:8px;background:#444;color:#fff">✕</button></div><div id="cdBugD" style="font-size:11px;margin-top:6px;opacity:.85"></div></div>';
+ document.body.appendChild(o);o.onclick=function(e){if(e.target===o)o.remove();var b=e.target.getAttribute&&e.target.getAttribute('data-b');if(!b)return;var r=rapor(document.getElementById('cdBugT').value),d=document.getElementById('cdBugD');
+  if(b==='x')o.remove();
+  if(b==='m')location.href='mailto:'+MAIL+'?subject='+encodeURIComponent('🐞 '+OYUN+' hata raporu')+'&body='+encodeURIComponent(r.slice(0,1800));
+  if(b==='k'){try{navigator.clipboard.writeText(r).then(function(){d.textContent='✅ Kopyalandı, istediğin yere yapıştır.';},function(){d.textContent='Kopyalanamadı, İndir\'i dene.';});}catch(_){d.textContent='Kopyalanamadı, İndir\'i dene.';}}
+  if(b==='i'){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([r],{type:'text/plain'}));a.download='HataRaporu_'+OYUN.replace(/\W+/g,'')+'.txt';document.body.appendChild(a);a.click();setTimeout(function(){a.remove();},500);d.textContent='✅ Rapor indirildi.';}};}
+ var btn=document.createElement('button');btn.id='cdBugBtn';btn.textContent='🐞';btn.title='Hata bildir';btn.onclick=ac;
+ btn.style.cssText='position:fixed;right:6px;bottom:6px;z-index:2147483645;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(20,26,46,.7);color:#fff;font-size:15px;line-height:28px;padding:0;cursor:pointer;opacity:.55';
+ btn.onmouseenter=function(){btn.style.opacity='1';};btn.onmouseleave=function(){btn.style.opacity='.55';};
+ function koy(){if(!document.getElementById('cdBugBtn'))document.body.appendChild(btn);}setInterval(function(){var g=document.getElementById('oyun');btn.style.display=(g&&g.style.display!=='none'&&getComputedStyle(g).display!=='none')?'none':'';},700);if(document.body)koy();else document.addEventListener('DOMContentLoaded',koy);
+ window.hataBildir=ac;})();
+</script>
+<script>
+// 🌍 Splash çevirileri (TR/RU/UA/GE) — dil seçilince BAŞLA ekranındaki tüm yazılar değişir
+(function(){var T={
+ tr:{ses:'🔊 Ses',sesK:'🔇 Ses',gfx:'🎮 Grafik',cr:'Created By FurkanÇ',test:'⚠ Hala test aşamasındadır',dil:'🌍 4 dil destekli',dbg:'🔍 Debug',soz:null},
+ ru:{ses:'🔊 Звук',sesK:'🔇 Звук',gfx:'🎮 Графика',cr:'Автор: FurkanÇ',test:'⚠ Игра ещё в стадии тестирования',dil:'🌍 Поддержка 4 языков',dbg:'🔍 Отладка',soz:['Математика — место, где встречаются терпение и логика.','Понять задачу — значит решить её наполовину.','Самое простое решение часто самое верное.','Счёт в уме — гимнастика для памяти.','Кто видит закономерность, угадывает следующий шаг.']},
+ uk:{ses:'🔊 Звук',sesK:'🔇 Звук',gfx:'🎮 Графіка',cr:'Автор: FurkanÇ',test:'⚠ Гра ще на стадії тестування',dil:'🌍 Підтримка 4 мов',dbg:'🔍 Налагодження',soz:['Математика — місце, де зустрічаються терпіння і логіка.','Зрозуміти задачу — означає наполовину її розв’язати.','Найпростіше рішення часто найправильніше.','Усний рахунок — гімнастика для пам’яті.','Хто бачить закономірність, вгадує наступний крок.']},
+ ka:{ses:'🔊 ხმა',sesK:'🔇 ხმა',gfx:'🎮 გრაფიკა',cr:'ავტორი: FurkanÇ',test:'⚠ თამაში ჯერ კიდევ ტესტირების ეტაპზეა',dil:'🌍 4 ენის მხარდაჭერა',dbg:'🔍 დებაგი',soz:['მათემატიკა არის ადგილი, სადაც მოთმინება და ლოგიკა ხვდება ერთმანეთს.','ამოცანის გაგება მისი ნახევრად ამოხსნაა.','უმარტივესი გამოსავალი ხშირად ყველაზე სწორია.','გონებაში თვლა მეხსიერების ვარჯიშია.','ვინც კანონზომიერებას ხედავს, შემდეგ ნაბიჯს გამოიცნობს.']}};
+ var TR0=null;
+ function uygula(l){var t=T[l]||T.tr,$=function(i){return document.getElementById(i);};
+  var sb=$('splashSoundBtn');if(sb){var kapali=/🔇/.test(sb.textContent);sb.textContent=kapali?t.sesK:t.ses;}
+  var gb=$('splashGfxBtn');if(gb)gb.textContent=t.gfx;
+  var cr=document.querySelector('.splash-credits');if(cr)cr.textContent=t.cr;
+  var te=$('splashTestTxt');if(te)te.textContent=t.test;var li=$('splashLangInfoTxt');if(li)li.textContent=t.dil;
+  var db=$('_dbgSplashBtn');if(db)db.textContent=t.dbg;
+  var g=$('gunlukAtasoz');if(g){if(TR0===null)TR0=g.textContent;if(t.soz){var d=new Date(),gun=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);g.textContent='💬 '+t.soz[gun%t.soz.length];}else g.textContent=TR0;}}
+ function dil(){try{return (localStorage.getItem('sa_lang')||window.currentLang||'tr');}catch(e){return window.currentLang||'tr';}}
+ var o1=window.markSplashLang;if(typeof o1==='function')window.markSplashLang=function(l){var r=o1.apply(this,arguments);setTimeout(function(){uygula(l);},0);return r;};
+ var o2=window.setLang;if(typeof o2==='function')window.setLang=function(l){var r=o2.apply(this,arguments);setTimeout(function(){uygula(l);},30);return r;};
+ var o3=window.toggleSound;if(typeof o3==='function')window.toggleSound=function(){var r=o3.apply(this,arguments);setTimeout(function(){uygula(dil());},30);return r;};
+ if(document.readyState!=='loading')setTimeout(function(){uygula(dil());},300);else document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){uygula(dil());},300);});
+})();
+</script>
 </body></html>
