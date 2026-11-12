@@ -3461,13 +3461,7 @@ function startGame(diff) { stopSplashMusic(); stopMusic();
     // Yazılmaya başlayınca timer başlat
     const _gInp = document.getElementById('guessInput');
     if (_gInp) {
-        _gInp.oninput = function() {
-            if (!firstGuessMade && !gameOver && this.value !== '') {
-                firstGuessMade = true;
-                startGuessTimer();
-                this.oninput = null;
-            }
-        };
+        if (!gameOver) { firstGuessMade = true; startGuessTimer(); } // ⏱️ soru gelince geri sayım hemen başlar
     }
 
     startMusic(); // Kullanıcı tıklaması içinde çağrılıyor — tarayıcı engeli yok
@@ -3720,13 +3714,7 @@ function nextEbobQuestion() {
     _eInp.value = '';
     _eInp.focus();
     _eInp.placeholder = L.ebobAnswerPlaceholder || '?';
-    _eInp.oninput = function() {
-        if (!ebobFirstGuess && !ebobGameOver && this.value !== '') {
-            ebobFirstGuess = true;
-            startEbobGuessTimer();
-            this.oninput = null;
-        }
-    };
+    if (!ebobGameOver) { ebobFirstGuess = true; startEbobGuessTimer(); } // ⏱️ soru gelince geri sayım hemen başlar
 
     // EBOB/EKOK buton renklerini güncelle
     const _eab = document.getElementById('ebobAnswerBtn'); const _eeb = document.getElementById('ebebAnswerBtn');
@@ -3927,13 +3915,7 @@ function nextIslemQuestion() {
     _iInp.value = '';
     _iInp.focus();
     _iInp.placeholder = L.islemPlaceholder || '= ?';
-    _iInp.oninput = function() {
-        if (!islemFirstGuess && !islemGameOver && this.value !== '') {
-            islemFirstGuess = true;
-            startIslemGuessTimer();
-            this.oninput = null;
-        }
-    };
+    if (!islemGameOver) { islemFirstGuess = true; startIslemGuessTimer(); } // ⏱️ soru gelince geri sayım hemen başlar
 }
 
 function submitIslemAnswer() {
@@ -4207,13 +4189,7 @@ function nextFonkQuestion() {
     const inp = document.getElementById('fonkInput');
     if (inp) {
         inp.focus();
-        inp.oninput = function() {
-            if (!fonkFirstGuess && !fonkGameOver && this.value !== '') {
-                fonkFirstGuess = true;
-                startFonkGuessTimer();
-                this.oninput = null;
-            }
-        };
+        if (!fonkGameOver) { fonkFirstGuess = true; startFonkGuessTimer(); } // ⏱️ soru gelince geri sayım hemen başlar
     }
 }
 
@@ -4654,13 +4630,7 @@ function nextSozelQuestion() {
     const inp = document.getElementById('sozelInput');
     if (inp) {
         inp.focus();
-        inp.oninput = function() {
-            if (!sozelFirstGuess && !sozelGameOver && this.value !== '') {
-                sozelFirstGuess = true;
-                startSozelGuessTimer();
-                this.oninput = null;
-            }
-        };
+        if (!sozelGameOver) { sozelFirstGuess = true; startSozelGuessTimer(); } // ⏱️ soru gelince geri sayım hemen başlar
     }
 }
 
@@ -6053,7 +6023,7 @@ function nextHizQuestion(){
     setText('hizMessage',''); setText('hizScoreDisplay',(L.sozelScore||'Puan:')+' '+hizScore);
     const inp=document.getElementById('hizInput');
     if(inp){inp.value='';inp.focus();inp.placeholder=L.sozelPlaceholder||'Cevap...';
-        inp.oninput=function(){if(!hizFirstGuess&&!hizGameOver&&this.value!==''){hizFirstGuess=true;startHizGuessTimer();this.oninput=null;}};}
+        if(!hizGameOver){hizFirstGuess=true;startHizGuessTimer();}}
 }
 
 function submitHizAnswer(){
@@ -6218,7 +6188,7 @@ function nextPermQuestion(){
     setText('permMessage',''); setText('permScoreDisplay',(L.sozelScore||'Puan:')+' '+permScore);
     const inp=document.getElementById('permInput');
     if(inp){inp.value='';inp.focus();inp.placeholder=L.sozelPlaceholder||'Cevap...';
-        inp.oninput=function(){if(!permFirstGuess&&!permGameOver&&this.value!==''){permFirstGuess=true;startPermGuessTimer();this.oninput=null;}};}
+        if(!permGameOver){permFirstGuess=true;startPermGuessTimer();}}
 }
 
 function submitPermAnswer(){

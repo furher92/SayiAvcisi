@@ -4,7 +4,7 @@
 // Not: Bu dosya origin'den bağımsız çalışır (relative fetch) — adres değişse bile kod değişmez,
 // bu satır sadece dokümantasyon/takip amaçlıdır.
 
-const CACHE_NAME = 'sa-cache-alpha2-kasim26e'; // 🔄 Eski Cihaz modu eklendi — önbellek adı değişti, herkes yeni sürümü alır
+const CACHE_NAME = 'sa-cache-alpha2-kasim26f'; // 🔄 Eski Cihaz modu eklendi — önbellek adı değişti, herkes yeni sürümü alır
 
 self.addEventListener('install', function(e) {
   // Yeni service worker hemen aktif olsun, eski sürümü bekleme
