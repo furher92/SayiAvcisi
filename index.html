@@ -7979,8 +7979,11 @@ window.showAdOverlay = showAdOverlay;
 
 // 🏠 Ana Ekran — splash'a geri dön (sayfayı yenile)
 function goToMainScreen() {
-    sessionStorage.setItem('sa_from_main','1');
-    location.reload();
+    // Sayfayı yeniden yüklemeden ana menüye dön (eskiden reload → "ALPHA 2" açılış ekranı yanıp sönüyordu)
+    try{const son=setInterval(function(){},99999);for(let i=(window._saBazInt||0)+1;i<=son;i++)clearInterval(i);}catch(e){}
+    try{if(typeof stopMusic==='function')stopMusic();}catch(e){}
+    try{document.querySelectorAll('.saMenu').forEach(function(x){x.remove();});}catch(e){}
+    try{backToModeSelect();}catch(e){location.reload();}
 }
 window.goToMainScreen = goToMainScreen;
 
@@ -11431,6 +11434,52 @@ function ac(){var o=document.getElementById('cdBug');if(o){o.remove();return;}o=
  var o2=window.setLang;if(typeof o2==='function')window.setLang=function(l){var r=o2.apply(this,arguments);setTimeout(function(){uygula(l);},30);return r;};
  var o3=window.toggleSound;if(typeof o3==='function')window.toggleSound=function(){var r=o3.apply(this,arguments);setTimeout(function(){uygula(dil());},30);return r;};
  if(document.readyState!=='loading')setTimeout(function(){uygula(dil());},300);else document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){uygula(dil());},300);});
+})();
+</script>
+
+<style id="saUI2">
+/* 🎨 Sayı Avcısı — Arayüz 2.0 (12 Kas 2026) */
+.container{width:min(940px,96vw)!important;max-width:940px!important;padding:24px 26px!important;border-radius:24px!important;border:1px solid rgba(255,190,90,.22)!important;box-shadow:0 20px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08)!important;backdrop-filter:blur(10px)}
+.container div[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;max-width:100%!important;gap:14px!important}
+.mode-card{min-height:138px;border-radius:18px!important;padding:16px 12px!important;background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.02))!important;border-width:2px!important;box-shadow:0 6px 0 rgba(0,0,0,.35),0 10px 24px rgba(0,0,0,.35)!important;transition:transform .12s,box-shadow .12s,filter .12s!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.mode-card:hover{transform:translateY(-4px) scale(1.02);filter:brightness(1.12);box-shadow:0 10px 0 rgba(0,0,0,.35),0 16px 30px rgba(0,0,0,.45)!important}
+.mode-card:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.35)!important}
+.mode-icon{font-size:40px!important;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}
+.mode-name{font-size:15px!important;font-weight:800!important;letter-spacing:.3px}
+.mode-desc{font-size:11.5px!important;opacity:.8;line-height:1.35}
+.diff-btn{padding:14px 26px!important;font-size:15px!important;border-radius:14px!important;box-shadow:0 5px 0 rgba(0,0,0,.35)!important;transition:transform .1s!important;min-width:120px}
+.diff-btn:hover{transform:translateY(-2px)}.diff-btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.35)!important}
+.diff-buttons{gap:12px!important;flex-wrap:wrap;justify-content:center}
+[id$="Question"]{font-size:clamp(22px,4.2vw,38px)!important;font-weight:800!important;padding:22px 18px!important;border-radius:18px!important;background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(0,0,0,.25))!important;border:2px solid rgba(255,190,90,.35)!important;box-shadow:inset 0 2px 0 rgba(255,255,255,.07),0 8px 24px rgba(0,0,0,.35)!important;margin:10px 0!important;line-height:1.35}
+.input-group input,.container input[type=number],.container input[type=text]{font-size:clamp(20px,3.4vw,30px)!important;padding:14px 18px!important;border-radius:14px!important;text-align:center;border:2px solid rgba(255,190,90,.45)!important;background:rgba(0,0,0,.35)!important;color:#fff!important}
+.input-group button,.home-btn,.stats-btn{border-radius:14px!important;box-shadow:0 5px 0 rgba(0,0,0,.35)!important;padding:12px 22px!important;font-size:15px!important}
+.hearts{font-size:24px!important;letter-spacing:3px}
+.timer-box,.guess-timer-box{border-radius:14px!important;font-size:18px!important;font-weight:800!important}
+#saMenuBtn{position:fixed;left:12px;top:12px;z-index:99990;width:46px;height:46px;border-radius:14px;border:2px solid rgba(255,190,90,.55);background:rgba(20,12,8,.85);color:#ffd27a;font-size:22px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.4);backdrop-filter:blur(6px)}
+.saMenu{position:fixed;inset:0;z-index:99995;background:rgba(5,3,10,.78);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px}
+.saMenu .k{width:min(460px,94vw);max-height:88vh;overflow:auto;background:linear-gradient(160deg,#2a1608,#120a14);border:2px solid rgba(255,190,90,.5);border-radius:22px;padding:20px;color:#fff;font-family:'Outfit',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.saMenu h2{margin:0 0 4px;font-size:22px;color:#ffd27a}.saMenu .alt{opacity:.7;font-size:12px;margin-bottom:14px}
+.saMenu button.m{display:flex;align-items:center;gap:12px;width:100%;margin:8px 0;padding:14px 16px;border-radius:14px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-size:15px;font-weight:700;cursor:pointer;text-align:left;font-family:inherit;box-shadow:0 4px 0 rgba(0,0,0,.35)}
+.saMenu button.m:hover{background:rgba(255,190,90,.16);border-color:rgba(255,190,90,.5)}.saMenu button.m span{font-size:22px}
+.saMenu .lis{font-size:13px;line-height:1.65;opacity:.92}.saMenu .lis b{color:#ffd27a}
+body.light-tema .saMenu .k{background:linear-gradient(160deg,#fff4e6,#f3e6ff);color:#222}body.light-tema .saMenu button.m{color:#222;background:rgba(0,0,0,.05)}
+@media(max-width:520px){.mode-card{min-height:118px}.mode-icon{font-size:32px!important}}
+</style>
+<script>
+(function(){window._saBazInt=setInterval(function(){},99999);
+function kapat(){document.querySelectorAll('.saMenu').forEach(function(x){x.remove();});}
+function ac(html){kapat();var d=document.createElement('div');d.className='saMenu';d.innerHTML='<div class="k">'+html+'</div>';d.addEventListener('click',function(e){if(e.target===d)kapat();});document.body.appendChild(d);return d;}
+window.saLisans=function(){ac('<h2>ℹ️ Hakkında & Lisans</h2><div class="alt">Sayı Avcısı · Alpha 2</div><div class="lis"><b>© 2026 Catanadev · Furkan Çatanaoğlu.</b> Tüm hakları saklıdır.<br><br>🎯 Sayı Avcısı bağımsız bir eğitim oyunudur. Sorular oyun içinde kodla üretilir; sınav adları (TYT/AYT vb.) yalnızca konu düzeyini belirtmek içindir, resmî kurumlarla bağı yoktur.<br><br>🎨 Tüm çizimler, ikonlar ve temalar Catanadev tarafından yapılmıştır. 🔊 Ses ve müzikler kodla üretilir (kayıtlı ses dosyası yok).<br><br>🔒 Kişisel veri toplanmaz; ilerlemen sadece bu cihazda saklanır.<br><br>📜 Açık lisanslı kaynaklar: Outfit yazı tipi (SIL Open Font License 1.1, Google Fonts); bayraklar oyun içinde kodla çizilmiş basit simgelerdir.<br><br>İzinsiz kopyalanması, satılması ve dağıtılması yasaktır.</div><button class="m" onclick="saMenuAc()"><span>←</span>Geri</button>');};
+window.saMenuAc=function(){ac('<h2>☰ Menü</h2><div class="alt">Sayı Avcısı · Alpha 2</div>'+
+ '<button class="m" onclick="goToMainScreen()"><span>🏠</span>Ana Menü (oyun seçimi)</button>'+
+ '<button class="m" onclick="this.closest(\'.saMenu\').remove();try{profilPanelAc()}catch(e){}"><span>👤</span>Profil & İstatistik</button>'+
+ '<button class="m" onclick="this.closest(\'.saMenu\').remove();try{basarimPanelAc()}catch(e){}"><span>🏆</span>Başarımlar</button>'+
+ '<button class="m" onclick="this.closest(\'.saMenu\').remove();try{temaSecPanelAc()}catch(e){}"><span>🎨</span>Tema</button>'+
+ '<button class="m" onclick="try{toggleSound()}catch(e){}"><span>🔊</span>Ses Aç / Kapat</button>'+
+ '<button class="m" onclick="saLisans()"><span>ℹ️</span>Hakkında & Lisans</button>'+
+ '<button class="m" onclick="this.closest(\'.saMenu\').remove()"><span>✖</span>Kapat</button>');};
+var b=document.createElement('button');b.id='saMenuBtn';b.title='Menü';b.textContent='☰';b.onclick=function(){window.saMenuAc();};document.body.appendChild(b);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document.querySelector('.saMenu'))kapat();}});
 })();
 </script>
 </body></html>
