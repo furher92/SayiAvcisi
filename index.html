@@ -11425,6 +11425,13 @@ function ac(){var o=document.getElementById('cdBug');if(o){o.remove();return;}o=
 .input-group button,.home-btn,.stats-btn{border-radius:14px!important;box-shadow:0 5px 0 rgba(0,0,0,.35)!important;padding:12px 22px!important;font-size:15px!important}
 .hearts{font-size:24px!important;letter-spacing:3px}
 .timer-box,.guess-timer-box{border-radius:14px!important;font-size:18px!important;font-weight:800!important}
+#settingsBar{display:none!important}
+.saMenu .grup{margin:14px 0 6px;font-size:12px;font-weight:800;color:#ffd27a;letter-spacing:.5px;text-transform:uppercase}
+.saMenu .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.saMenu button.t{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border-radius:14px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 0 rgba(0,0,0,.35)}
+.saMenu button.t span{font-size:26px}.saMenu button.t:hover{background:rgba(255,190,90,.16);border-color:rgba(255,190,90,.5)}
+body.light-tema .saMenu button.t{color:#222;background:rgba(0,0,0,.05)}
+@media(max-width:560px){.container div[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.mode-card{min-height:112px!important;padding:12px 8px!important}.mode-icon{font-size:30px!important}.mode-name{font-size:13px!important}.mode-desc{font-size:10.5px!important}.container{padding:16px 12px!important}#saMenuBtn{width:42px;height:42px;font-size:20px}}
 #saMenuBtn{position:fixed;left:12px;top:12px;z-index:99990;width:46px;height:46px;border-radius:14px;border:2px solid rgba(255,190,90,.55);background:rgba(20,12,8,.85);color:#ffd27a;font-size:22px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.4);backdrop-filter:blur(6px)}
 .saMenu{position:fixed;inset:0;z-index:99995;background:rgba(5,3,10,.78);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px}
 .saMenu .k{width:min(460px,94vw);max-height:88vh;overflow:auto;background:linear-gradient(160deg,#2a1608,#120a14);border:2px solid rgba(255,190,90,.5);border-radius:22px;padding:20px;color:#fff;font-family:'Outfit',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.6)}
@@ -11440,12 +11447,13 @@ body.light-tema .saMenu .k{background:linear-gradient(160deg,#fff4e6,#f3e6ff);co
 function kapat(){document.querySelectorAll('.saMenu').forEach(function(x){x.remove();});}
 function ac(html){kapat();var d=document.createElement('div');d.className='saMenu';d.innerHTML='<div class="k">'+html+'</div>';d.addEventListener('click',function(e){if(e.target===d)kapat();});document.body.appendChild(d);return d;}
 window.saLisans=function(){ac('<h2>ℹ️ Hakkında & Lisans</h2><div class="alt">Sayı Avcısı · Alpha 2</div><div class="lis"><b>© 2026 Catanadev · Furkan Çatanaoğlu.</b> Tüm hakları saklıdır.<br><br>🎯 Sayı Avcısı bağımsız bir eğitim oyunudur. Sorular oyun içinde kodla üretilir; sınav adları (TYT/AYT vb.) yalnızca konu düzeyini belirtmek içindir, resmî kurumlarla bağı yoktur.<br><br>🎨 Tüm çizimler, ikonlar ve temalar Catanadev tarafından yapılmıştır. 🔊 Ses ve müzikler kodla üretilir (kayıtlı ses dosyası yok).<br><br>🔒 Kişisel veri toplanmaz; ilerlemen sadece bu cihazda saklanır.<br><br>📜 Açık lisanslı kaynaklar: Outfit yazı tipi (SIL Open Font License 1.1, Google Fonts); bayraklar oyun içinde kodla çizilmiş basit simgelerdir.<br><br>İzinsiz kopyalanması, satılması ve dağıtılması yasaktır.</div><button class="m" onclick="saMenuAc()"><span>←</span>Geri</button>');};
-window.saMenuAc=function(){ac('<h2>☰ Menü</h2><div class="alt">Sayı Avcısı · Alpha 2</div>'+
+window.saTik=function(id){var e=document.getElementById(id);if(e){kapat();e.click();}};
+window.saMenuAc=function(){var t=function(id,ic,ad){return '<button class="t" onclick="saTik(\''+id+'\')"><span>'+ic+'</span>'+ad+'</button>';};
+ var sesA=(typeof soundEnabled!=='undefined'&&!soundEnabled)?'🔇':'🔊';
+ ac('<h2>☰ Menü</h2><div class="alt">Sayı Avcısı · Alpha 2</div>'+
  '<button class="m" onclick="goToMainScreen()"><span>🏠</span>Ana Menü (oyun seçimi)</button>'+
- '<button class="m" onclick="this.closest(\'.saMenu\').remove();try{profilPanelAc()}catch(e){}"><span>👤</span>Profil & İstatistik</button>'+
- '<button class="m" onclick="this.closest(\'.saMenu\').remove();try{basarimPanelAc()}catch(e){}"><span>🏆</span>Başarımlar</button>'+
- '<button class="m" onclick="this.closest(\'.saMenu\').remove();try{temaSecPanelAc()}catch(e){}"><span>🎨</span>Tema</button>'+
- '<button class="m" onclick="try{toggleSound()}catch(e){}"><span>🔊</span>Ses Aç / Kapat</button>'+
+ '<div class="grup">⚙️ Ayarlar</div><div class="tg">'+t('soundToggleBtn',sesA,'Ses')+t('sesPaketBtn','🎼','Ses Paketi')+t('settingsGfxBtn','⚡','Grafik')+t('temaBtn','🌙','Gece / Gündüz')+t('temaSecBtn','🎨','Tema')+'</div>'+
+ '<div class="grup">👤 Ben</div><div class="tg">'+t('profilBtn','👤','Profil')+t('basarimBtn','🏆','Başarımlar')+t('zayifBtn','🎯','Zayıf Nokta')+t('gunlukBtn','🎁','Günlük Ödül')+'</div>'+
  '<button class="m" onclick="saLisans()"><span>ℹ️</span>Hakkında & Lisans</button>'+
  '<button class="m" onclick="this.closest(\'.saMenu\').remove()"><span>✖</span>Kapat</button>');};
 var b=document.createElement('button');b.id='saMenuBtn';b.title='Menü';b.textContent='☰';b.onclick=function(){window.saMenuAc();};document.body.appendChild(b);
