@@ -726,7 +726,7 @@ function skipIntroTrailer() {}
     <div class="splash-lang" style="color:#fff;" id="splashLangInfoTxt" data-i18n="spLangInfo">🌍 4 dil destekli</div>
     <div class="splash-update2" id="splashUpdate2Txt" style="color:#fff;margin-top:4px;animation:none;font-weight:bold;display:inline-flex;align-items:center;gap:3px;"><span style="color:#ffd21e;font-size:13px;">⚠️</span><span style="color:#e30a17;font-size:13px;">❗</span> Yakında Huawei AppGallery'de de</div>
     <!-- Debug butonu — splash en alt -->
-    <button onclick="_dbgToggle && _dbgToggle()" id="_dbgSplashBtn"
+    <button onclick="window._dbgToggle && window._dbgToggle()" id="_dbgSplashBtn"
         style="margin-top:10px;padding:5px 14px;font-size:10px;font-weight:700;border-radius:50px;border:1.5px solid rgba(52,211,153,0.4);background:rgba(52,211,153,0.06);color:#34d399;cursor:pointer;" title="Debug Paneli" data-i18n="spDebug">🔍 Debug</button>
 </div>
 
@@ -3419,7 +3419,7 @@ function playSound(type) {
 // ══════════ CANLAR ══════════
 function updateHearts() {
     const cfg = DIFFICULTY[currentDifficulty];
-    setText('heartsDisplay', cfg.heartEmoji.repeat(lives));
+    setText('heartsDisplay', cfg.heartEmoji.repeat(Math.max(0,lives)));
 }
 
 // ══════════ OYUNU BAŞLAT ══════════
@@ -3684,7 +3684,7 @@ function startEbob(diff) {
     applyTheme('#ffffff');
     setDisplay('ebobDiffScreen','none');
     setDisplay('ebobGameScreen','flex');
-    setText('ebobHeartsDisplay', cfg.heartEmoji.repeat(ebobLives));
+    setText('ebobHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0,ebobLives)));
     setDisplay('ebobTimerDisplay','none');
     setDisplay('ebobGuessTimerBox','none');
     setDisabled('ebobInput', false);
@@ -3761,10 +3761,10 @@ function submitEbobAnswer() {
         ebobScore++;
         playSound('win');
         msgEl.innerHTML = `<span style="color:#00e5aa;">${L.ebobCorrect} ${ebobCorrectAnswer}</span>`;
-        setText('ebobHeartsDisplay', cfg.heartEmoji.repeat(ebobLives));
+        setText('ebobHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0,ebobLives)));
         setTimeout(() => { if (!ebobGameOver) nextEbobQuestion(); }, 1000);
     } else {
-        ebobLives--;
+        if(ebobLives<=0)return;ebobLives--;
         playSound('wrong');
         setText('ebobHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0, ebobLives)));
         if (ebobLives <= 0) {
@@ -3812,7 +3812,7 @@ function startEbobGuessTimer() {
             try{playSound('timeout');}catch(e){}
             clearInterval(ebobGuessTimer);
             if (!ebobGameOver) {
-                ebobLives--;
+                if(ebobLives<=0)return;ebobLives--;
                 setText('ebobHeartsDisplay', EBOB_DIFF[ebobCurrentDiff].heartEmoji.repeat(Math.max(0, ebobLives)));
                 if (ebobLives <= 0) {
                     ebobGameOver = true;
@@ -3878,7 +3878,7 @@ function startIslem(diff) {
     applyTheme('#ffffff');
     setDisplay('islemDiffScreen','none');
     setDisplay('islemGameScreen','flex');
-    setText('islemHeartsDisplay', cfg.heartEmoji.repeat(islemLives));
+    setText('islemHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0,islemLives)));
     setDisplay('islemTimerDisplay','none');
     setDisplay('islemGuessTimerBox','none');
     setDisabled('islemInput', false);
@@ -3968,10 +3968,10 @@ function submitIslemAnswer() {
         playSound('win');
         msgEl.innerHTML = `<span style="color:#00e5aa;">${L.islemCorrect || '✅ Doğru!'}</span>`;
         setText('islemScoreDisplay', `${L.islemScore || 'Puan:'} ${islemScore}`);
-        setText('islemHeartsDisplay', cfg.heartEmoji.repeat(islemLives));
+        setText('islemHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0,islemLives)));
         setTimeout(() => { if (!islemGameOver) nextIslemQuestion(); }, 900);
     } else {
-        islemLives--;
+        if(islemLives<=0)return;islemLives--;
         playSound('wrong');
         setText('islemHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0, islemLives)));
         if (islemLives <= 0) {
@@ -4012,7 +4012,7 @@ function startIslemGuessTimer() {
             try{playSound('timeout');}catch(e){}
             clearInterval(islemGuessTimerVar);
             if (!islemGameOver) {
-                islemLives--;
+                if(islemLives<=0)return;islemLives--;
                 setText('islemHeartsDisplay', ISLEM_DIFF[islemCurrentDiff].heartEmoji.repeat(Math.max(0, islemLives)));
                 if (islemLives <= 0) {
                     islemGameOver = true;
@@ -4177,7 +4177,7 @@ function startFonk(diff) {
     applyTheme('#ffffff');
     setDisplay('fonkDiffScreen', 'none');
     setDisplay('fonkGameScreen', 'flex');
-    setText('fonkHeartsDisplay', cfg.heartEmoji.repeat(fonkLives));
+    setText('fonkHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0,fonkLives)));
     setDisplay('fonkTimerDisplay', 'none');
     setDisplay('fonkGuessTimerBox', 'none');
     setDisabled('fonkInput', false);
@@ -4235,11 +4235,11 @@ function submitFonkAnswer() {
         fonkScore++;
         playSound('win');
         setHTML('fonkMessage', '<span style="color:#00e5aa;">' + (L.fonkCorrect || '✅ Doğru!') + ' ' + fonkCorrectAnswer + '</span>');
-        setText('fonkHeartsDisplay', cfg.heartEmoji.repeat(fonkLives));
+        setText('fonkHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0,fonkLives)));
         setText('fonkScoreDisplay', (L.fonkScore || 'Puan:') + ' ' + fonkScore);
         setTimeout(() => { if (!fonkGameOver) nextFonkQuestion(); }, 1000);
     } else {
-        fonkLives--;
+        if(fonkLives<=0)return;fonkLives--;
         playSound('wrong');
         setText('fonkHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0, fonkLives)));
         if (fonkLives <= 0) {
@@ -4276,7 +4276,7 @@ function startFonkGuessTimer() {
             try{playSound('timeout');}catch(e){}
             clearInterval(fonkGuessTimerVar);
             if (!fonkGameOver) {
-                fonkLives--;
+                if(fonkLives<=0)return;fonkLives--;
                 setText('fonkHeartsDisplay', FONK_DIFF[fonkCurrentDiff].heartEmoji.repeat(Math.max(0, fonkLives)));
                 if (fonkLives <= 0) {
                     fonkGameOver = true;
@@ -4628,7 +4628,7 @@ function startSozel(diff) {
     applyTheme('#ffffff');
     setDisplay('sozelDiffScreen','none');
     setDisplay('sozelGameScreen','flex');
-    setText('sozelHeartsDisplay', cfg.heartEmoji.repeat(sozelLives));
+    setText('sozelHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0,sozelLives)));
     setDisplay('sozelTimerDisplay','none');
     setDisplay('sozelGuessTimerBox','none');
     setDisabled('sozelInput', false);
@@ -4680,10 +4680,10 @@ function submitSozelAnswer() {
         playSound('win');
         setHTML('sozelMessage','<span style="color:#00e5aa;">' + (L.sozelCorrect||'✅ Doğru!') + '</span>');
         setText('sozelScoreDisplay',(L.sozelScore||'Puan:')+' '+sozelScore);
-        setText('sozelHeartsDisplay', cfg.heartEmoji.repeat(sozelLives));
+        setText('sozelHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0,sozelLives)));
         setTimeout(()=>{ if (!sozelGameOver) nextSozelQuestion(); }, 1100);
     } else {
-        sozelLives--;
+        if(sozelLives<=0)return;sozelLives--;
         playSound('wrong');
         setText('sozelHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0,sozelLives)));
         if (sozelLives <= 0) {
@@ -4718,7 +4718,7 @@ function startSozelGuessTimer() {
         if (t <= 0) {
             clearInterval(sozelGuessTimerVar);
             if (!sozelGameOver) {
-                sozelLives--;
+                if(sozelLives<=0)return;sozelLives--;
                 setText('sozelHeartsDisplay', SOZEL_DIFF[sozelCurrentDiff].heartEmoji.repeat(Math.max(0,sozelLives)));
                 if (sozelLives <= 0) {
                     sozelGameOver = true;
@@ -5473,7 +5473,7 @@ function startHiz(diff){
     hizLives=cfg.lives; hizScore=0; hizGameOver=false; hizFirstGuess=false;
     applyTheme(cfg.color);
     setDisplay('hizDiffScreen','none'); setDisplay('hizGameScreen','flex');
-    setText('hizHeartsDisplay', cfg.heartEmoji.repeat(hizLives));
+    setText('hizHeartsDisplay', cfg.heartEmoji.repeat(Math.max(0,hizLives)));
     setDisplay('hizTimerDisplay','none'); setDisplay('hizGuessTimerBox','none');
     setDisabled('hizInput',false); setDisabled('hizBtn',false);
     setText('hizTimerSec',' '+(L.timerSec||'sn'));
@@ -5492,7 +5492,7 @@ const YUZDE_HEART = '💚';
 function startYuzde(){
     yuzdeScore = 0; yuzdeLives = 4; yuzdeGameOver = false;
     setDisplay('yuzdeGameScreen','flex');
-    setText('yuzdeHeartsDisplay', YUZDE_HEART.repeat(yuzdeLives));
+    setText('yuzdeHeartsDisplay', YUZDE_HEART.repeat(Math.max(0,yuzdeLives)));
     setDisabled('yuzdeInput', false); setDisabled('yuzdeBtn', false);
     startMusic();
     nextYuzdeQuestion();
@@ -5532,7 +5532,7 @@ function startYuzdeGuessTimer(){
             try{ playSound('timeout'); }catch(e){}
             if (!yuzdeGameOver) {
                 const L = LANG[currentLang]||LANG['tr'];
-                yuzdeLives--;
+                if(yuzdeLives<=0)return;yuzdeLives--;
                 setText('yuzdeHeartsDisplay', YUZDE_HEART.repeat(Math.max(0,yuzdeLives)));
                 if (yuzdeLives <= 0) {
                     yuzdeGameOver = true;
@@ -5573,7 +5573,7 @@ function submitYuzdeAnswer(){
         setText('yuzdeScoreDisplay', (L.sozelScore||'Puan:')+' '+yuzdeScore);
         setTimeout(()=>{ if(!yuzdeGameOver) nextYuzdeQuestion(); }, 900);
     } else {
-        yuzdeLives--; playSound('wrong');
+        if(yuzdeLives<=0)return;yuzdeLives--; playSound('wrong');
         setText('yuzdeHeartsDisplay', YUZDE_HEART.repeat(Math.max(0,yuzdeLives)));
         if (yuzdeLives <= 0) {
             yuzdeGameOver = true;
@@ -5626,7 +5626,7 @@ function startSprintGuessTimer(){
             try{ playSound('timeout'); }catch(e){}
             if (!sprintGameOver) {
                 const L = LANG[currentLang]||LANG['tr'];
-                sprintLives--;
+                if(sprintLives<=0)return;sprintLives--;
                 setText('sprintHeartsDisplay', SPRINT_HEART.repeat(Math.max(0,sprintLives)));
                 if (sprintLives <= 0) {
                     sprintGameOver = true;
@@ -5667,7 +5667,7 @@ function submitSprintAnswer(){
         setText('sprintScoreDisplay', (L.sozelScore||'Puan:')+' '+sprintScore);
         setTimeout(()=>{ if(!sprintGameOver) nextSprintQuestion(); }, 500); // sprintte bekleme de kısa
     } else {
-        sprintLives--; playSound('wrong');
+        if(sprintLives<=0)return;sprintLives--; playSound('wrong');
         setText('sprintHeartsDisplay', SPRINT_HEART.repeat(Math.max(0,sprintLives)));
         if (sprintLives <= 0) {
             sprintGameOver = true;
@@ -5721,7 +5721,7 @@ function startDenklemGuessTimer(){
             try{ playSound('timeout'); }catch(e){}
             if (!denklemGameOver) {
                 const L = LANG[currentLang]||LANG['tr'];
-                denklemLives--;
+                if(denklemLives<=0)return;denklemLives--;
                 setText('denklemHeartsDisplay', DENKLEM_HEART.repeat(Math.max(0,denklemLives)));
                 if (denklemLives <= 0) {
                     denklemGameOver = true;
@@ -5762,7 +5762,7 @@ function submitDenklemAnswer(){
         setText('denklemScoreDisplay', (L.sozelScore||'Puan:')+' '+denklemScore);
         setTimeout(()=>{ if(!denklemGameOver) nextDenklemQuestion(); }, 900);
     } else {
-        denklemLives--; playSound('wrong');
+        if(denklemLives<=0)return;denklemLives--; playSound('wrong');
         setText('denklemHeartsDisplay', DENKLEM_HEART.repeat(Math.max(0,denklemLives)));
         if (denklemLives <= 0) {
             denklemGameOver = true;
@@ -5846,7 +5846,7 @@ function startKesirGuessTimer(){
             try{ playSound('timeout'); }catch(e){}
             if (!kesirGameOver) {
                 const L = LANG[currentLang]||LANG['tr'];
-                kesirLives--;
+                if(kesirLives<=0)return;kesirLives--;
                 setText('kesirHeartsDisplay', KESIR_HEART.repeat(Math.max(0,kesirLives)));
                 const dogruMetin = kesirCorrectPayda===1 ? String(kesirCorrectPay) : (kesirCorrectPay+'/'+kesirCorrectPayda);
                 if (kesirLives <= 0) {
@@ -5890,7 +5890,7 @@ function submitKesirAnswer(){
         setText('kesirScoreDisplay', (L.sozelScore||'Puan:')+' '+kesirScore);
         setTimeout(()=>{ if(!kesirGameOver) nextKesirQuestion(); }, 900);
     } else {
-        kesirLives--; playSound('wrong');
+        if(kesirLives<=0)return;kesirLives--; playSound('wrong');
         setText('kesirHeartsDisplay', KESIR_HEART.repeat(Math.max(0,kesirLives)));
         if (kesirLives <= 0) {
             kesirGameOver = true;
@@ -5981,7 +5981,7 @@ function startOruntuGuessTimer(){
             try{ playSound('timeout'); }catch(e){}
             if (!oruntuGameOver) {
                 const L = LANG[currentLang]||LANG['tr'];
-                oruntuLives--;
+                if(oruntuLives<=0)return;oruntuLives--;
                 setText('oruntuHeartsDisplay', ORUNTU_HEART.repeat(Math.max(0,oruntuLives)));
                 if (oruntuLives <= 0) {
                     oruntuGameOver = true;
@@ -6024,7 +6024,7 @@ function submitOruntuAnswer(){
         setText('oruntuScoreDisplay', (L.sozelScore||'Puan:')+' '+oruntuScore);
         setTimeout(()=>{ if(!oruntuGameOver) nextOruntuQuestion(); }, 900);
     } else {
-        oruntuLives--; playSound('wrong');
+        if(oruntuLives<=0)return;oruntuLives--; playSound('wrong');
         setText('oruntuHeartsDisplay', ORUNTU_HEART.repeat(Math.max(0,oruntuLives)));
         if (oruntuLives <= 0) {
             oruntuGameOver = true;
@@ -6070,10 +6070,10 @@ function submitHizAnswer(){
         hizScore++; playSound('win');
         setHTML('hizMessage','<span style="color:#00e5aa;">'+(L.sozelCorrect||'✅ Doğru!')+'</span>');
         setText('hizScoreDisplay',(L.sozelScore||'Puan:')+' '+hizScore);
-        setText('hizHeartsDisplay',cfg.heartEmoji.repeat(hizLives));
+        setText('hizHeartsDisplay',cfg.heartEmoji.repeat(Math.max(0,hizLives)));
         setTimeout(()=>{if(!hizGameOver)nextHizQuestion();},1000);
     } else {
-        hizLives--; playSound('wrong');
+        if(hizLives<=0)return;hizLives--; playSound('wrong');
         setText('hizHeartsDisplay',cfg.heartEmoji.repeat(Math.max(0,hizLives)));
         if(hizLives<=0){
             clearInterval(hizGuessTimerVar); setDisplay('hizGuessTimerBox','none'); hizGameOver=true;
@@ -6102,7 +6102,7 @@ function startHizGuessTimer(){
         if(t<=0){
             clearInterval(hizGuessTimerVar);
             if(!hizGameOver){
-                hizLives--;
+                if(hizLives<=0)return;hizLives--;
                 setText('hizHeartsDisplay',HIZ_DIFF[hizCurrentDiff].heartEmoji.repeat(Math.max(0,hizLives)));
                 if(hizLives<=0){
                     hizGameOver=true;
@@ -6202,7 +6202,7 @@ function startPerm(diff){
     permLives=cfg.lives; permScore=0; permGameOver=false; permFirstGuess=false;
     applyTheme(cfg.color);
     setDisplay('permDiffScreen','none'); setDisplay('permGameScreen','flex');
-    setText('permHeartsDisplay',cfg.heartEmoji.repeat(permLives));
+    setText('permHeartsDisplay',cfg.heartEmoji.repeat(Math.max(0,permLives)));
     setDisplay('permTimerDisplay','none'); setDisplay('permGuessTimerBox','none');
     setDisabled('permInput',false); setDisabled('permBtn',false);
     setText('permTimerSec',' '+(L.timerSec||'sn'));
@@ -6235,10 +6235,10 @@ function submitPermAnswer(){
         permScore++; playSound('win');
         setHTML('permMessage','<span style="color:#00e5aa;">'+(L.sozelCorrect||'✅ Doğru!')+'</span>');
         setText('permScoreDisplay',(L.sozelScore||'Puan:')+' '+permScore);
-        setText('permHeartsDisplay',cfg.heartEmoji.repeat(permLives));
+        setText('permHeartsDisplay',cfg.heartEmoji.repeat(Math.max(0,permLives)));
         setTimeout(()=>{if(!permGameOver)nextPermQuestion();},1000);
     } else {
-        permLives--; playSound('wrong');
+        if(permLives<=0)return;permLives--; playSound('wrong');
         setText('permHeartsDisplay',cfg.heartEmoji.repeat(Math.max(0,permLives)));
         if(permLives<=0){
             clearInterval(permGuessTimerVar); setDisplay('permGuessTimerBox','none'); permGameOver=true;
@@ -6267,7 +6267,7 @@ function startPermGuessTimer(){
         if(t<=0){
             clearInterval(permGuessTimerVar);
             if(!permGameOver){
-                permLives--;
+                if(permLives<=0)return;permLives--;
                 setText('permHeartsDisplay',PERM_DIFF[permCurrentDiff].heartEmoji.repeat(Math.max(0,permLives)));
                 if(permLives<=0){
                     permGameOver=true;
@@ -9750,7 +9750,7 @@ function startTYTGame(mode, diff) {
     const titleEl = document.getElementById('tytTitle');
     if (titleEl) { titleEl.textContent = names[mode]+' · '+cfg.label; titleEl.style.color = c; }
     const heartsEl = document.getElementById('tytHeartsDisplay');
-    if (heartsEl) heartsEl.textContent = cfg.heartEmoji.repeat(tytLives);
+    if (heartsEl) heartsEl.textContent = cfg.heartEmoji.repeat(Math.max(0,tytLives));
     const inp = document.getElementById('tytInput');
     if (inp) inp.style.borderColor = c;
     const btn2 = document.getElementById('tytSubmitBtn');
@@ -9789,7 +9789,7 @@ function loadTYTQuestion() {
             clearInterval(tytTimerVar);
             // Süre doldu = yanlış
             tytLoses++;
-            tytLives--;
+            if(tytLives<=0)return;tytLives--;
             const heartsEl=document.getElementById('tytHeartsDisplay');
             if(heartsEl) heartsEl.textContent=cfg.heartEmoji.repeat(Math.max(0,tytLives));
             const msg=document.getElementById('tytMessage');
@@ -9819,7 +9819,7 @@ function submitTYTAnswer() {
         if (scoreEl) scoreEl.textContent = tytScore;
         if (msg) { msg.style.color='#44ff88'; msg.textContent='✅ Doğru! +1'; }
     } else {
-        tytLives--;
+        if(tytLives<=0)return;tytLives--;
         tytLoses++;
         const heartsEl=document.getElementById('tytHeartsDisplay');
         if(heartsEl) heartsEl.textContent=cfg.heartEmoji.repeat(Math.max(0,tytLives));
@@ -9856,7 +9856,7 @@ const _origSelectMode = window.selectMode || (function(){ });
     <div id="floatingBar" style="position:fixed;top:10px;right:10px;z-index:9998;display:none;gap:6px;align-items:center;pointer-events:none;">
         <button id="gfxFloatBtn" onclick="openGfx()" title="Grafik Ayarı" style="pointer-events:all;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(227,10,23,0.45);background:rgba(6,6,18,0.75);color:#e30a17;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🎮</button>
         <button id="floatSoundBtn" onclick="toggleSound()" title="Ses" style="pointer-events:all;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.3);background:rgba(6,6,18,0.75);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🔊</button>
-        <button id="_dbgFloatBtn" onclick="_dbgToggle && _dbgToggle()" title="Debug" style="display:none;pointer-events:all;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(52,211,153,0.45);background:rgba(6,6,18,0.75);color:#34d399;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🔍</button>
+        <button id="_dbgFloatBtn" onclick="window._dbgToggle && window._dbgToggle()" title="Debug" style="display:none;pointer-events:all;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(52,211,153,0.45);background:rgba(6,6,18,0.75);color:#34d399;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🔍</button>
     </div>
     <!-- ══ CORNER DEBUG (varsayılan gizli — geliştirici aracı) ══ -->
     <div id="_dbgCorner" style="
@@ -9870,7 +9870,7 @@ const _origSelectMode = window.selectMode || (function(){ });
         pointer-events:none;
     ">
         <!-- Debug Butonu — köşede küçük pill -->
-        <button id="_dbgBtn" onclick="_dbgToggle && _dbgToggle()" style="
+        <button id="_dbgBtn" onclick="window._dbgToggle && window._dbgToggle()" style="
             pointer-events:all;
             display:flex;
             align-items:center;
