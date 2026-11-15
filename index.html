@@ -6409,7 +6409,7 @@ function setAxiomMode(mode){
 }
 
 function startAxiom(diff){
-    if(!axiomMode){alert('Oyun modunu seç!');return;}
+    if(!axiomMode){ try{ setAxiomMode('islem'); }catch(e){ axiomMode='islem'; } } // mod seçilmediyse tarayıcı uyarısı yerine 4 işlem ile başla
     stopSplashMusic(); stopMusic();
     axiomDiff=diff; axiomPlayerScore=0; axiomBotScore=0; axiomRound=0;
     axiomGameOver=false;
@@ -8155,6 +8155,7 @@ function showAYTDiffPicker(topic) {
     ];
     const labels = { hk:'揀難度：', tr:'Zorluk Seç:', en:'Select Difficulty:', ru:'Сложность:' };
     const lcode = (typeof currentLang !== 'undefined') ? currentLang : (localStorage.getItem('lang')||'tr');
+    { const _tur={hk:'回合',ru:'раундов',uk:'раундів',ka:'რაუნდი',en:'rounds'}[lcode]; if(_tur) diffs.forEach(d=>{ d[4]=d[4].replace(' tur ',' '+_tur+' '); }); }
     const diffTitle = labels[lcode] || labels.tr;
     let btnsHTML = diffs.map(([dc,lbl,col,bg,info]) =>
         '<button onclick="_startAYTGame(\''+topic+'\',\''+dc+'\')" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:12px 14px;border-radius:14px;border:2px solid '+col+';background:'+bg+';color:#fff;cursor:pointer;font-weight:bold;min-width:130px;"><span style="font-size:14px;">'+lbl+'</span><span style="font-size:9px;color:#ccc;font-weight:normal;">'+info+'</span></button>'
@@ -11606,6 +11607,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
 </style>
 <script>(function(){function g(){var e=document.getElementById('offRozet');if(!navigator.onLine){if(!e){e=document.createElement('div');e.id='offRozet';e.textContent='📴 Çevrimdışı mod';e.style.cssText='position:fixed;left:50%;bottom:8px;transform:translateX(-50%);z-index:99999;background:#222;color:#ffd23f;border:1px solid #ffd23f;border-radius:20px;padding:4px 12px;font:12px sans-serif;pointer-events:none;opacity:.9';document.body.appendChild(e);}}else if(e)e.remove();}addEventListener('online',g);addEventListener('offline',g);addEventListener('load',g);})();</script>
 <script>if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(function(){});</script>
+<style id="homeBtnFix">/* 🏠 Oyun ekranlarındaki ana ekran butonu içeriğin üstüne binmesin: akışa alındı */
+.home-btn{position:relative!important;top:auto!important;left:auto!important;align-self:flex-start;display:inline-block;margin:0 0 8px 0!important;padding:6px 14px!important;font-size:12px!important}</style>
 <script id="hkCeviri">
 /* 🇭🇰 Sayı Avcısı — 香港中文 (HK) ekran çevirisi: kodla üretilen soru ve panellerdeki Türkçe metinleri HK seçiliyken anında çevirir */
 (function(){
@@ -11614,7 +11617,7 @@ var R=[
 [/^⏰ Süre doldu! Bir can kaybettin\.$/,'⏰ 時間到！你失咗一條命。'],[/^⏰ Süre doldu! Can kalmadı\.$/,'⏰ 時間到！冇命喇。'],[/^⏰ Süre doldu!/,'⏰ 時間到！'],[/^Süre doldu!/,'時間到！'],
 [/^Canın bitti! Doğru cevap:/,'冇命喇！正確答案：'],[/^Canın bitti! Cevap:/,'冇命喇！答案：'],[/^Canın bitti!/,'冇命喇！'],[/^🎉 Tebrikler! Tüm soruları doğru!/,'🎉 恭喜！全部答啱！'],
 [/^🤔 Geçerli bir sayı gir!$/,'🤔 請輸入有效嘅數字！'],[/Soru (\d+)\/(\d+)/g,'第 $1/$2 題'],[/^Puan:$/,'分數：'],[/^Skor:?$/,'比數：'],[/^⏱ Süre:\s*$/,'⏱ 時間：'],[/^sn$/,'秒'],[/^(\d+) sn$/,'$1 秒'],
-[/^← Geri$/,'← 返回'],[/^Geri$/,'返回'],[/^Kapat$/,'關閉'],[/ · Kolay$/,' · 容易'],[/ · Orta$/,' · 中等'],[/ · Ultra Zor$/,' · 超難'],[/ · Zor$/,' · 困難'],
+[/^SEN$/,'你'],[/^🤖 AXIOM düşünüyor\.\.\.$/,'🤖 AXIOM 諗緊...'],[/^🤖 AXIOM cevapladı ✅$/,'🤖 AXIOM 答咗 ✅'],[/^✔ Cevapla$/,'✔ 作答'],[/^Cevapla$/,'作答'],[/^← Geri$/,'← 返回'],[/^Geri$/,'返回'],[/^Kapat$/,'關閉'],[/ · Kolay$/,' · 容易'],[/ · Orta$/,' · 中等'],[/ · Ultra Zor$/,' · 超難'],[/ · Zor$/,' · 困難'],
 [/^🟢 Kolay$/,'🟢 容易'],[/^🟡 Orta$/,'🟡 中等'],[/^🔴 Zor$/,'🔴 困難'],[/^🟣 Ultra Zor$/,'🟣 超難'],[/Ters\/Bileşke/,'反函數／複合函數'],
 // Hız
 [/^Hız-Yol-Zaman$/,'速度-路程-時間'],[/^Bir araç saatte (\d+) km hızla (\d+) saat gidiyor\.$/,'一架車以每小時 $1 公里嘅速度行駛 $2 小時。'],[/^Kat ettiği yol kaç km\?$/,'行咗幾多公里？'],
