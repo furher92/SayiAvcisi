@@ -8075,6 +8075,10 @@ function goToMainScreen() {
     try{const son=setInterval(function(){},99999);for(let i=(window._saBazInt||0)+1;i<=son;i++)clearInterval(i);}catch(e){}
     try{if(typeof stopMusic==='function')stopMusic();}catch(e){}
     try{document.querySelectorAll('.saMenu').forEach(function(x){x.remove();});}catch(e){}
+    // Kategori ekranındayken "Ana Ekran" = açılış ekranı; aksi halde kategori ekranı üstte kalıp mod listesiyle üst üste biniyordu
+    var _cs=document.getElementById('categoryScreen');
+    if(_cs && _cs.style.display!=='none' && _cs.offsetParent!==null){ try{returnToSplash();}catch(e){location.reload();} return; }
+    try{setDisplay('categoryScreen','none');}catch(e){}
     try{backToModeSelect();}catch(e){location.reload();}
 }
 window.goToMainScreen = goToMainScreen;
@@ -10239,6 +10243,8 @@ document.addEventListener('DOMContentLoaded', function(){
   try {
     var stored = (localStorage && localStorage.getItem('sa_lang')) || 'tr';
     if (typeof updateSplashI18n === 'function') updateSplashI18n(stored);
+    // Kayıtlı dili tam uygula (açılışta seçili bayrak + tüm metinler doğru dilde)
+    setTimeout(function(){ try{ if(stored!=='tr' && typeof setLang==='function') setLang(stored); }catch(e){} try{ if(typeof markSplashLang==='function') markSplashLang(stored); }catch(e){} }, 0);
   } catch(e){}
 });
 </script>

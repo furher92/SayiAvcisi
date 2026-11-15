@@ -1,6 +1,6 @@
 // Sayı Avcısı service worker — ÇEVRİMDIŞI MOD: ilk açılışta oyun dosyaları önbelleğe alınır; internet yoksa önbellekten açılır.
 // Sayfa: önce ağ (3 sn zaman aşımı) → yoksa önbellek. Diğer dosyalar ve yazı tipleri: önce önbellek → yoksa ağ (ve kaydet).
-const C='sa-cache-alpha2-hk1';
+const C='sa-cache-alpha2-hk2';
 const D=["./", "./index.html", "./manifest.json", "./version.json", "./logo.png", "./sayiavcisi_icon_192.png", "./sayiavcisi_icon_512.png", "./sayiavcisi_icon_192_maskable.png", "./sayiavcisi_icon_512_maskable.png"];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>Promise.all(D.map(u=>c.add(u).catch(()=>{})))).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim()));});
